@@ -12,6 +12,7 @@ struct Sph
     float x, y, z;
     float radius;
     float speed;
+    float aa;
 };
 
 const int sph_num = 2;
