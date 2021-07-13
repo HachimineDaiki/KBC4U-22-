@@ -1,28 +1,15 @@
 #include <Dxlib.h>
-//#include "Draw.h"
-//#include "Hit_check.h"
+#include "Hit_check.h"
 
 enum Dir { Left, Right, Down, Up };
 
-void Init_Sph();
+
 int Input_PlayerMoveDir();
 
-struct Sph
-{
-    float x, y, z;
-    float radius;
-    float speed;
-    float aa;
-};
-
-const int sph_num = 2;
-
-Sph sph[sph_num];
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-
-    SetGraphMode(1920, 1080, 16);
-    ChangeWindowMode(TRUE);
+    // 画面モードの設定
+    SetGraphMode(1920,1080, 32);
+    ChangeWindowMode(FALSE);
     SetBackgroundColor(70, 130, 180);
 
     if (DxLib_Init() < 0)
@@ -31,7 +18,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return -1;
     }
 
-    Init_Sph();
+    Sph_init();
 
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
@@ -68,13 +55,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             break;
         }
 
-        //if (Sph_Hit_Check(sph[0].x, sph[0].y, sph[0].z, sph[0].radius, sph[1].x, sph[1].y, sph[1].z, sph[1].radius)) {
-        //    DrawFormatString(100, 500, GetColor(255, 0, 0), "HIT");
-        //}
-        //else
-        //{
-        //    DrawFormatString(100, 500, GetColor(255, 255, 255), "Not HIT");
-        //}
+        if (Sph_hit_check(sph)) {
+            DrawFormatString(100, 500, GetColor(255, 0, 0), "HIT");
+        }
+        else
+        {
+            DrawFormatString(100, 500, GetColor(255, 255, 255), "Not HIT");
+        }
 
         /* DrawSphere3D(VGet(sph[0].x, sph[0].y, sph[0].z), sph[0].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
          DrawSphere3D(VGet(sph[1].x, sph[1].y, sph[1].z), sph[1].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);*/
@@ -93,17 +80,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     return 0;
 }
 
-void Init_Sph() {
-    for (int i = 0; i < sph_num; i++) {
-        sph[i].x = 100.0f * (i + 1) + (sph[0].radius + sph[0].radius);
-        sph[i].y = 100.0f;
-        sph[i].z = 100.0f;
-
-        sph[i].speed = 10.0f;
-
-        sph[i].radius = 100.0f;
-    }
-}
 
 int Input_PlayerMoveDir() {
 
