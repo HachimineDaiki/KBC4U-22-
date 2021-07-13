@@ -1,4 +1,2 @@
 ﻿  Main.cpp
-Hit_check.obj : error LNK2001: 外部シンボル "struct Sph_ * sph" (?sph@@3PAUSph_@@A) は未解決です
-Main.obj : error LNK2001: 外部シンボル "struct Sph_ * sph" (?sph@@3PAUSph_@@A) は未解決です
-D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe : fatal error LNK1120: 1 件の未解決の外部参照
+  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe

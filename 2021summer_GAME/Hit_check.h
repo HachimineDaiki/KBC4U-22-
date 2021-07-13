@@ -1,15 +1,16 @@
 #pragma once
-struct Sph_
+//構造体宣言
+struct Sph
 {
 	float x, y, z;
 	float radius;
 	float speed;
 };
 
-bool Sph_hit_check(Sph_ sp[]);
+bool Sph_hit_check(Sph sp[]);//関数プロトタイプ宣言 //引数は名前が違うもの書いてる
 void Sph_init();
 
-//変数
-const int sph_num = 2;
+////変数
+//const int sph_num;
 //オブジェクト生成
-extern Sph_ sph[sph_num];
+extern Sph sph[2];//オブジェクト生成
