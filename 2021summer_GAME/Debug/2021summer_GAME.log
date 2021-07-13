@@ -1,6 +1,4 @@
-﻿  Hit_check.cpp
-  Init.cpp
-  Main.cpp
-  Player.cpp
-  コードを生成中...
-  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe
+﻿  Player.cpp
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(9,43): warning C4244: '-=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(9,14): warning C4102: 'Left': ラベルは 1 度も参照されません。
+  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Debug\2021summer_GAME.exe
