@@ -1,4 +1,5 @@
 #include <Dxlib.h>
+#include "Init.h"
 #include "Hit_check.h"
 #include "Player.h"
 Sph sph[2];
@@ -27,7 +28,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         // ‰æ–Ê‚ðƒNƒŠƒA
         ClearDrawScreen();
-
+        P_move();
         
 
         if (Sph_hit_check(sph)) {
