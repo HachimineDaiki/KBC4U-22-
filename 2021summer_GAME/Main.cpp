@@ -2,6 +2,7 @@
 #include "Init.h"
 #include "Hit_check.h"
 #include "Player.h"
+#include "Camera.h"
 Sph sph[2];
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -17,7 +18,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     Sph_init();
-
+    Camera_set();
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -29,6 +30,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         // 画面をクリア
         ClearDrawScreen();
         P_move();
+        Camera_move();
+        Input_camera_move();
         
 
         if (Sph_hit_check(sph)) {
