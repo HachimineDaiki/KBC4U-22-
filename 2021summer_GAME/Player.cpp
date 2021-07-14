@@ -2,24 +2,40 @@
 #include"Player.h"
 #include"Hit_check.h"
 
-void P_move() {
-    switch (Input_PlayerMoveDir())
-    {
-    case Left:sph[0].z += sph[0].speed;
-         Left:sph[0].x -= sph[0].speed * VECTOR_SLIDE;
-        break;
-    case Right:sph[0].x += sph[0].speed * VECTOR_SLIDE;
-        sph[0].z += sph[0].speed;
-        break;
-   /* case Down:sph[0].z -= sph[0].speed;
-        break;*/
-    case Up:sph[0].z += sph[0].speed;
-        break; 
-    }
+bool p_zmoveflg = false;
 
-    if (sph[0].z < 10000) {
+void P_move() {
+       if (CheckHitKey(KEY_INPUT_SPACE)) {
+        p_zmoveflg = true;
+        }
+
+
+     if (p_zmoveflg == true){
+           switch (Input_PlayerMoveDir())
+           {
+           case Left:sph[0].z += sph[0].speed;
+               sph[0].x -= sph[0].speed;
+               break;
+           case Right:sph[0].x += sph[0].speed;
+               sph[0].z += sph[0].speed;
+               break;
+               /* case Down:sph[0].z -= sph[0].speed;
+                    break;*/
+           case Up:sph[0].z += sph[0].speed;
+               break;
+           }
+       }
+
+
+   if (p_zmoveflg == true) {
         sph[0].z += sph[0].speed;
+        if (sph[0].z > 10000) {
+            sph[0].speed = 0;
+        }
     }
+    
+
+
 
     switch (Input_PlayerMoveDir())
     {
@@ -55,10 +71,5 @@ int Input_PlayerMoveDir() {
     {
         input_dir = Up;
     }
-    if (CheckHitKey(KEY_INPUT_SPACE)) {
-        input_dir = Up;
-    }
-
-
     return input_dir;
 }

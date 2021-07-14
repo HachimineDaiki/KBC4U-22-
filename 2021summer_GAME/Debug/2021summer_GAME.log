@@ -1,6 +1,2 @@
-﻿  Camera.cpp
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(44,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(45,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(51,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(52,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  2021summer_GAME.vcxproj -> C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Debug\2021summer_GAME.exe
+﻿  Player.cpp
+  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Debug\2021summer_GAME.exe
