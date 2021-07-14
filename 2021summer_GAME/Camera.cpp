@@ -16,6 +16,7 @@
 // カメラと注視点の距離
 #define CAMERA_LOOK_AT_DISTANCE    1000.0f
 
+
 float  cameraHAngle;
 float  cameraVAngle;
 float  sinParam;
@@ -24,7 +25,7 @@ float  cosParam;
 void Camera_set() {
 	// カメラの向きを初期化
 	cameraHAngle = 0.0f;
-	cameraVAngle = 40.0f;
+	cameraVAngle = 0.0f;
 }
 
 void Camera_move() {
@@ -56,6 +57,10 @@ void Camera_move() {
     // 算出した座標に注視点の位置を加算したものがカメラの位置
     cameraPosition = VAdd(tempPosition2, cameraLookAtPosition);
 
+    // 角度表示
+    DrawFormatString(100, 20, GetColor(255, 255, 255), "カメラ縦角度 %.0f", cameraVAngle);
+    DrawFormatString(100, 40, GetColor(255, 255, 255), "カメラ横角度 %.0f", cameraHAngle);
+
     // カメラの設定に反映する
     SetCameraPositionAndTarget_UpVecY(cameraPosition, cameraLookAtPosition);
 }
@@ -73,26 +78,27 @@ void Input_camera_move() {
     if (CheckHitKey(KEY_INPUT_DOWN) == 1)
     {
         cameraVAngle += CAMERA_ANGLE_SPEED;
-        if (cameraVAngle >= 80.0f)
+        if (cameraVAngle >= 45.0f)
         {
-            cameraVAngle = 80.0f;
+            cameraVAngle = 45.0f;
         }
     }
     if (CheckHitKey(KEY_INPUT_LEFT) == 1)
     {
-        cameraHAngle += CAMERA_ANGLE_SPEED;
-        if (cameraHAngle >= 180.0f)
+        cameraHAngle += CAMERA_ANGLE_SPEED;  
+        if (cameraHAngle >= 90.0f)
         {
-            cameraHAngle -= 360.0f;
+            cameraHAngle = 90.0f;
         }
+
     }
     if (CheckHitKey(KEY_INPUT_RIGHT) == 1)
     {
         cameraHAngle -= CAMERA_ANGLE_SPEED;
-        if (cameraHAngle <= -180.0f)
-        {
-            cameraHAngle += 360.0f;
+        if (cameraHAngle <= -90) {
+            cameraHAngle = -90.0f;
         }
+
     }
 }
 
