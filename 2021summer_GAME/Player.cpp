@@ -2,15 +2,33 @@
 #include"Player.h"
 #include"Hit_check.h"
 
-bool p_zmoveflg = false;
+bool p_zmoveflg = false;//前進に移動するフラグ
+float g = 9.8f;
+
+void Sph_Gravity() {
+    
+    const int ground = -205;//地面の位置
+    
+       // 重力作成
+        sph[0].v0y += g;
+        sph[0].y -= sph[0].v0y;
+
+        if (sph[0].y < ground + sph[0].radius) {
+            /*sph[i].v0y *= -1 * sph[i].bounce;*/
+            sph[0].y = ground + sph[0].radius;
+            if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
+                sph[0].v0y = 0;
+            }
+        }
+}
 
 void P_move() {
-       if (CheckHitKey(KEY_INPUT_SPACE)) {
+    //スペースを押したら前進
+    if (CheckHitKey(KEY_INPUT_SPACE)) {
         p_zmoveflg = true;
-        }
+    }
 
-
-     if (p_zmoveflg == true){
+    if (p_zmoveflg == true){
            switch (Input_PlayerMoveDir())
            {
            case Left:sph[0].z += sph[0].speed;
@@ -19,12 +37,12 @@ void P_move() {
            case Right:sph[0].x += sph[0].speed;
                sph[0].z += sph[0].speed;
                break;
-               /* case Down:sph[0].z -= sph[0].speed;
-                    break;*/
-           case Up:sph[0].z += sph[0].speed;
-               break;
+           /*case Down:sph[0].z -= sph[0].speed;
+               break;*/
+           /*case Up:sph[0].z += sph[0].speed;
+               break;*/
            }
-       }
+    }
 
 
    if (p_zmoveflg == true) {
@@ -36,21 +54,21 @@ void P_move() {
     
 
 
-
+   //押されている方向をテキスト表示
     switch (Input_PlayerMoveDir())
     {
     case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
         break;
     case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
         break;
-    case Down:DrawFormatString(100, 300, GetColor(255, 255, 255), "[下]");
-        break;
+    /*case Down:DrawFormatString(100, 300, GetColor(255, 255, 255), "[下]");
+        break;*/
     /*case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
         break;*/
     }
 }
 
-
+//プレイヤーが押している方向を返す関数
 int Input_PlayerMoveDir() {
 
     int input_dir = -1;

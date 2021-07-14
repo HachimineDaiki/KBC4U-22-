@@ -5,6 +5,7 @@ struct Sph
 	float x, y, z;
 	float radius;
 	float speed;
+	float v0y;
 };
 
 void Sph_init();

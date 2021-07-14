@@ -41,7 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         P_move();
         Camera_move();
         Input_camera_move();
-        
+        Sph_Gravity();//èdóÕ
 
         if (Sph_hit_check(sph)) {
             DrawFormatString(100, 500, GetColor(255, 0, 0), "HIT");

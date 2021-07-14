@@ -7,4 +7,6 @@ int Input_PlayerMoveDir();
 
 void P_move();
 
+void Sph_Gravity();
+
 enum Dir { Left, Right, Down, Up };
