@@ -5,7 +5,8 @@
 void P_move() {
     switch (Input_PlayerMoveDir())
     {
-    case Left:sph[0].x -= sph[0].speed;
+    case Left:sph[0].z += sph[0].speed;
+         Left:sph[0].x -= sph[0].speed/1.5;
         break;
     case Right:sph[0].x += sph[0].speed;
         break;

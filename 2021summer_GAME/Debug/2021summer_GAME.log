@@ -1,8 +1,4 @@
-﻿  Main.cpp
-Hit_check.obj : error LNK2001: 外部シンボル "float vx" (?vx@@3MA) は未解決です
-Init.obj : error LNK2001: 外部シンボル "float vx" (?vx@@3MA) は未解決です
-Hit_check.obj : error LNK2001: 外部シンボル "float vy" (?vy@@3MA) は未解決です
-Init.obj : error LNK2001: 外部シンボル "float vy" (?vy@@3MA) は未解決です
-Hit_check.obj : error LNK2001: 外部シンボル "float vz" (?vz@@3MA) は未解決です
-Init.obj : error LNK2001: 外部シンボル "float vz" (?vz@@3MA) は未解決です
-D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe : fatal error LNK1120: 3 件の未解決の外部参照
+﻿  Player.cpp
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(9,43): warning C4244: '-=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(9,14): warning C4102: 'Left': ラベルは 1 度も参照されません。
+  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Debug\2021summer_GAME.exe
