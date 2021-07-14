@@ -3,7 +3,7 @@
 #include "Hit_check.h"
 #include "Player.h"
 Sph sph[2];
-
+float vx, vy, vz;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
     SetGraphMode(1920,1080, 32);
@@ -29,7 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         // 画面をクリア
         ClearDrawScreen();
         P_move();
-        
+        Sph_hit();
 
         if (Sph_hit_check(sph)) {
             DrawFormatString(100, 500, GetColor(255, 0, 0), "HIT");

@@ -1,6 +1,8 @@
-﻿  Hit_check.cpp
-  Init.cpp
-  Main.cpp
-  Player.cpp
-  コードを生成中...
-  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe
+﻿  Main.cpp
+Hit_check.obj : error LNK2001: 外部シンボル "float vx" (?vx@@3MA) は未解決です
+Init.obj : error LNK2001: 外部シンボル "float vx" (?vx@@3MA) は未解決です
+Hit_check.obj : error LNK2001: 外部シンボル "float vy" (?vy@@3MA) は未解決です
+Init.obj : error LNK2001: 外部シンボル "float vy" (?vy@@3MA) は未解決です
+Hit_check.obj : error LNK2001: 外部シンボル "float vz" (?vz@@3MA) は未解決です
+Init.obj : error LNK2001: 外部シンボル "float vz" (?vz@@3MA) は未解決です
+D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe : fatal error LNK1120: 3 件の未解決の外部参照

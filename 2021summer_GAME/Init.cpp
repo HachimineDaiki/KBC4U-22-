@@ -9,4 +9,8 @@ void Sph_init() {
 		sph[i].speed = 10.0f;
 		sph[i].radius = 100.0f;
 	}
+
+	vx = 0.0f;
+	vy = 0.0f;
+	vz = 0.0f;
 }

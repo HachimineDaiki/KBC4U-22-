@@ -11,3 +11,4 @@ void Sph_init();
 
 //オブジェクト生成
 extern Sph sph[2];//オブジェクト生成
+extern float vx, vy, vz;
