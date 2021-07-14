@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Camera.h"
 Sph sph[2];
-
+float  vx, vy, vz;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // âÊñ ÉÇÅ[ÉhÇÃê›íË
     SetGraphMode(1920,1080, 32);
