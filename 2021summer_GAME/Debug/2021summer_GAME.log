@@ -1,9 +1,2 @@
-<<<<<<< HEAD
-﻿  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe
-=======
-﻿  Player.cpp
-C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(9,54): warning C4244: '-=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(11,55): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Player.cpp(9,14): warning C4102: 'Left': ラベルは 1 度も参照されません。
-  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Debug\2021summer_GAME.exe
->>>>>>> 8366b1b9a82df2000be6e7d6c3df8798543d989c
+﻿  3Dmodel.cpp
+  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe

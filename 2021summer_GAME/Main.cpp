@@ -3,8 +3,13 @@
 #include "Hit_check.h"
 #include "Player.h"
 #include "Camera.h"
+#include "3Dmodel.h"
+
 Sph sph[2];
 float  vx, vy, vz;
+int ground_handle;
+int tree_handle[TREE_NUM];
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
     SetGraphMode(1920,1080, 32);
@@ -19,6 +24,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     Sph_init();
     Camera_set();
+    //3Dモデル読み込み初期化
+    Model3d_load();
+    Model3d_init();
+
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -49,11 +58,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             DrawSphere3D(VGet(sph[i].x, sph[i].y, sph[i].z), sph[i].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
             DrawFormatString(100, 100 * (i + 1), GetColor(255, 255, 255), "[x %.0f] [y %.0f] [z %.0f]", sph[i].x, sph[i].y, sph[i].z);
         }
- 
+
+        Model3d_draw();
         //裏画面の内容を表画面に反映する
         ScreenFlip();
     }
 
+    Model3d_dlet();
     DxLib_End();
     // ソフトの終了
     return 0;

@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3Dmodel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Hit_check.cpp" />
     <ClCompile Include="Init.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3Dmodel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Player.h" />
