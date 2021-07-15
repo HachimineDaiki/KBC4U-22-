@@ -1,0 +1,15 @@
+﻿  3Dmodel.cpp
+  Camera.cpp
+D:\2021summer_GAME\2021summer_GAME\Camera.cpp(44,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Camera.cpp(45,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Camera.cpp(51,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Camera.cpp(52,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Hit_check.cpp
+  Init.cpp
+  Main.cpp
+  Player.cpp
+  コード生成しています。
+  Previous IPDB not found, fall back to full compilation.
+  All 17 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Release\2021summer_GAME.exe

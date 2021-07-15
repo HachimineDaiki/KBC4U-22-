@@ -5,8 +5,12 @@
 #include "Camera.h"
 #include "3Dmodel.h"
 
+MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
+Model ground;
+Model wall;
 float  vx, vy, vz;
+int wall_handle;
 int ground_handle;
 int tree_handle[TREE_NUM];
 
@@ -22,11 +26,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return -1;
     }
 
-    Sph_init();
-    Camera_set();
-    //3Dモデル読み込み初期化
-    Model3d_load();
-    Model3d_init();
+    //--------------初期化関数
+
+    Sph_init();//球の初期化
+    Model_init();
+    Camera_set();//カメラセット
+    Model3d_load();//3Dモデル読み込み
+    Model3d_init();//3Dモデル初期化
 
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
@@ -38,35 +44,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         // 画面をクリア
         ClearDrawScreen();
-        P_move();
-        Camera_move();
-        Input_camera_move();
+
+        //------------------------------入力関数
+        P_move();//プレイヤー入力
+        Input_camera_move();//カメラ入力
+
+        //------------------------------計算関数
+        Camera_move();//カメラ動かす
         Sph_Gravity();//重力
+        Model_hit_check();//モデル
+       
 
-        if (Sph_hit_check(sph)) {
-            DrawFormatString(100, 500, GetColor(255, 0, 0), "HIT");
-        }
-        else
-        {
-            DrawFormatString(100, 500, GetColor(255, 255, 255), "Not HIT");
-        }
+        //------------------------------描画関数
 
-        /* DrawSphere3D(VGet(sph[0].x, sph[0].y, sph[0].z), sph[0].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
-         DrawSphere3D(VGet(sph[1].x, sph[1].y, sph[1].z), sph[1].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);*/
-         //球描画
-        for (int i = 0; i < 2; i++) {
-            DrawSphere3D(VGet(sph[i].x, sph[i].y, sph[i].z), sph[i].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
-            DrawFormatString(100, 100 * (i + 1), GetColor(255, 255, 255), "[x %.0f] [y %.0f] [z %.0f]", sph[i].x, sph[i].y, sph[i].z);
-        }
+        DrawSphere3D(VGet(sph[0].x, sph[0].y, sph[0].z), sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);
+        DrawFormatString(100, 100, GetColor(255, 255, 255), "[x %.0f] [y %.0f] [z %.0f]", sph[0].x, sph[0].y, sph[0].z);
+       
 
-        Model3d_draw();
-        //裏画面の内容を表画面に反映する
-        ScreenFlip();
+        Model3d_draw();//3Dモデル描画
+        Model_hit();
+
+        ScreenFlip();//裏画面の内容を表画面に反映する
     }
 
-    Model3d_dlet();
+    Model3d_dlet();//3dモデル削除
     DxLib_End();
     // ソフトの終了
     return 0;
 }
-

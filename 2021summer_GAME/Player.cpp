@@ -1,21 +1,18 @@
 #include<DxLib.h>
 #include"Player.h"
 #include"Hit_check.h"
-
+#include"3Dmodel.h"
 bool p_zmoveflg = false;//前進に移動するフラグ
 float g = 9.8f;
 
 void Sph_Gravity() {
-    
-    const int ground = -205;//地面の位置
-    
        // 重力作成
         sph[0].v0y += g;
         sph[0].y -= sph[0].v0y;
 
-        if (sph[0].y < ground + sph[0].radius) {
+        if (sph[0].y < ground.y  + sph[0].radius) {
             /*sph[i].v0y *= -1 * sph[i].bounce;*/
-            sph[0].y = ground + sph[0].radius;
+            sph[0].y = ground.y + sph[0].radius;
             if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
                 sph[0].v0y = 0;
             }
@@ -44,10 +41,9 @@ void P_move() {
            }
     }
 
-
    if (p_zmoveflg == true) {
         sph[0].z += sph[0].speed;
-        if (sph[0].z > 10000) {
+        if (sph[0].z > wall.z - sph[0].radius) {
             sph[0].speed = 0;
         }
     }

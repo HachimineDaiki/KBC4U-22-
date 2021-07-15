@@ -25,7 +25,7 @@ float  cosParam;
 void Camera_set() {
 	// ƒJƒƒ‰‚ÌŒü‚«‚ğ‰Šú‰»
 	cameraHAngle = 0.0f;
-	cameraVAngle = 0.0f;
+	cameraVAngle = 25.0f;
 }
 
 void Camera_move() {
