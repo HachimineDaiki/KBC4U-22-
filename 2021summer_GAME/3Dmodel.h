@@ -1,5 +1,5 @@
 #pragma once
-#define TREE_NUM 10 //–Ø‚Ì”
+#define TREE_NUM 36 //–Ø‚Ì”
 void Model3d_init();//‰Šú‰»ˆÊ’u
 void Model3d_load();//3D“Ç‚İ‚İ
 void Model3d_draw();//3D•`‰æ
