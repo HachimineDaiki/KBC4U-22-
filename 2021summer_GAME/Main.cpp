@@ -52,7 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //------------------------------計算関数
         Ground_model_hit();
         Camera_move();//カメラ動かす
-        Model_hit_check();//モデル
+        //Model_hit_check();//モデル
        
         
         //------------------------------描画関数
@@ -61,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
        
 
         Model3d_draw();//3Dモデル描画
-        Model_hit();
+        /*Model_hit();*/
 
         ScreenFlip();//裏画面の内容を表画面に反映する
     }

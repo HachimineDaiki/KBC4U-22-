@@ -20,33 +20,33 @@ void Sph_Gravity() {
 }
 
 void P_move() {
-    //スペースを押したら前進
-    if (CheckHitKey(KEY_INPUT_SPACE)) {
-        p_zmoveflg = true;
-    }
+    //if (p_zmoveflg == true) {
+    //    switch (Input_PlayerMoveDir())
+    //    {
+    //    case Left:/*sph[0].z += sph[0].speed;*/
+    //        /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+    //        break;
+    //    case Right:/*sph[0].x += sph[0].speed;*/
+    //        /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+    //        break;
+    //    }
+
+    //}
+
+ /*  if (p_zmoveflg == true) {
+        sph[0].z += sph[0].speed;
+        if (sph[0].z > wall.z - sph[0].radius) {
+            sph[0].speed = 0;
+        }
+    }*/
 
     if (p_zmoveflg == true) {
-        switch (Input_PlayerMoveDir())
-        {
-        case Left:/*sph[0].z += sph[0].speed;*/
-            /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
-            break;
-        case Right:/*sph[0].x += sph[0].speed;*/
-            /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
-            break;
-        }
-
-    }
-
-   if (p_zmoveflg == true) {
         sph[0].z += sph[0].speed;
         if (sph[0].z > wall.z - sph[0].radius) {
             sph[0].speed = 0;
         }
     }
     
-
-
    //押されている方向をテキスト表示
     switch (Input_PlayerMoveDir())
     {
@@ -56,7 +56,20 @@ void P_move() {
         break;
     }
 }
+void P_input_move() {
+    //スペースを押したら前進
+    if (CheckHitKey(KEY_INPUT_SPACE)) {
+        p_zmoveflg = true;
+    }
 
+    switch (Input_PlayerMoveDir())
+    {
+    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+        break;
+    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+        break;
+    }
+}
 //プレイヤーが押している方向を返す関数
 int Input_PlayerMoveDir() {
 

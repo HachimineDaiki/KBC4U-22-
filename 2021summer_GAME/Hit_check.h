@@ -16,10 +16,10 @@
 #define STAGECOLLOBJ_MAXNUM			256		// 追加のコリジョンオブジェクトの最大数
 
 //プロトタイプ宣言
-bool Sph_hit_check(Sph sp[]);
+//bool Sph_hit_check(Sph sp[]);
 void Sph_hit();
-void Model_hit_check();
-void Model_hit();
+//void Model_hit_check();
+//void Model_hit();
 void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
 

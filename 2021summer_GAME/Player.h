@@ -3,6 +3,7 @@
 
 int Input_PlayerMoveDir();
 
+void P_input_move();
 void P_move();
 
 void Sph_Gravity();
