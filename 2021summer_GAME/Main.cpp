@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         //------------------------------入力関数
         Input_camera_move();//カメラ入力
-
+        
         //------------------------------計算関数
         Ground_model_hit();
         Camera_move();//カメラ動かす
@@ -56,10 +56,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
        
         
         //------------------------------描画関数
-
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].x, sph[0].y, sph[0].z);
-       
-
         Model3d_draw();//3Dモデル描画
         /*Model_hit();*/
 

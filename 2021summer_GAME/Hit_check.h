@@ -17,7 +17,7 @@
 
 //プロトタイプ宣言
 //bool Sph_hit_check(Sph sp[]);
-void Sph_hit();
+//void Sph_hit();
 //void Model_hit_check();
 //void Model_hit();
 void Ground_model_hit();
