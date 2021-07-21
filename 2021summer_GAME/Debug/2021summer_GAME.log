@@ -1,2 +1,5 @@
 ﻿  Hit_check.cpp
-  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Hit_check.cpp(30,14): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Hit_check.cpp(31,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Hit_check.cpp(32,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Debug\2021summer_GAME.exe

@@ -9,3 +9,5 @@ void P_move();
 void Sph_Gravity();
 
 enum Dir { Left, Right, Down, Up };
+
+void accl(); // ‰Á‘¬
