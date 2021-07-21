@@ -4,6 +4,7 @@
 #include "3Dmodel.h"
 #include "Player.h"
 
+float p_vz = 0;
 struct STAGE
 {
 	int		ModelHandle;				// ステージのモデルハンドル
@@ -26,8 +27,13 @@ STAGE stg;
 
 void Ground_model_hit() {
 	
+	float p_vz2 = -20 * tan(5);
+	float p_vx = 30 * cos(5);
+	float p_vy = 30 * sin(5);
+	
+	p_vz += p_vz2 / 30; //どんどん速さを変える
 
-	st_model_hit.movepos = VGet(0.0f, 0.0f, 0.0f);//移動ベクトル0
+	st_model_hit.movepos = VGet(0.0f, p_vy,p_vz);//移動ベクトル
 	st_model_hit.MoveFlag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
 
 	P_input_move();//プレイヤー入力

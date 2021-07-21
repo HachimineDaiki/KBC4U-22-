@@ -1,5 +1,6 @@
 #pragma once
 #include <DxLib.h>
+#include <math.h>
 #include "Init.h"
 
 // プレイヤー関係の定義
@@ -22,7 +23,6 @@
 //void Model_hit();
 void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
-
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数

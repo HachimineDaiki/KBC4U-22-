@@ -1,9 +1,11 @@
 #include<DxLib.h>
+#include<math.h>
 #include"Player.h"
 #include"Hit_check.h"
 #include"3Dmodel.h"
 bool p_zmoveflg = false;//前進に移動するフラグ
-float g = 1.0f;
+float g = 9.81f; //地球の重力
+
 
 void Sph_Gravity() {
         //重力作成
@@ -21,6 +23,8 @@ void Sph_Gravity() {
 }
 
 void P_move() {
+    accl();
+    
     //if (p_zmoveflg == true) {
     //    switch (Input_PlayerMoveDir())
     //    {
@@ -60,10 +64,13 @@ void P_move() {
     }
 }
 void P_input_move() {
+    /*
     //スペースを押したら前進
     if (CheckHitKey(KEY_INPUT_SPACE)) {
         p_zmoveflg = true;
-    }
+    }*/
+    
+    accl();
 
     switch (Input_PlayerMoveDir())
     {
@@ -97,4 +104,7 @@ int Input_PlayerMoveDir() {
         input_dir = Up;
     }
     return input_dir;
+}
+void accl() {
+
 }
