@@ -23,6 +23,8 @@ void Model3d_init() {
 		MV1SetPosition(tree_handle[i + TREE_NUM / 4 + TREE_NUM / 2], VGet(100.0f + wood_interval, ground.y, -650.0f + (wood_interval * i)));
 	}
 
+	// ‚R‚cƒ‚ƒfƒ‹‚ÌYŽ²‚Ì‰ñ“]’l‚ð‚X‚O“x‚ÉƒZƒbƒg‚·‚é
+	MV1SetRotationXYZ(ground_handle, VGet(2.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 }
 
 void Model3d_draw() {

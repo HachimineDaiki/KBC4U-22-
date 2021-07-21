@@ -1,12 +1,2 @@
 ﻿  3Dmodel.cpp
-  Camera.cpp
-D:\2021summer_GAME\2021summer_GAME\Camera.cpp(44,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\2021summer_GAME\2021summer_GAME\Camera.cpp(45,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\2021summer_GAME\2021summer_GAME\Camera.cpp(51,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\2021summer_GAME\2021summer_GAME\Camera.cpp(52,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  Hit_check.cpp
-  Init.cpp
-  Main.cpp
-  Player.cpp
-  コードを生成中...
   2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe

@@ -6,7 +6,7 @@ void Sph_init() {
 		sph[i].x = 100.0f * (i + 1) + (sph[0].radius + sph[0].radius);
 		sph[i].y = 100.0f;
 		sph[i].z = 100.0f;
-		sph[i].speed = 10.0f;
+		sph[i].speed = 100.0f;
 		sph[i].radius = 100.0f;
 		sph[i].v0y = 0.0f;
 		sph[i].pos = VGet(sph[i].x, sph[i].y, sph[i].z);
@@ -25,5 +25,5 @@ void Model_init() {
 
 	wall.x = 0.0f;
 	wall.y = -300.0f;
-	wall.z = 11000.0f;
+	wall.z = 1100000.0f;
 }
