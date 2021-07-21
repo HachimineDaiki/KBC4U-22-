@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         
         //------------------------------ï`âÊä÷êî
 
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "[x %.0f] [y %.0f] [z %.0f]", sph[0].x, sph[0].y, sph[0].z);
+        DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].x, sph[0].y, sph[0].z);
        
 
         Model3d_draw();//3DÉÇÉfÉãï`âÊ

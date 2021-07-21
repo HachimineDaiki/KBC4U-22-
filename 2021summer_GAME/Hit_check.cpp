@@ -25,19 +25,20 @@ bool Sph_hit_check(Sph sp[]) {
 }
 
 void Ground_model_hit() {
-	Sph_Gravity();//重力
+	
 
 	st_model_hit.movepos = VGet(0.0f, 0.0f, 0.0f);//移動ベクトル0
 	st_model_hit.MoveFlag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
 
 	P_move();//プレイヤー入力
+	Sph_Gravity();//重力
 
 	// 移動ボタンが押されたかどうかで処理を分岐
 	if (st_model_hit.MoveFlag)
 	{
 		// 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
 		st_model_hit.TargetMoveDirection = VNorm(st_model_hit.movepos);
-
+		DrawFormatString(100, 300, GetColor(255, 255, 255), "移動ベクトル");
 		// プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
 		st_model_hit.movepos = VScale(st_model_hit.TargetMoveDirection, 10);
 	}
@@ -247,11 +248,15 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			st_model_hit.NowPos.y = MaxY;
 		}
 
+		DrawFormatString(100, 270, GetColor(255, 255, 255), "MaxY %.1f", MaxY);
 	}
+
+	DrawFormatString(100, 250, GetColor(255, 255, 255), "向いている方向 %.1f  y %.1f  z %.1f", st_model_hit.TargetMoveDirection.x, st_model_hit.TargetMoveDirection.y, st_model_hit.TargetMoveDirection.z);
 	// 新しい座標を保存する
 	sph[0].pos = st_model_hit.NowPos;
 	
 	DrawSphere3D(sph[0].pos, sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);
+
 	// 検出したプレイヤーの周囲のポリゴン情報を開放する
 	for (int i = 0; i < st_model_hit.HitDimNum; i++)
 	{

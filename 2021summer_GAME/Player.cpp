@@ -7,16 +7,16 @@ float g = 1.0f;
 
 void Sph_Gravity() {
         //重力作成
-        sph[0].v0y += g;
-        sph[0].y -= sph[0].v0y;
+        /*sph[0].v0y += g;*/
+       /* sph[0].y -= g*//*sph[0].v0y*/;
 
-        if (sph[0].y < ground.y  + sph[0].radius) {
-            /*sph[i].v0y *= -1 * sph[i].bounce;*/
-            sph[0].y = ground.y + sph[0].radius;
-            if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
-                sph[0].v0y = 0;
-            }
-        }
+        //if (sph[0].y < ground.y  + sph[0].radius) {
+        //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
+        //    sph[0].y = ground.y + sph[0].radius;
+        //    if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
+        //        sph[0].v0y = 0;
+        //    }
+        //}
 }
 
 void P_move() {
