@@ -57,6 +57,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         
         //------------------------------•`‰æŠÖ”
         Model3d_draw();//3Dƒ‚ƒfƒ‹•`‰æ
+        DrawFormatString(100, 320, GetColor(255, 255, 255), "%.0f", sph[0].v0y);
+        DrawFormatString(100, 340, GetColor(255, 255, 255), "%.0f", sph[0].pos.y);
         /*Model_hit();*/
 
         ScreenFlip();//— ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f‚·‚é

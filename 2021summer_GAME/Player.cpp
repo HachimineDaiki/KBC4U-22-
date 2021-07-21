@@ -7,10 +7,9 @@ float g = 1.0f;
 
 void Sph_Gravity() {
         //èdóÕçÏê¨
-       /*sph[0].v0y += g;*/
-       /*sph[0].pos.y -= sph[0].v0y;*/
-
-       sph[0].pos.y -= g;
+       sph[0].v0y += g;
+       sph[0].pos.y -= sph[0].v0y;
+       DrawFormatString(100, 340, GetColor(255, 255, 255), "èdóÕî≠ê∂");
         //if (sph[0].pos.y < ground.y  + sph[0].radius) {
         //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
         //    sph[0].pos.y = ground.y + sph[0].radius;

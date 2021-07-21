@@ -31,8 +31,11 @@ void Ground_model_hit() {
 	st_model_hit.MoveFlag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
 
 	P_input_move();//プレイヤー入力
-	Sph_Gravity();//重力
-
+	//地面についていなかったら重力発生
+	if (!st_model_hit.groundflg) {
+		Sph_Gravity();//重力
+	}
+	DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);
 	// 移動ボタンが押されたかどうかで処理を分岐
 	if (st_model_hit.MoveFlag)
 	{
@@ -223,16 +226,20 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, -40.0f, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);
 
 			// 当たっていなかったら何もしない
-			if (st_model_hit.LineRes.HitFlag == FALSE) continue;
-
+			if (st_model_hit.LineRes.HitFlag == FALSE) { 
+				
+				continue; 
+			}
+			//ここまでやった
+			DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.LineRes.HitFlag);
 			// 既に当たったポリゴンがあり、且つ今まで検出した床ポリゴンより低い場合は何もしない
 			if (st_model_hit.HitFlag == 1 && MaxY > st_model_hit.LineRes.Position.y) continue;
 
 			// ポリゴンに当たったフラグを立てる
 			st_model_hit.HitFlag = 1;
-
 			// 接触したＹ座標を保存する
 			MaxY = st_model_hit.LineRes.Position.y;
+			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
 
 		// 床ポリゴンに当たったかどうかで処理を分岐

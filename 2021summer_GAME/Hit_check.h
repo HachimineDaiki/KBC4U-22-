@@ -47,6 +47,7 @@ struct StageModelHit
 	VECTOR rightvec = VGet(1.0f, 0.0f, 0.0f);
 	VECTOR leftvec = VGet(-1.0f, 0.0f, 0.0f);
 
+	bool groundflg = false;
 };
 
 extern StageModelHit st_model_hit;
