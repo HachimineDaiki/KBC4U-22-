@@ -5,7 +5,7 @@ float wood_interval = 1300;//–Ø‚ÌŠÔŠu
 
 void Model3d_load() {
 	//–Ø‚Ì“Ç‚İ‚İ
-	ground_handle = MV1LoadModel("3Dmodel/ground_v2.mv1");
+	ground_handle = MV1LoadModel("3Dmodel/TestStage2.mv1");
 	wall_handle = MV1LoadModel("3Dmodel/wall.mv1");
 	for (int i = 0; i < TREE_NUM; i++) {
 		tree_handle[i] = MV1LoadModel("3Dmodel/tree.mv1");
