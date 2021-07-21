@@ -14,26 +14,29 @@ void Model3d_load() {
 
 void Model3d_init() {
 	//‰æ–Ê‚É‰f‚éˆÊ’u‚É‚R‚cƒ‚ƒfƒ‹‚ğˆÚ“®
-	MV1SetPosition(ground_handle, VGet(ground.x, ground.y, ground.z));
-	MV1SetRotationXYZ(ground_handle, VGet(10.0f, 0.0f, 0.0f));
+	MV1SetPosition(ground_handle, VGet(ground.x, ground.y, ground.z));//‰ŠúˆÊ’uİ’è
+	MV1SetRotationXYZ(ground_handle, VGet(3.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));//‰ŠúŠp“xİ’è
+
+
 	MV1SetPosition(wall_handle, VGet(wall.x, wall.y, wall.z));
-	MV1SetRotationXYZ(wall_handle, VGet(10.0f, 0.0f, 0.0f));
+	MV1SetRotationXYZ(wall_handle, VGet(3.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
+
 	for (int i = 0; i < TREE_NUM / 4; i++) {
 		MV1SetPosition(tree_handle[i], VGet(-1200.0f, ground.y, -650.0f + (wood_interval * i)));
 		//MV1SetRotationXYZ(tree_handle[i], VGet(10.0f, 0.0f, 0.0f));
 
 		MV1SetPosition(tree_handle[i + TREE_NUM / 4], VGet(-550.0f, ground.y, 0.0f + (wood_interval * i)));
-		MV1SetRotationXYZ(tree_handle[i + TREE_NUM / 4], VGet(10.0f, 0.0f, 0.0f));
+		MV1SetRotationXYZ(tree_handle[i + TREE_NUM / 4], VGet(45.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 
 		MV1SetPosition(tree_handle[i + TREE_NUM / 2], VGet(-550.0f + wood_interval, ground.y, 0.0f + (wood_interval * i)));
-		//MV1SetRotationXYZ(tree_handle[i + TREE_NUM / 2], VGet(10.0f, 0.0f, 0.0f));
+		MV1SetRotationXYZ(tree_handle[i + TREE_NUM / 2], VGet(45.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 
 		MV1SetPosition(tree_handle[i + TREE_NUM / 4 + TREE_NUM / 2], VGet(100.0f + wood_interval, ground.y, -650.0f + (wood_interval * i)));
-		//MV1SetRotationXYZ(tree_handle[i + TREE_NUM / 4 + TREE_NUM / 2], VGet(10.0f, 0.0f, 0.0f));
+		MV1SetRotationXYZ(tree_handle[i + TREE_NUM / 4 + TREE_NUM / 2], VGet(45.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 	}
 
-	// ‚R‚cƒ‚ƒfƒ‹‚ÌY²‚Ì‰ñ“]’l‚ğ‚X‚O“x‚ÉƒZƒbƒg‚·‚é
-	MV1SetRotationXYZ(ground_handle, VGet(2.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
+	//// ‚R‚cƒ‚ƒfƒ‹‚ÌY²‚Ì‰ñ“]’l‚ğ‚X‚O“x‚ÉƒZƒbƒg‚·‚é
+	//MV1SetRotationXYZ(ground_handle, VGet(2.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 }
 
 void Model3d_draw() {
