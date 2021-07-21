@@ -1,8 +1,6 @@
 #pragma once
 #define VECTOR_SLIDE 0.86602540378
 
-
-
 int Input_PlayerMoveDir();
 
 void P_move();

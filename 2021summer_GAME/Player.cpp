@@ -3,10 +3,10 @@
 #include"Hit_check.h"
 #include"3Dmodel.h"
 bool p_zmoveflg = false;//前進に移動するフラグ
-float g = 9.8f;
+float g = 1.0f;
 
 void Sph_Gravity() {
-       // 重力作成
+        //重力作成
         sph[0].v0y += g;
         sph[0].y -= sph[0].v0y;
 
@@ -25,20 +25,17 @@ void P_move() {
         p_zmoveflg = true;
     }
 
-    if (p_zmoveflg == true){
-           switch (Input_PlayerMoveDir())
-           {
-           case Left:sph[0].z += sph[0].speed;
-               sph[0].x -= sph[0].speed;
-               break;
-           case Right:sph[0].x += sph[0].speed;
-               sph[0].z += sph[0].speed;
-               break;
-           /*case Down:sph[0].z -= sph[0].speed;
-               break;*/
-           /*case Up:sph[0].z += sph[0].speed;
-               break;*/
-           }
+    if (p_zmoveflg == true) {
+        switch (Input_PlayerMoveDir())
+        {
+        case Left:/*sph[0].z += sph[0].speed;*/
+            /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+            break;
+        case Right:/*sph[0].x += sph[0].speed;*/
+            /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+            break;
+        }
+
     }
 
    if (p_zmoveflg == true) {
@@ -57,10 +54,6 @@ void P_move() {
         break;
     case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
         break;
-    /*case Down:DrawFormatString(100, 300, GetColor(255, 255, 255), "[下]");
-        break;*/
-    /*case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
-        break;*/
     }
 }
 

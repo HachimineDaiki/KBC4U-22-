@@ -8,11 +8,12 @@
 MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
 Model ground;
-Model wall;
+Model wall; 
 float  vx, vy, vz;
 int wall_handle;
 int ground_handle;
 int tree_handle[TREE_NUM];
+StageModelHit st_model_hit;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
@@ -46,18 +47,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         ClearDrawScreen();
 
         //------------------------------入力関数
-        P_move();//プレイヤー入力
         Input_camera_move();//カメラ入力
 
         //------------------------------計算関数
+        Ground_model_hit();
         Camera_move();//カメラ動かす
-        Sph_Gravity();//重力
         Model_hit_check();//モデル
        
-
+        
         //------------------------------描画関数
 
-        DrawSphere3D(VGet(sph[0].x, sph[0].y, sph[0].z), sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);
         DrawFormatString(100, 100, GetColor(255, 255, 255), "[x %.0f] [y %.0f] [z %.0f]", sph[0].x, sph[0].y, sph[0].z);
        
 
