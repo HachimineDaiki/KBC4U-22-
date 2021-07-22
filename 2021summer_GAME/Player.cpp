@@ -3,7 +3,6 @@
 #include"Player.h"
 #include"Hit_check.h"
 #include"3Dmodel.h"
-bool p_zmoveflg = false;//前進に移動するフラグ
 float g = 9.81f; //地球の重力
 
 void Sph_Gravity() {
@@ -26,7 +25,22 @@ void Sph_Gravity() {
        DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
        DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
 }
+void Accl() {
+    //鉢嶺処理
+    float p_vz2 = -5 * tan(5);
+    //float p_vx = 30 * cos(5);
+    //float p_vy = 30 * sin(5);
+    //p_vz2 / 30; //どんどん速さを変える
 
+    if (p_zmoveflg) {
+        sph[0].zmove += p_vz2 * 0.02;
+    }
+
+    if (sph[0].zmove >= 50.0f) {
+        sph[0].zaccl = 0.0f;
+    }
+
+}
 void P_move() {    
     //if (p_zmoveflg == true) {
     //    switch (Input_PlayerMoveDir())
@@ -41,21 +55,13 @@ void P_move() {
 
     //}
 
-    //鉢嶺処理
-    float p_vz2 = -5 * tan(5);
-    //float p_vx = 30 * cos(5);
-    //float p_vy = 30 * sin(5);
-    //p_vz2 / 30; //どんどん速さを変える
-
-    sph[0].zmove += p_vz2 * 0.05;
-    if (sph[0].zmove >= 50.0f) {
-        sph[0].zaccl = 0.0f;
-    }
     //フラグが前進されているなら
    if (p_zmoveflg) {
        sph[0].pos.z += sph[0].zmove;
    }
-    
+
+   Accl();//accelerator処理
+   DrawFormatString(100, 300, GetColor(255, 255, 255), "p_zmove%f", sph[0].zmove);
    //押されている方向をテキスト表示
     switch (Input_PlayerMoveDir())
     {

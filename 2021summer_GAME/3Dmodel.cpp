@@ -5,8 +5,8 @@ float wood_interval = 1300;//ñÿÇÃä‘äu
 
 void Model3d_load() {
 	//ñÿÇÃì«Ç›çûÇ›
-	ground_handle = MV1LoadModel("3Dmodel/floor.mv1");
-	/*wall_handle = MV1LoadModel("3Dmodel/wall.mv1");*/
+	ground_handle = MV1LoadModel("3Dmodel/floor_game.mv1");
+	wall_handle = MV1LoadModel("3Dmodel/iwa.mv1");
 	//for (int i = 0; i < TREE_NUM; i++) {
 	//	tree_handle[i] = MV1LoadModel("3Dmodel/tree.mv1");
 	//}
@@ -18,7 +18,7 @@ void Model3d_init() {
 	MV1SetRotationXYZ(ground_handle, VGet(3.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));//èâä˙äpìxê›íË
 
 
-	//MV1SetPosition(wall_handle, VGet(wall.x, wall.y, wall.z));
+	MV1SetPosition(wall_handle, VGet(wall.x, wall.y, wall.z));
 	//MV1SetRotationXYZ(wall_handle, VGet(3.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 
 	//for (int i = 0; i < TREE_NUM / 4; i++) {
@@ -46,7 +46,7 @@ void Model3d_init() {
 void Model3d_draw() {
 	//ÇRÇcÉÇÉfÉãÇÃï`âÊ
 	MV1DrawModel(ground_handle);
-	/*MV1DrawModel(wall_handle);*/
+	MV1DrawModel(wall_handle);
 	//for (int i = 0; i < TREE_NUM; i++) {
 	//	MV1DrawModel(tree_handle[i]);
 	//}
@@ -57,8 +57,8 @@ void Model3d_dlet() {
 	//// ÉÇÉfÉãÉnÉìÉhÉãÇÃçÌèú
 	MV1DeleteModel(ground_handle);
 	MV1DeleteModel(wall_handle);
-	for (int i = 0; i < TREE_NUM; i++) {
-		MV1DeleteModel(tree_handle[i]);
-	}
+	//for (int i = 0; i < TREE_NUM; i++) {
+	//	MV1DeleteModel(tree_handle[i]);
+	//}
 
 }

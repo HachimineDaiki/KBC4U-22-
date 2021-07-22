@@ -18,6 +18,7 @@ int wall_handle;
 int ground_handle;
 int tree_handle[TREE_NUM];
 float s_dis;
+bool p_zmoveflg;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
@@ -67,12 +68,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         Model3d_draw();//3Dモデル描画
 
         DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-
+        
         if (htdrow.hitflg) { SetFontSize(30); DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離をさせる予定"); }
 
         /*Model_hit();*/
         /*Model_hit();*/
 
+
+        if (sph[0].pos.y <= -12000) {
+            sph[0].pos.y = -12000;
+            p_zmoveflg = false;
+        }
         ScreenFlip();//裏画面の内容を表画面に反映する
     }
 

@@ -6,7 +6,7 @@ void Sph_init() {
 		sph[i].speed = 10.0f;
 		sph[i].radius = 100.0f;
 		sph[i].v0y = 0.0f;
-		sph[i].pos = VGet(100.0f, 500.0f, 100.0f);
+		sph[i].pos = VGet(100.0f, 7000.0f, 900.0f);
 		sph[i].color = GetColor(255, 255, 255);
 		sph[i].zaccl = 2.0f;
 		sph[i].zmove = 0.0f;
@@ -18,7 +18,7 @@ void Sph_init() {
 }
 
 void Obj_init(){
-	obj.pos = VGet(100.0f, -2600.0f, 20000.0f);
+	obj.pos = VGet(100.0f, -3100.0f, 20000.0f);
 	obj.radius = 100.0f;
 	obj.color = GetColor(0, 255, 100);
 }
@@ -28,7 +28,7 @@ void Model_init() {
 	ground.y = -300.0f;
 	ground.z = -700.0f;
 
-	wall.x = 0.0f;
-	wall.y = -300.0f;
-	wall.z = 1100000.0f;
+	wall.x = 100.0f;
+	wall.y = -2600.0f;
+	wall.z = 20000.0f;
 }
