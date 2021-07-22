@@ -6,7 +6,7 @@ void Sph_init() {
 		sph[i].speed = 10.0f;
 		sph[i].radius = 100.0f;
 		sph[i].v0y = 0.0f;
-		sph[i].pos = VGet(100.0f, 7000.0f, 900.0f);
+		sph[i].pos = VGet(100.0f, 5471.0f, 1300.0f);
 		sph[i].color = GetColor(255, 255, 255);
 		sph[i].zaccl = 2.0f;
 		sph[i].zmove = 0.0f;
@@ -25,10 +25,10 @@ void Obj_init(){
 
 void Model_init() {
 	ground.x = 0.0f;
-	ground.y = -300.0f;
-	ground.z = -700.0f;
+	ground.y = 0.0f;
+	ground.z = 0.0f;
 
-	wall.x = 100.0f;
-	wall.y = -2600.0f;
-	wall.z = 20000.0f;
+	rock.x = 100.0f;
+	rock.y = 5471.0f;
+	rock.z = 2000.0f;
 }

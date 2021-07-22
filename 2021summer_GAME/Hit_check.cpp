@@ -84,7 +84,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	st_model_hit.NowPos = VAdd(sph[0].pos, MoveVector);
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
 	 //( 検出する範囲は移動距離も考慮する )
-	st_model_hit.HitDim[0] = MV1CollCheck_Sphere(ground_handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
+	st_model_hit.HitDim[0] = MV1CollCheck_Sphere(ground.handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
 	// プレイヤーの周囲にあるコリジョンオブジェクトのポリゴンも取得する
 	for (int i = 0; i < stg.CollObjNum; i++)
 	{
@@ -253,11 +253,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			// 走っている場合は頭の先からそこそこ低い位置の間で当たっているかを判定( 傾斜で落下状態に移行してしまわない為 )
 			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
 			st_model_hit.LineRes = HitCheck_Line_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, -200, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);
-			
-			//DrawFormatString(100, 220, GetColor(255, 0, 0), "[0] %.0f  %.0f  %.0f", st_model_hit.Poly->Position[0].x, st_model_hit.Poly->Position[0].y, st_model_hit.Poly->Position[0].z);
-			//// 当たっていなかったら何もしない
-			//DrawFormatString(100, 240, GetColor(255, 0, 0), "[1] %.0f  %.0f  %.0f", st_model_hit.Poly->Position[1].x, st_model_hit.Poly->Position[1].y, st_model_hit.Poly->Position[1].z);
-			//DrawFormatString(100, 260, GetColor(255, 0, 0), "[2] %.0f  %.0f  %.0f", st_model_hit.Poly->Position[2].x, st_model_hit.Poly->Position[2].y, st_model_hit.Poly->Position[2].z);
+
 			if (st_model_hit.LineRes.HitFlag == FALSE) { 
 				
 				continue; 

@@ -9,13 +9,11 @@ MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
 Sph obj;
 Model ground;
-Model wall; 
+Model rock;
 StageModelHit st_model_hit;
 HitDrow htdrow;
 
 float  vx, vy, vz;
-int wall_handle;
-int ground_handle;
 int tree_handle[TREE_NUM];
 float s_dis;
 bool p_zmoveflg;
