@@ -5,6 +5,9 @@
 #include"3Dmodel.h"
 bool p_zmoveflg = false;//前進に移動するフラグ
 float g = 9.81f; //地球の重力
+float gplayer_limits = 450;      //Xの範囲
+int glimits_verification[2] = { 0,900 }; //端の数値　0: 左の端 900 : 右の端
+int gmoveflg = false;    //false:制限範囲内　true:制限範囲外
 
 
 void Sph_Gravity() {
@@ -73,11 +76,14 @@ void P_input_move() {
 
     switch (Input_PlayerMoveDir())
     {
-    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; gplayer_limits -= sph[0].speed;
         break;
-    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
-        break;
+    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1; gplayer_limits += sph[0].speed;
     }
+
+    //判定処理
+    Move_Limits();
+
 }
 //プレイヤーが押している方向を返す関数
 int Input_PlayerMoveDir() {
@@ -101,4 +107,33 @@ int Input_PlayerMoveDir() {
         input_dir = Up;
     }
     return input_dir;
+}
+
+//プレイヤーの左右移動範囲を制限する
+void Move_Limits()
+{
+    int lhit_magnification = 5;    //Xの移動範囲外にでた場合の戻す力の倍率
+
+    //左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
+    if (gplayer_limits <= glimits_verification[0] || gplayer_limits >= glimits_verification[1]) {
+        gmoveflg = true;
+    }
+
+    if (gmoveflg == true) {
+        //範囲内に戻す処理(左)
+        if (gplayer_limits < sph[0].speed * lhit_magnification) {
+            sph[0].pos.x += 10;
+            gplayer_limits += 10;
+        }
+        //範囲内に戻す処理(右)
+        else if (gplayer_limits > glimits_verification[1] - sph[0].speed * lhit_magnification) {
+            sph[0].pos.x -= 10;
+            gplayer_limits -= 10;
+        }
+        //フラグをもとに戻す
+        else {
+            sph[0].speed = 10.0f;
+            gmoveflg = false;
+        }
+    }
 }
