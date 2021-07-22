@@ -63,6 +63,24 @@ void Camera_move() {
 
     // ƒJƒƒ‰‚ÌÝ’è‚É”½‰f‚·‚é
     SetCameraPositionAndTarget_UpVecY(cameraPosition, cameraLookAtPosition);
+    // ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚È‚¯‚ê‚Î‚Ü‚Á‚·‚®‚ÉŒü‚­
+    if (CheckHitKeyAll() == 0) {
+        if (cameraHAngle > 0) {
+            cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
+            if (cameraHAngle <= 0.0f)
+            {
+                cameraHAngle = 0.0f;
+            }
+        }
+        else if (cameraHAngle < 0) {
+            cameraHAngle += CAMERA_ANGLE_SPEED / 2;
+            if (cameraHAngle >= 0.0f)
+            {
+                cameraHAngle = 0.0f;
+            }
+        }
+    }
+
 }
 
 void Input_camera_move() {
@@ -85,16 +103,32 @@ void Input_camera_move() {
     }
     if (CheckHitKey(KEY_INPUT_LEFT) == 1)
     {
-        cameraHAngle += CAMERA_ANGLE_SPEED;  
+        cameraHAngle += CAMERA_ANGLE_SPEED;
+        if (cameraHAngle >= 90.0f)
+        {
+            cameraHAngle = 90.0f;
+        }
+    }
+    if (CheckHitKey(KEY_INPUT_RIGHT) == 1)
+    {
+        cameraHAngle -= CAMERA_ANGLE_SPEED;
+        if (cameraHAngle <= -180.0f)
+        {
+            cameraHAngle += 360.0f;
+        }
+    }
+    if (CheckHitKey(KEY_INPUT_A) == 1)
+    {
+        cameraHAngle += CAMERA_ANGLE_SPEED / 2;  
         if (cameraHAngle >= 90.0f)
         {
             cameraHAngle = 90.0f;
         }
 
     }
-    if (CheckHitKey(KEY_INPUT_RIGHT) == 1)
+    if (CheckHitKey(KEY_INPUT_D) == 1)
     {
-        cameraHAngle -= CAMERA_ANGLE_SPEED;
+        cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
         if (cameraHAngle <= -90) {
             cameraHAngle = -90.0f;
         }
