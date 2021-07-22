@@ -11,7 +11,11 @@ void Sph_Gravity() {
         //重力作成
        sph[0].v0y += g;
        sph[0].pos.y -= sph[0].v0y;
-       DrawFormatString(100, 340, GetColor(255, 255, 255), "重力発生");
+
+       if (sph[0].v0y >= 10) {
+           g = 0;
+       }
+       DrawFormatString(100, 360, GetColor(255, 255, 255), "重力発生");
         //if (sph[0].pos.y < ground.y  + sph[0].radius) {
         //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
         //    sph[0].pos.y = ground.y + sph[0].radius;
@@ -21,9 +25,7 @@ void Sph_Gravity() {
         //}
 }
 
-void P_move() {
-    accl();
-    
+void P_move() {    
     //if (p_zmoveflg == true) {
     //    switch (Input_PlayerMoveDir())
     //    {
@@ -37,19 +39,20 @@ void P_move() {
 
     //}
 
-   if (p_zmoveflg == true) {
-        sph[0].pos.z += 10;
-        if (sph[0].pos.z > wall.z - sph[0].radius) {
-            sph[0].speed = 0;
-        }
-    }
+    //鉢嶺処理
+    float p_vz2 = -20 * tan(5);
+    //float p_vx = 30 * cos(5);
+    //float p_vy = 30 * sin(5);
+    //p_vz2 / 30; //どんどん速さを変える
 
-    /*if (p_zmoveflg == true) {
-        st_model_hit.movepos = VGet(0.0f, 0.0f, 10.0f);
-        if (sph[0].z > wall.z - sph[0].radius) {
-            sph[0].speed = 0;
-        }
-    }*/
+    sph[0].zmove += sph[0].zaccl;
+    if (sph[0].zmove >= 50.0f) {
+        sph[0].zaccl = 0.0f;
+    }
+    //フラグが前進されているなら
+   if (p_zmoveflg) {
+       sph[0].pos.z += sph[0].zmove;
+   }
     
    //押されている方向をテキスト表示
     switch (Input_PlayerMoveDir())
@@ -63,21 +66,16 @@ void P_move() {
     }
 }
 void P_input_move() {
-    /*
     //スペースを押したら前進
     if (CheckHitKey(KEY_INPUT_SPACE)) {
         p_zmoveflg = true;
-    }*/
-    
-    accl();
+    }
 
     switch (Input_PlayerMoveDir())
     {
     case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
         break;
     case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
-        break;
-    case Up:st_model_hit.movepos = st_model_hit.upvec; st_model_hit.MoveFlag = 1;
         break;
     }
 }
@@ -103,7 +101,4 @@ int Input_PlayerMoveDir() {
         input_dir = Up;
     }
     return input_dir;
-}
-void accl() {
-
 }

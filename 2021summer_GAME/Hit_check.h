@@ -7,9 +7,9 @@
 #define PLAYER_MOVE_SPEED			30.0f		// 移動速度
 #define PLAYER_ANGLE_SPEED			0.2f		// 角度変化速度
 #define PLAYER_MAX_HITCOLL			2048		// 処理するコリジョンポリゴンの最大数
-#define PLAYER_ENUM_DEFAULT_SIZE	800.0f		// 周囲のポリゴン検出に使用する球の初期サイズ
-#define PLAYER_HIT_WIDTH			100.0f		// 当たり判定カプセルの半径
-#define PLAYER_HIT_HEIGHT			700.0f		// 当たり判定カプセルの高さ
+#define PLAYER_ENUM_DEFAULT_SIZE	200.0f		// 周囲のポリゴン検出に使用する球の初期サイズ
+#define PLAYER_HIT_WIDTH			100.0f		// 当たり判定
+#define PLAYER_HIT_HEIGHT			100.0f		// 当たり判定
 #define PLAYER_HIT_TRYNUM			16		// 壁押し出し処理の最大試行回数
 #define PLAYER_HIT_SLIDE_LENGTH		5.0f		// 一度の壁押し出し処理でスライドさせる距離
 
@@ -42,7 +42,7 @@ struct StageModelHit
 	VECTOR TargetMoveDirection;			// モデルが向くべき方向のベクトル
 	VECTOR movepos;
 
-	VECTOR upvec = VGet(0.0f, 0.0f, 1.0f);
+	VECTOR upvec = VGet(0.0f, 0.0f, 10.0f);
 	VECTOR downvec = VGet(0.0f, 0.0f, -1.0f);
 	VECTOR rightvec = VGet(1.0f, 0.0f, 0.0f);
 	VECTOR leftvec = VGet(-1.0f, 0.0f, 0.0f);

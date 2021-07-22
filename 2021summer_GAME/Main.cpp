@@ -48,7 +48,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         //------------------------------“ü—ÍŠÖ”
         Input_camera_move();//ƒJƒƒ‰“ü—Í
-        
         //------------------------------ŒvZŠÖ”
         Ground_model_hit();
         Camera_move();//ƒJƒƒ‰“®‚©‚·

@@ -3,12 +3,14 @@
 //\‘¢‘ÌéŒ¾
 struct Sph
 {
-	float x, y, z;
+	/*float x, y, z;*/
 	float radius;
 	float speed;
 	float v0y;
 	int color;
 	VECTOR pos;
+	float zaccl; //Z²‰Á‘¬
+	float zmove; //Z²“®‚­
 };
 
 void Sph_init();

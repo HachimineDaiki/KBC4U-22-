@@ -27,30 +27,26 @@ STAGE stg;
 
 void Ground_model_hit() {
 	
-	float p_vz2 = -20 * tan(5);
-	float p_vx = 30 * cos(5);
-	float p_vy = 30 * sin(5);
-	
-	p_vz += p_vz2 / 30; //どんどん速さを変える
-
-	st_model_hit.movepos = VGet(0.0f, p_vy,p_vz);//移動ベクトル
+	st_model_hit.movepos = VGet(0.0f, 0.0f,0.0f);//移動ベクトル
 	st_model_hit.MoveFlag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
 
 	P_input_move();//プレイヤー入力
+	P_move();
 	//地面についていなかったら重力発生
 	if (!st_model_hit.groundflg) {
 		Sph_Gravity();//重力
 	}
-	DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);
+	Sph_Gravity();//重力
+	/*DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);*/
 	// 移動ボタンが押されたかどうかで処理を分岐
 	if (st_model_hit.MoveFlag)
 	{
 		// 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
 		st_model_hit.TargetMoveDirection = VNorm(st_model_hit.movepos);
-		DrawFormatString(100, 200, GetColor(255, 255, 255), " %.1f , %.1f , %.1f ", st_model_hit.TargetMoveDirection.x, st_model_hit.TargetMoveDirection.y, st_model_hit.TargetMoveDirection.z);
+		/*DrawFormatString(100, 200, GetColor(255, 255, 255), " %.1f , %.1f , %.1f ", st_model_hit.TargetMoveDirection.x, st_model_hit.TargetMoveDirection.y, st_model_hit.TargetMoveDirection.z);*/
 		// プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
 		st_model_hit.movepos = VScale(st_model_hit.TargetMoveDirection, sph[0].speed);
-		DrawFormatString(100, 230, GetColor(255, 0, 0), "Vscale %.1f , %.1f , %.1f ", st_model_hit.movepos.x, st_model_hit.movepos.y, st_model_hit.movepos.z);
+		/*DrawFormatString(100, 230, GetColor(255, 0, 0), "Vscale %.1f , %.1f , %.1f ", st_model_hit.movepos.x, st_model_hit.movepos.y, st_model_hit.movepos.z);*/
 	}
 	
 	Ground_model_hit_check(st_model_hit.movepos);
@@ -129,81 +125,81 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 		}
 	}
 
-	// 壁ポリゴンとの当たり判定処理
-	if (st_model_hit.KabeNum != 0)
-	{
-		// 壁に当たったかどうかのフラグは初期状態では「当たっていない」にしておく
-		st_model_hit.HitFlag = 0;
+	//// 壁ポリゴンとの当たり判定処理
+	//if (st_model_hit.KabeNum != 0)
+	//{
+	//	// 壁に当たったかどうかのフラグは初期状態では「当たっていない」にしておく
+	//	st_model_hit.HitFlag = 0;
 
-		// 移動したかどうかで処理を分岐
-		if (st_model_hit.MoveFlag == 1)
-		{
-			// 壁ポリゴンの数だけ繰り返し
-			for (int i = 0; i < st_model_hit.KabeNum; i++)
-			{
-				// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-				st_model_hit.Poly = st_model_hit.Kabe[i];
+	//	// 移動したかどうかで処理を分岐
+	//	if (st_model_hit.MoveFlag == 1)
+	//	{
+	//		// 壁ポリゴンの数だけ繰り返し
+	//		for (int i = 0; i < st_model_hit.KabeNum; i++)
+	//		{
+	//			// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+	//			st_model_hit.Poly = st_model_hit.Kabe[i];
 
-				// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
-				if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == FALSE) continue;
+	//			// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
+	//			if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == FALSE) continue;
 
-				// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
-				st_model_hit.HitFlag = 1;
+	//			// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
+	//			st_model_hit.HitFlag = 1;
 
-				//壁に当たったら壁に遮られない移動成分分だけ移動する
-				{
-					VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
+	//			//壁に当たったら壁に遮られない移動成分分だけ移動する
+	//			{
+	//				VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
 
-					// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
-					SlideVec = VCross(MoveVector, st_model_hit.Poly->Normal);
+	//				// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
+	//				SlideVec = VCross(MoveVector, st_model_hit.Poly->Normal);
 
-					// 算出したベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出、これが
-					// 元の移動成分から壁方向の移動成分を抜いたベクトル
-					SlideVec = VCross(st_model_hit.Poly->Normal, SlideVec);
+	//				// 算出したベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出、これが
+	//				// 元の移動成分から壁方向の移動成分を抜いたベクトル
+	//				SlideVec = VCross(st_model_hit.Poly->Normal, SlideVec);
 
-					// それを移動前の座標に足したものを新たな座標とする
-					st_model_hit.NowPos = VAdd(st_model_hit.OldPos, SlideVec);
-				}
+	//				// それを移動前の座標に足したものを新たな座標とする
+	//				st_model_hit.NowPos = VAdd(st_model_hit.OldPos, SlideVec);
+	//			}
 
-				int j;
-				// 新たな移動座標で壁ポリゴンと当たっていないかどうかを判定する
-				for (j = 0; j < st_model_hit.KabeNum; j++)
-				{
-					// j番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-					st_model_hit.Poly = st_model_hit.Kabe[j];
+	//			int j;
+	//			// 新たな移動座標で壁ポリゴンと当たっていないかどうかを判定する
+	//			for (j = 0; j < st_model_hit.KabeNum; j++)
+	//			{
+	//				// j番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+	//				st_model_hit.Poly = st_model_hit.Kabe[j];
 
-					// 当たっていたらループから抜ける
-					if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == TRUE) break;
-				}
+	//				// 当たっていたらループから抜ける
+	//				if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == TRUE) break;
+	//			}
 
-				// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
-				// 壁に当たったフラグを倒した上でループから抜ける
-				if (j == st_model_hit.KabeNum)
-				{
-					st_model_hit.HitFlag = 0;
-					break;
-				}
-			}
-		}
-		else
-		{
-			// 移動していない場合の処理
+	//			// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
+	//			// 壁に当たったフラグを倒した上でループから抜ける
+	//			if (j == st_model_hit.KabeNum)
+	//			{
+	//				st_model_hit.HitFlag = 0;
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	else
+	//	{
+	//		// 移動していない場合の処理
 
-			// 壁ポリゴンの数だけ繰り返し
-			for (int i = 0; i < st_model_hit.KabeNum; i++)
-			{
-				// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-				st_model_hit.Poly = st_model_hit.Kabe[i];
+	//		// 壁ポリゴンの数だけ繰り返し
+	//		for (int i = 0; i < st_model_hit.KabeNum; i++)
+	//		{
+	//			// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+	//			st_model_hit.Poly = st_model_hit.Kabe[i];
 
-				// ポリゴンに当たっていたら当たったフラグを立てた上でループから抜ける
-				if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == TRUE)
-				{
-					st_model_hit.HitFlag = 1;
-					break;
-				}
-			}
-		}
-	}
+	//			// ポリゴンに当たっていたら当たったフラグを立てた上でループから抜ける
+	//			if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == TRUE)
+	//			{
+	//				st_model_hit.HitFlag = 1;
+	//				break;
+	//			}
+	//		}
+	//	}
+	//}
 
 
 	// 床ポリゴンとの当たり判定
@@ -229,25 +225,30 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 
 			// 走っている場合は頭の先からそこそこ低い位置の間で当たっているかを判定( 傾斜で落下状態に移行してしまわない為 )
-			st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, -40.0f, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);
-
-			// 当たっていなかったら何もしない
+			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
+			st_model_hit.LineRes = HitCheck_Line_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, -200, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);
+			
+			//DrawFormatString(100, 220, GetColor(255, 0, 0), "[0] %.0f  %.0f  %.0f", st_model_hit.Poly->Position[0].x, st_model_hit.Poly->Position[0].y, st_model_hit.Poly->Position[0].z);
+			//// 当たっていなかったら何もしない
+			//DrawFormatString(100, 240, GetColor(255, 0, 0), "[1] %.0f  %.0f  %.0f", st_model_hit.Poly->Position[1].x, st_model_hit.Poly->Position[1].y, st_model_hit.Poly->Position[1].z);
+			//DrawFormatString(100, 260, GetColor(255, 0, 0), "[2] %.0f  %.0f  %.0f", st_model_hit.Poly->Position[2].x, st_model_hit.Poly->Position[2].y, st_model_hit.Poly->Position[2].z);
 			if (st_model_hit.LineRes.HitFlag == FALSE) { 
 				
 				continue; 
 			}
 			//ここまでやった
-			DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.LineRes.HitFlag);
+			
 			// 既に当たったポリゴンがあり、且つ今まで検出した床ポリゴンより低い場合は何もしない
 			if (st_model_hit.HitFlag == 1 && MaxY > st_model_hit.LineRes.Position.y) continue;
 
 			// ポリゴンに当たったフラグを立てる
 			st_model_hit.HitFlag = 1;
 			// 接触したＹ座標を保存する
-			MaxY = st_model_hit.LineRes.Position.y;
+			MaxY = st_model_hit.LineRes.Position.y + sph[0].radius;
+			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-
+		DrawLine3D(st_model_hit.NowPos, VAdd(st_model_hit.NowPos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
 		// 床ポリゴンに当たったかどうかで処理を分岐
 		if (st_model_hit.HitFlag == 1)
 		{
