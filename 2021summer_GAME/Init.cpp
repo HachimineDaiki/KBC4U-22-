@@ -18,7 +18,7 @@ void Sph_init() {
 }
 
 void Obj_init(){
-	obj.pos = VGet(100.0f, -3100.0f, 20000.0f);
+	obj.pos = VGet(100.0f, -1300.0f, 20000.0f);
 	obj.radius = 100.0f;
 	obj.color = GetColor(0, 255, 100);
 }
@@ -30,5 +30,5 @@ void Model_init() {
 
 	rock.x = 100.0f;
 	rock.y = 5471.0f;
-	rock.z = 2000.0f;
+	rock.z = 20000.0f;
 }

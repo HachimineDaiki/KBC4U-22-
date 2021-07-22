@@ -286,7 +286,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	
 	sph[0].pos = st_model_hit.NowPos;
 	
-	DrawSphere3D(sph[0].pos, sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);
+	MV1SetPosition(rock.handle, sph[0].pos);
+	/*DrawSphere3D(sph[0].pos, sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);*/
 	DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
 	// 検出したプレイヤーの周囲のポリゴン情報を開放する
 	for (int i = 0; i < st_model_hit.HitDimNum; i++)

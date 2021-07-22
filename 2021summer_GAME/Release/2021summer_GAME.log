@@ -1,8 +1,8 @@
-﻿  Init.cpp
-  Main.cpp
+﻿  Hit_check.cpp
+D:\2021summer_GAME\2021summer_GAME\Hit_check.cpp(339,5): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
   コード生成しています。
-  7 of 27 functions (25.9%) were compiled, the rest were copied from previous compilation.
+  0 of 27 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Release\2021summer_GAME.exe

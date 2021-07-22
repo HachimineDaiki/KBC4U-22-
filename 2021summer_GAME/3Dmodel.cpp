@@ -6,7 +6,7 @@ float wood_interval = 1300;//–Ø‚ÌŠÔŠu
 void Model3d_load() {
 	//–Ø‚Ì“Ç‚İ‚İ
 	ground.handle = MV1LoadModel("3Dmodel/floor_game.mv1");
-	rock.handle = MV1LoadModel("3Dmodel/iwa.mv1");
+	rock.handle = MV1LoadModel("3Dmodel/sph.mv1");
 	//for (int i = 0; i < TREE_NUM; i++) {
 	//	tree_handle[i] = MV1LoadModel("3Dmodel/tree.mv1");
 	//}
@@ -17,7 +17,6 @@ void Model3d_init() {
 	MV1SetPosition(ground.handle, VGet(ground.x, ground.y, ground.z));//‰ŠúˆÊ’uİ’è
 
 
-	MV1SetPosition(rock.handle, VGet(rock.x, rock.y, rock.z));
 	//MV1SetRotationXYZ(wall_handle, VGet(3.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
 
 	//for (int i = 0; i < TREE_NUM / 4; i++) {
