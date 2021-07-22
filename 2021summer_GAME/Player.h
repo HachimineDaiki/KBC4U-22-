@@ -8,8 +8,6 @@ void P_move();
 
 void Sph_Gravity();
 
-void Move_Limits();		//プレイヤーの左右移動を制限する
-
 enum Dir { Left, Right, Down, Up };
 
 void accl(); // 加速

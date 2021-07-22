@@ -23,6 +23,7 @@
 //void Model_hit();
 void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
+void Move_Limits();		//プレイヤーの左右移動を制限する
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数
@@ -48,6 +49,13 @@ struct StageModelHit
 	VECTOR leftvec = VGet(-1.0f, 0.0f, 0.0f);
 
 	bool groundflg = false;
+
+	float gplayer_limits = 450;      //Xの範囲
+	int glimits_verification[2] = { 0,900 }; //端の数値　0: 左の端 900 : 右の端
+	int gmoveflg = false;    //false:制限範囲内　true:制限範囲外
+
 };
+
+
 
 extern StageModelHit st_model_hit;
