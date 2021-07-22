@@ -3,7 +3,7 @@
 
 
 struct Model {
-	float x, y, z;
+	float x, y, z;//ƒ‚ƒfƒ‹‚ÌÀ•W
 };
 
 void Model3d_init();//‰Šú‰»ˆÊ’u

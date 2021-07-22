@@ -1,5 +1,6 @@
-﻿  Init.cpp
+﻿  Hit_check.cpp
+  Main.cpp
   Player.cpp
-D:\2021summer_GAME\2021summer_GAME\Player.cpp(43,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Player.cpp(26,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
   コードを生成中...
   2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe

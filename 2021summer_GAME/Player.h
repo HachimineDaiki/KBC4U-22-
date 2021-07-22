@@ -12,4 +12,5 @@ void Move_Limits();		//プレイヤーの左右移動を制限する
 
 enum Dir { Left, Right, Down, Up };
 
-void accl(); // 加速
+extern float s_dis;
+//void accl(); // 加速

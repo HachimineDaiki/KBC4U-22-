@@ -7,52 +7,34 @@ bool p_zmoveflg = false;//前進に移動するフラグ
 float g = 9.81f; //地球の重力
 float gplayer_limits = 450;      //Xの範囲
 int glimits_verification[2] = { 0,900 }; //端の数値　0: 左の端 900 : 右の端
-int gmoveflg = false;    //false:制限範囲内　true:制限範囲外
+bool gmoveflg = false;    //false:制限範囲内　true:制限範囲外
 
-
+//プレイヤー重力処理
 void Sph_Gravity() {
         //重力作成
        sph[0].v0y += g;
        sph[0].pos.y -= sph[0].v0y;
-
+       //重力の量が10以上だったら重力を消す。
        if (sph[0].v0y >= 10) {
            g = 0;
        }
-       DrawFormatString(100, 360, GetColor(255, 255, 255), "重力発生");
-        //if (sph[0].pos.y < ground.y  + sph[0].radius) {
-        //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
-        //    sph[0].pos.y = ground.y + sph[0].radius;
-        //    if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
-        //        sph[0].v0y = 0;
-        //    }
-        //}
 }
 
+//プレイヤー移動処理
 void P_move() {    
-    //if (p_zmoveflg == true) {
-    //    switch (Input_PlayerMoveDir())
-    //    {
-    //    case Left:/*sph[0].z += sph[0].speed;*/
-    //        /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
-    //        break;
-    //    case Right:/*sph[0].x += sph[0].speed;*/
-    //        /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
-    //        break;
-    //    }
-
-    //}
-
     //鉢嶺処理
     float p_vz2 = -20 * tan(5);
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
 
+    //Z方向に加速する処理
     sph[0].zmove += sph[0].zaccl;
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
-    //フラグが前進されているなら
+
+    //前進させるフラグがオンなら前進させる
    if (p_zmoveflg) {
        sph[0].pos.z += sph[0].zmove;
    }

@@ -17,6 +17,12 @@ void Sph_init() {
 	vz = 0.0f;
 }
 
+void Obj_init(){
+	obj.pos = VGet(100.0f, -2600.0f, 20000.0f);
+	obj.radius = 100.0f;
+	obj.color = GetColor(0, 255, 100);
+}
+
 void Model_init() {
 	ground.x = 0.0f;
 	ground.y = -300.0f;

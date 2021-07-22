@@ -4,8 +4,6 @@
 #include "Init.h"
 
 // プレイヤー関係の定義
-#define PLAYER_MOVE_SPEED			30.0f		// 移動速度
-#define PLAYER_ANGLE_SPEED			0.2f		// 角度変化速度
 #define PLAYER_MAX_HITCOLL			2048		// 処理するコリジョンポリゴンの最大数
 #define PLAYER_ENUM_DEFAULT_SIZE	200.0f		// 周囲のポリゴン検出に使用する球の初期サイズ
 #define PLAYER_HIT_WIDTH			100.0f		// 当たり判定
@@ -17,12 +15,14 @@
 #define STAGECOLLOBJ_MAXNUM			256		// 追加のコリジョンオブジェクトの最大数
 
 //プロトタイプ宣言
-//bool Sph_hit_check(Sph sp[]);
+bool Sph_hit_check(Sph sp[], Sph ob);
+void Sph_hit(float dis);
 //void Sph_hit();
 //void Model_hit_check();
 //void Model_hit();
-void Ground_model_hit();
-void Ground_model_hit_check(VECTOR MoveVector);
+void Ground_model_hit();//入力によって 壁　床 判定
+void Ground_model_hit_check(VECTOR MoveVector);//壁 床 判定後の処理
+
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数
@@ -38,16 +38,22 @@ struct StageModelHit
 	HITRESULT_LINE LineRes;				// 線分とポリゴンとの当たり判定の結果を代入する構造体
 	VECTOR OldPos;						// 移動前の座標	
 	VECTOR NowPos;						// 移動後の座標
+
 	//移動ベクトル
 	VECTOR TargetMoveDirection;			// モデルが向くべき方向のベクトル
-	VECTOR movepos;
+	VECTOR movepos; //移動量ベクトル
 
-	VECTOR upvec = VGet(0.0f, 0.0f, 10.0f);
-	VECTOR downvec = VGet(0.0f, 0.0f, -1.0f);
-	VECTOR rightvec = VGet(1.0f, 0.0f, 0.0f);
-	VECTOR leftvec = VGet(-1.0f, 0.0f, 0.0f);
+	//方向ベクトル
+	VECTOR upvec = VGet(0.0f, 0.0f, 1.0f);//上方向
+	VECTOR downvec = VGet(0.0f, 0.0f, -1.0f);//下方向
+	VECTOR rightvec = VGet(1.0f, 0.0f, 0.0f);//右方向
+	VECTOR leftvec = VGet(-1.0f, 0.0f, 0.0f);//左方向
 
-	bool groundflg = false;
+	bool groundflg = false;//地面についているか
 };
 
-extern StageModelHit st_model_hit;
+struct HitDrow{
+	bool hitflg = false;
+};
+extern HitDrow htdrow;
+extern StageModelHit st_model_hit;//ステージ判定で使用する構造体

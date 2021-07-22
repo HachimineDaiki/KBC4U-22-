@@ -15,15 +15,41 @@ struct STAGE
 
 STAGE stg;
 
+//球同士当たり判定
+bool Sph_hit_check(Sph sp[], Sph ob) {
+	vx = ob.pos.x - sp[0].pos.x;//x成分
+	vy = ob.pos.y - sp[0].pos.y;//y成分
+	vz = ob.pos.z - sp[0].pos.z;//z成分
 
-//bool Sph_hit_check(Sph sp[]) {
-//	vx = sp[1].x - sp[0].x;//x成分
-//	vy = sp[1].y - sp[0].y;//y成分
-//	vz = sp[1].z - sp[0].z;//z成分
-//	float distance = vx * vx + vy * vy + vz * vz;//2点間の距離
-//	float radius_sum = (sp[0].radius + sp[1].radius) * (sp[0].radius + sp[1].radius); //半径の和
-//	return distance < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
-//}
+	s_dis = vx * vx + vy * vy + vz * vz;//2点間の距離
+
+	float radius_sum = (sp[0].radius + ob.radius) * (sp[0].radius + ob.radius); //半径の和
+	return s_dis < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
+}
+
+//球と球の当たり判定を検知した後の処理
+void Sph_hit(float dis) {
+	float len = sqrtf(dis);
+	float radius_sum = sph[0].radius + obj.radius;
+	float merikomi = radius_sum - len;
+
+	if (len > 0) len = 1 / len;
+
+	vx *= len;
+	vy *= len;
+	vz *= len;
+
+	merikomi /= 2.0f;
+	DrawFormatString(100, 140, GetColor(255, 255, 255), "[vx %.0f] [vy %.0f] [vz %.0f]", vx, vy, vz);
+
+	sph[0].pos.x -= vx * merikomi;
+	sph[0].pos.y -= vy * merikomi;
+	sph[0].pos.z -= vz * merikomi;
+
+	obj.pos.x += vx * merikomi;
+	obj.pos.y += vy * merikomi;
+	obj.pos.z += vz * merikomi;
+}
 
 void Ground_model_hit() {
 	
@@ -272,9 +298,6 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 		MV1CollResultPolyDimTerminate(st_model_hit.HitDim[i]);
 	}
 }
-//球と球の当たり判定を検知した後の処理
-//void Sph_hit() {
-//}
 
 ////モデルと球の当たり判定チェック
 //void Model_hit_check() {

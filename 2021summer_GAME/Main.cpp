@@ -7,13 +7,17 @@
 
 MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
+Sph obj;
 Model ground;
 Model wall; 
+StageModelHit st_model_hit;
+HitDrow htdrow;
+
 float  vx, vy, vz;
 int wall_handle;
 int ground_handle;
 int tree_handle[TREE_NUM];
-StageModelHit st_model_hit;
+float s_dis;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
@@ -30,6 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     //--------------初期化関数
 
     Sph_init();//球の初期化
+    Obj_init();//不法投棄物の初期化
     Model_init();
     Camera_set();//カメラセット
     Model3d_load();//3Dモデル読み込み
@@ -51,13 +56,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //------------------------------計算関数
         Ground_model_hit();
         Camera_move();//カメラ動かす
-        //Model_hit_check();//モデル
-       
         
+       
+        if (Sph_hit_check(sph, obj)) {
+            Sph_hit(s_dis);
+            htdrow.hitflg = true;
+        }
+        /*Sph_hit(s_dis);*/
         //------------------------------描画関数
         Model3d_draw();//3Dモデル描画
-        DrawFormatString(100, 320, GetColor(255, 255, 255), "%.0f", sph[0].v0y);
-        DrawFormatString(100, 340, GetColor(255, 255, 255), "%.0f", sph[0].pos.y);
+
+        DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
+
+        if (htdrow.hitflg) { SetFontSize(30); DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離をさせる予定"); }
+
+        /*Model_hit();*/
         /*Model_hit();*/
 
         ScreenFlip();//裏画面の内容を表画面に反映する
