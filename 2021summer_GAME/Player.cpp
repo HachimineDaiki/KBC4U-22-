@@ -5,36 +5,53 @@
 #include"3Dmodel.h"
 bool p_zmoveflg = false;//前進に移動するフラグ
 float g = 9.81f; //地球の重力
-float gplayer_limits = 450;      //Xの範囲
-int glimits_verification[2] = { 0,900 }; //端の数値　0: 左の端 900 : 右の端
-bool gmoveflg = false;    //false:制限範囲内　true:制限範囲外
 
-//プレイヤー重力処理
 void Sph_Gravity() {
         //重力作成
        sph[0].v0y += g;
        sph[0].pos.y -= sph[0].v0y;
-       //重力の量が10以上だったら重力を消す。
+
        if (sph[0].v0y >= 10) {
            g = 0;
        }
+       DrawFormatString(100, 360, GetColor(255, 255, 255), "重力発生");
+        //if (sph[0].pos.y < ground.y  + sph[0].radius) {
+        //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
+        //    sph[0].pos.y = ground.y + sph[0].radius;
+        //    if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
+        //        sph[0].v0y = 0;
+        //    }
+        //}
+
+       DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
+       DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
 }
 
-//プレイヤー移動処理
 void P_move() {    
+    //if (p_zmoveflg == true) {
+    //    switch (Input_PlayerMoveDir())
+    //    {
+    //    case Left:/*sph[0].z += sph[0].speed;*/
+    //        /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+    //        break;
+    //    case Right:/*sph[0].x += sph[0].speed;*/
+    //        /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+    //        break;
+    //    }
+
+    //}
+
     //鉢嶺処理
     float p_vz2 = -20 * tan(5);
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
 
-    //Z方向に加速する処理
     sph[0].zmove += sph[0].zaccl;
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
-
-    //前進させるフラグがオンなら前進させる
+    //フラグが前進されているなら
    if (p_zmoveflg) {
        sph[0].pos.z += sph[0].zmove;
    }
@@ -58,9 +75,9 @@ void P_input_move() {
 
     switch (Input_PlayerMoveDir())
     {
-    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; gplayer_limits -= sph[0].speed;
+    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits -= sph[0].speed;
         break;
-    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1; gplayer_limits += sph[0].speed;
+    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits += sph[0].speed;
     }
 
     //判定処理
@@ -72,11 +89,11 @@ int Input_PlayerMoveDir() {
 
     int input_dir = -1;
 
-    if (CheckHitKey(KEY_INPUT_A))
+    if (CheckHitKey(KEY_INPUT_A)&& st_model_hit.glimits_verification[0] < st_model_hit.gplayer_limits)
     {
         input_dir = Left;
     }
-    if (CheckHitKey(KEY_INPUT_D))
+    if (CheckHitKey(KEY_INPUT_D) && st_model_hit.glimits_verification[1] > st_model_hit.gplayer_limits)
     {
         input_dir = Right;
     }
@@ -89,33 +106,4 @@ int Input_PlayerMoveDir() {
         input_dir = Up;
     }
     return input_dir;
-}
-
-//プレイヤーの左右移動範囲を制限する
-void Move_Limits()
-{
-    int lhit_magnification = 5;    //Xの移動範囲外にでた場合の戻す力の倍率
-
-    //左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
-    if (gplayer_limits <= glimits_verification[0] || gplayer_limits >= glimits_verification[1]) {
-        gmoveflg = true;
-    }
-
-    if (gmoveflg == true) {
-        //範囲内に戻す処理(左)
-        if (gplayer_limits < sph[0].speed * lhit_magnification) {
-            sph[0].pos.x += 10;
-            gplayer_limits += 10;
-        }
-        //範囲内に戻す処理(右)
-        else if (gplayer_limits > glimits_verification[1] - sph[0].speed * lhit_magnification) {
-            sph[0].pos.x -= 10;
-            gplayer_limits -= 10;
-        }
-        //フラグをもとに戻す
-        else {
-            sph[0].speed = 10.0f;
-            gmoveflg = false;
-        }
-    }
 }

@@ -327,3 +327,35 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 //		MV1CollResultPolyDimTerminate(HitPolyDim[i]);
 //	}
 //}
+
+//プレイヤーの左右移動範囲を制限する
+void Move_Limits()
+{
+	int lhit_magnification = 5;    //Xの移動範囲外にでた場合の戻す力の倍率
+
+	//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
+	if (st_model_hit.gplayer_limits <= st_model_hit.glimits_verification[0] || 
+		st_model_hit.gplayer_limits >= st_model_hit.glimits_verification[1]) {
+		st_model_hit.gmoveflg = true;
+	}
+
+	if (st_model_hit.gmoveflg == true&& sph[0].pos.z > 100.0f) {
+		//範囲内に戻す処理(左)
+		if (st_model_hit.gplayer_limits <= sph[0].zmove * lhit_magnification) {
+			sph[0].pos.x += 10;
+			st_model_hit.gplayer_limits += 10;
+		}
+		//範囲内に戻す処理(右)
+		else if (st_model_hit.gplayer_limits >= st_model_hit.glimits_verification[1] - sph[0].zmove * lhit_magnification) {
+			sph[0].pos.x -= 10;
+			st_model_hit.gplayer_limits -= 10;
+		}
+		//フラグをもとに戻す
+		else {
+			//sph[0].zmove = 0.0f;
+			//sph[0].zaccl = 2.0f;
+			st_model_hit.gmoveflg = false;
+			DrawFormatString(100, 200, GetColor(255, 255, 255), "[false]");
+		}
+	}
+}
