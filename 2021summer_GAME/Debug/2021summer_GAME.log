@@ -1,12 +1,7 @@
-﻿  Camera.cpp
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(44,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(45,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(51,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Camera.cpp(52,19): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  Hit_check.cpp
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Hit_check.cpp(319,31): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
+﻿  Hit_check.cpp
+D:\2021summer_GAME\2021summer_GAME\Hit_check.cpp(342,5): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
   Main.cpp
   Player.cpp
-C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Player.cpp(45,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Player.cpp(45,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
   コードを生成中...
-  2021summer_GAME.vcxproj -> C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Debug\2021summer_GAME.exe
+  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Debug\2021summer_GAME.exe

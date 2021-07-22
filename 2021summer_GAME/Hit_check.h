@@ -17,8 +17,8 @@
 #define STAGECOLLOBJ_MAXNUM			256		// 追加のコリジョンオブジェクトの最大数
 
 //プロトタイプ宣言
-//bool Sph_hit_check(Sph sp[]);
-//void Sph_hit();
+bool Sph_hit_check(Sph sp[], Sph ob);
+void Sph_hit(float dis);
 //void Model_hit_check();
 //void Model_hit();
 void Ground_model_hit();
@@ -57,5 +57,10 @@ struct StageModelHit
 };
 
 
+struct HitDrow
+{
+	bool hitflg;
+};
 
+extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
