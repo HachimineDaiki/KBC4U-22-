@@ -11,7 +11,7 @@ void Sph_Gravity() {
        sph[0].v0y += g;
        sph[0].pos.y -= sph[0].v0y;
 
-       if (sph[0].v0y >= 10) {
+       if (sph[0].v0y >= 80) {
            g = 0;
        }
        DrawFormatString(100, 360, GetColor(255, 255, 255), "d—Í”­¶");
@@ -42,12 +42,12 @@ void P_move() {
     //}
 
     //”«—äˆ—
-    float p_vz2 = -20 * tan(5);
+    float p_vz2 = -5 * tan(5);
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //‚Ç‚ñ‚Ç‚ñ‘¬‚³‚ð•Ï‚¦‚é
 
-    sph[0].zmove += sph[0].zaccl;
+    sph[0].zmove += p_vz2 * 0.05;
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
