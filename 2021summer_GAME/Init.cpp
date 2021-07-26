@@ -23,6 +23,15 @@ void Obj_init(){
 	obj.color = GetColor(0, 255, 100);
 }
 
+//Œ¸‘¬ƒGƒŠƒA‰Šú‰»
+void Decelearia_init() {
+	for (int i = 0; i < DECELEARIA_NUM;i++) {
+		deceleAria[i].pos = VGet(100.0f, 5471.0f, 1300.0f);
+		deceleAria[i].radius = 100.0f;
+		deceleAria[i].color = GetColor(255, 255, 0);
+	}
+}
+
 void Model_init() {
 	ground.x = 0.0f;
 	ground.y = 0.0f;

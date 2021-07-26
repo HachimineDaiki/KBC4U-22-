@@ -9,11 +9,13 @@
 MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
 Sph obj;
+Sph deceleAria[4];
 Model ground;
 Model rock;
 StageModelHit st_model_hit;
 HitDrow htdrow;
 VECTOR TempMoveVector;
+
 
 float  vx, vy, vz;
 int tree_handle[TREE_NUM];
@@ -81,6 +83,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
         
+
+        for (int i = 0; i < 4;i++) {
+            DrawSphere3D(deceleAria[i].pos, deceleAria[i].radius, 32, deceleAria[i].color, GetColor(255, 255, 255), TRUE);
+        }
+
+
         if (htdrow.hitflg) { SetFontSize(30); DrawFormatString(100, 340, GetColor(0, 255, 255), "”ò‚Î‚µ‚½‹——£‚ð‚³‚¹‚é—\’è"); }
 
         /*Model_hit();*/
