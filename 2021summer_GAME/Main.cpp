@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "3Dmodel.h"
+#include "Param_Info.h"
 
 MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
@@ -12,16 +13,29 @@ Model ground;
 Model rock;
 StageModelHit st_model_hit;
 HitDrow htdrow;
+VECTOR TempMoveVector;
 
 float  vx, vy, vz;
 int tree_handle[TREE_NUM];
 float s_dis;
 bool p_zmoveflg;
 
+
+float sinParam;
+float cosParam;
+float cameraHAngle;
+float  cameraVAngle;
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    // 画面モードの設定
-    SetGraphMode(1920,1080, 32);
-    ChangeWindowMode(FALSE);
+    //// 画面モードの設定
+    //SetGraphMode(1920,1080, 32);
+    //ChangeWindowMode(FALSE);
+
+    // ウインドウモードで起動
+    ChangeWindowMode(TRUE);
+
+    SetGraphMode(1024, 768, 32);
+
     SetBackgroundColor(70, 130, 180);
 
     if (DxLib_Init() < 0)
@@ -72,6 +86,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         /*Model_hit();*/
         /*Model_hit();*/
 
+        DrawParam_Info();
 
         if (sph[0].pos.y <= -12000) {
             sph[0].pos.y = -12000;

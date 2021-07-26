@@ -13,4 +13,5 @@ enum Dir { Left, Right, Down, Up };
 
 extern float s_dis;
 extern bool p_zmoveflg;//前進に移動するフラグ
+extern VECTOR TempMoveVector;
 //void accl(); // 加速

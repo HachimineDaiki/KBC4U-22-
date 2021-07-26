@@ -54,10 +54,9 @@ void P_move() {
     //    }
 
     //}
-
     //フラグが前進されているなら
    if (p_zmoveflg) {
-       sph[0].pos.z += sph[0].zmove;
+   //    sph[0].pos.z += sph[0].zmove;
    }
 
    Accl();//accelerator処理

@@ -1,6 +1,8 @@
 #include <DxLib.h>
 #include <math.h>
 #include "Init.h"
+#include "Camera.h"
+#include "Player.h"
 
 
 
@@ -17,15 +19,12 @@
 #define CAMERA_LOOK_AT_DISTANCE    1000.0f
 
 
-float  cameraHAngle;
-float  cameraVAngle;
-float  sinParam;
-float  cosParam;
+
 
 void Camera_set() {
 	// カメラの向きを初期化
 	cameraHAngle = 0.0f;
-	cameraVAngle = 25.0f;
+	cameraVAngle = 45.0f;
 }
 
 void Camera_move() {
@@ -64,20 +63,22 @@ void Camera_move() {
     // カメラの設定に反映する
     SetCameraPositionAndTarget_UpVecY(cameraPosition, cameraLookAtPosition);
     // キーが押されてなければまっすぐに向く
-    if (CheckHitKeyAll() == 0) {
-        if (cameraHAngle > 0) {
-            cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
-            if (cameraHAngle <= 0.0f)
-            {
-                cameraHAngle = 0.0f;
-            }
-        }
-        else if (cameraHAngle < 0) {
-            cameraHAngle += CAMERA_ANGLE_SPEED / 2;
-            if (cameraHAngle >= 0.0f)
-            {
-                cameraHAngle = 0.0f;
-            }
+    if (p_zmoveflg == true) {
+        if (CheckHitKeyAll() == 0) {
+            //if (cameraHAngle > 0) {
+            //    cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
+            //    if (cameraHAngle <= 0.0f)
+            //    {
+            //        cameraHAngle = 0.0f;
+            //    }
+            //}
+            //else if (cameraHAngle < 0) {
+            //    cameraHAngle += CAMERA_ANGLE_SPEED / 2;
+            //    if (cameraHAngle >= 0.0f)
+            //    {
+            //        cameraHAngle = 0.0f;
+            //    }
+            //}
         }
     }
 
@@ -104,9 +105,9 @@ void Input_camera_move() {
     if (CheckHitKey(KEY_INPUT_LEFT) == 1)
     {
         cameraHAngle += CAMERA_ANGLE_SPEED;
-        if (cameraHAngle >= 90.0f)
+        if (cameraHAngle >= 180.0f)
         {
-            cameraHAngle = 90.0f;
+            cameraHAngle -= 360.0f;
         }
     }
     if (CheckHitKey(KEY_INPUT_RIGHT) == 1)
@@ -117,22 +118,24 @@ void Input_camera_move() {
             cameraHAngle += 360.0f;
         }
     }
-    if (CheckHitKey(KEY_INPUT_A) == 1)
-    {
-        cameraHAngle += CAMERA_ANGLE_SPEED / 2;  
-        if (cameraHAngle >= 90.0f)
+    if (p_zmoveflg == true) {
+        if (CheckHitKey(KEY_INPUT_A) == 1)
         {
-            cameraHAngle = 90.0f;
-        }
+            cameraHAngle += CAMERA_ANGLE_SPEED / 2;
+            if (cameraHAngle >= 90.0f)
+            {
+                cameraHAngle = 90.0f;
+            }
 
-    }
-    if (CheckHitKey(KEY_INPUT_D) == 1)
-    {
-        cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
-        if (cameraHAngle <= -90) {
-            cameraHAngle = -90.0f;
         }
+        if (CheckHitKey(KEY_INPUT_D) == 1)
+        {
+            cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
+            if (cameraHAngle <= -90) {
+                cameraHAngle = -90.0f;
+            }
 
+        }
     }
 }
 
