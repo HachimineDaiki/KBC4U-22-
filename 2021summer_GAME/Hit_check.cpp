@@ -69,27 +69,30 @@ void Ground_model_hit() {
 	Sph_Gravity();//重力
 	/*DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);*/
 	// 移動ボタンが押されたかどうかで処理を分岐
-	if (st_model_hit.MoveFlag == 1 || p_zmoveflg == true)
+	if (st_model_hit.MoveFlag == 1)
 	{
 		// 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
 		st_model_hit.TargetMoveDirection = VNorm(st_model_hit.movepos);
 		/*DrawFormatString(100, 200, GetColor(255, 255, 255), " %.1f , %.1f , %.1f ", st_model_hit.TargetMoveDirection.x, st_model_hit.TargetMoveDirection.y, st_model_hit.TargetMoveDirection.z);*/
 		// プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
 		st_model_hit.movepos = VScale(st_model_hit.TargetMoveDirection, sph[0].speed);
-		st_model_hit.movepos.z = st_model_hit.movepos.z + sph[0].zmove;
-		if (p_zmoveflg == true) {
 
-			// カメラの角度に合わせて移動ベクトルを回転してから加算
-			sinParam = (float)sin(cameraHAngle / 180.0f * DX_PI_F);
-			cosParam = (float)cos(cameraHAngle / 180.0f * DX_PI_F);
-			TempMoveVector.x = st_model_hit.movepos.x * cosParam - st_model_hit.movepos.z * sinParam;
-			TempMoveVector.y = 0.0f;
-			TempMoveVector.z = st_model_hit.movepos.x * sinParam + st_model_hit.movepos.z * cosParam;
-
-			st_model_hit.movepos = TempMoveVector;
-		}
 
 		/*DrawFormatString(100, 230, GetColor(255, 0, 0), "Vscale %.1f , %.1f , %.1f ", st_model_hit.movepos.x, st_model_hit.movepos.y, st_model_hit.movepos.z);*/
+	}
+	if (p_zmoveflg == true) {
+
+		st_model_hit.movepos.z = st_model_hit.movepos.z + sph[0].zmove;
+
+		// カメラの角度に合わせて移動ベクトルを回転してから加算
+		sinParam = (float)sin(cameraHAngle / 180.0f * DX_PI_F);
+		cosParam = (float)cos(cameraHAngle / 180.0f * DX_PI_F);
+		// 各ベクトルごとに計算yは放置
+		TempMoveVector.x = st_model_hit.movepos.x * cosParam - st_model_hit.movepos.z * sinParam;
+		TempMoveVector.y = 0.0f;
+		TempMoveVector.z = st_model_hit.movepos.x * sinParam + st_model_hit.movepos.z * cosParam;
+
+		st_model_hit.movepos = TempMoveVector;
 	}
 
 	Ground_model_hit_check(st_model_hit.movepos);

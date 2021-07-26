@@ -83,6 +83,7 @@ void P_input_move() {
     case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits -= sph[0].speed;
         break;
     case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits += sph[0].speed;
+        break;
     }
 
     //”»’èˆ—
