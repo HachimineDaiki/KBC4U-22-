@@ -29,14 +29,14 @@ float cameraHAngle;
 float  cameraVAngle;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    //// 画面モードの設定
-    //SetGraphMode(1920,1080, 32);
-    //ChangeWindowMode(FALSE);
+    // 画面モードの設定
+    SetGraphMode(1920,1080, 32);
+    ChangeWindowMode(FALSE);
 
-    // ウインドウモードで起動
-    ChangeWindowMode(TRUE);
+    //// ウインドウモードで起動
+    //ChangeWindowMode(TRUE);
 
-    SetGraphMode(1024, 768, 32);
+    //SetGraphMode(800, 600, 32);
 
     SetBackgroundColor(70, 130, 180);
 
