@@ -26,6 +26,7 @@ float cosParam;
 float cameraHAngle;
 float  cameraVAngle;
 
+float merikomi;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
@@ -74,6 +75,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             Sph_hit(s_dis);
             htdrow.hitflg = true;
         }
+         if (htdrow.hitflg) {
+                obj.pos.x += 1;
+                 obj.pos.y += 30 * cos(10)*10;
+                 obj.pos.z += 200 * tan(10)*10;
+                 //obj.pos.x += 90 * tan(5);
+                DrawFormatString(100,600, GetColor(0, 255, 255),"[x %.0f][y %.0f][z %.0f]",obj.pos.x,obj.pos.y,obj.pos.z);
+               
+         }
+
 
         //減速エリアに入っているかチェック
         decel.hit_flg = false;//減速フラグ

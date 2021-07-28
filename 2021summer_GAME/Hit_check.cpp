@@ -58,13 +58,13 @@ void Sph_hit(float dis) {
 	merikomi /= 2.0f; //ñﬂÇ∑ó 
 
 	//ÇﬂÇËçûÇ›èCê≥
-	sph[0].pos.x -= sph[0].v.x * merikomi; 
-	sph[0].pos.y -= sph[0].v.y * merikomi;
-	sph[0].pos.z -= sph[0].v.z * merikomi;
+	//sph[0].pos.x -= sph[0].v.x * merikomi; 
+	//sph[0].pos.y -= sph[0].v.y * merikomi;
+	//sph[0].pos.z -= sph[0].v.z * merikomi;
 
-	obj.pos.x += sph[0].v.x * merikomi;
-	obj.pos.y += sph[0].v.y * merikomi;
-	obj.pos.z += sph[0].v.z * merikomi;
+	//obj.pos.x += sph[0].v.x * merikomi;
+	//obj.pos.y += sph[0].v.y * merikomi;
+	//obj.pos.z += sph[0].v.z * merikomi;
 }
 
 void Ground_model_hit() {
