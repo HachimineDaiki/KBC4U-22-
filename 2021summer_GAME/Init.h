@@ -25,3 +25,5 @@ void Decelearia_init();
 extern Sph sph[2];//プレイヤー
 extern Sph obj;//不法投棄物
 extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
+
+extern float merikomi;
