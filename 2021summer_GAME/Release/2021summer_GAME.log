@@ -1,7 +1,7 @@
-﻿  Hit_check.cpp
-D:\2021summer_GAME\2021summer_GAME\Hit_check.cpp(370,5): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
+﻿  Main.cpp
+D:\2021summer_GAME\2021summer_GAME\Main.cpp(80,38): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
   コード生成しています。
-  2 of 31 functions ( 6.5%) were compiled, the rest were copied from previous compilation.
+  3 of 31 functions ( 9.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。

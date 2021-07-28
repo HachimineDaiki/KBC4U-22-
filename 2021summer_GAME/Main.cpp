@@ -75,6 +75,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             htdrow.hitflg = true;
         }
 
+        if (htdrow.hitflg) {
+
+            obj.zmove += - 5 * tan(5);
+        }
+
         //減速エリアに入っているかチェック
         decel.hit_flg = false;//減速フラグ
         for (int i = 0; i < DECELEARIA_NUM; i++) {
