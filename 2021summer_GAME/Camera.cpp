@@ -122,17 +122,17 @@ void Input_camera_move() {
         if (CheckHitKey(KEY_INPUT_A) == 1)
         {
             cameraHAngle += CAMERA_ANGLE_SPEED / 2;
-            if (cameraHAngle >= 90.0f)
+            if (cameraHAngle >= 45.0f)
             {
-                cameraHAngle = 90.0f;
+                cameraHAngle = 45.0f;
             }
 
         }
         if (CheckHitKey(KEY_INPUT_D) == 1)
         {
             cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
-            if (cameraHAngle <= -90) {
-                cameraHAngle = -90.0f;
+            if (cameraHAngle <= -45.0f) {
+                cameraHAngle = -45.0f;
             }
 
         }

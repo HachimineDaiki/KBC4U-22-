@@ -22,8 +22,8 @@ void Sph_Gravity() {
         //    }
         //}
 
-       DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
-       DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
+ /*      DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
+       DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);*/
 }
 void Accl() {
     //鉢嶺処理
@@ -33,7 +33,7 @@ void Accl() {
     //p_vz2 / 30; //どんどん速さを変える
 
     if (p_zmoveflg) {
-        sph[0].zmove += p_vz2 * 0.02;
+        sph[0].zmove += p_vz2 * sph[0].control;
     }
 
     if (sph[0].zmove >= 50.0f) {
@@ -60,7 +60,6 @@ void P_move() {
    }
 
    Accl();//accelerator処理
-   DrawFormatString(100, 300, GetColor(255, 255, 255), "p_zmove%f", sph[0].zmove);
    //押されている方向をテキスト表示
     switch (Input_PlayerMoveDir())
     {

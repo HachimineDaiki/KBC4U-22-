@@ -10,11 +10,10 @@ void Sph_init() {
 		sph[i].color = GetColor(255, 255, 255);
 		sph[i].zaccl = 2.0f;
 		sph[i].zmove = 0.0f;
+		sph[i].control = 0.02f;
 	}
 	
-	vx = 0.0f;
-	vy = 0.0f;
-	vz = 0.0f;
+	sph[0].v = VGet(0.0f, 0.0f, 0.0f);
 }
 
 void Obj_init(){
@@ -26,10 +25,16 @@ void Obj_init(){
 //å∏ë¨ÉGÉäÉAèâä˙âª
 void Decelearia_init() {
 	for (int i = 0; i < DECELEARIA_NUM;i++) {
-		deceleAria[i].pos = VGet(100.0f, 5471.0f, 1300.0f);
-		deceleAria[i].radius = 100.0f;
-		deceleAria[i].color = GetColor(255, 255, 0);
+		decelearia[i].radius = 500.0f;
+		decelearia[i].color = GetColor(255, 0, 0);
+		decelearia[i].v = VGet(0.0f, 0.0f, 0.0f);
 	}
+
+	decelearia[0].pos = VGet(-1000.0f, 3800.0f, 5000.0f);
+	decelearia[1].pos = VGet(2000.0f, 3800.0f, 5000.0f);
+	decelearia[2].pos = VGet(0.0f, 2000.0f, 10000.0f);
+	decelearia[3].pos = VGet(-1000.0f, 300.0f, 15000.0f);
+	decelearia[4].pos = VGet(2000.0f, 300.0f, 15000.0f);
 }
 
 void Model_init() {

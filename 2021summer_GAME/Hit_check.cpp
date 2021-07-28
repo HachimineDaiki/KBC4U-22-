@@ -19,44 +19,55 @@ STAGE stg;
 
 //球同士当たり判定
 bool Sph_hit_check(Sph sp[], Sph ob) {
-	vx = ob.pos.x - sp[0].pos.x;//x成分
-	vy = ob.pos.y - sp[0].pos.y;//y成分
-	vz = ob.pos.z - sp[0].pos.z;//z成分
+	sph[0].v.x = ob.pos.x - sp[0].pos.x;//x成分
+	sph[0].v.y = ob.pos.y - sp[0].pos.y;//y成分
+	sph[0].v.z = ob.pos.z - sp[0].pos.z;//z成分
 
-	s_dis = vx * vx + vy * vy + vz * vz;//2点間の距離
+	s_dis = sph[0].v.x * sph[0].v.x + sph[0].v.y * sph[0].v.y + sph[0].v.z * sph[0].v.z;//2点間の距離
 
 	float radius_sum = (sp[0].radius + ob.radius) * (sp[0].radius + ob.radius); //半径の和
 	return s_dis < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
 }
 
+bool Decel_aria_check(Sph sp[], Sph decele[],int i) {
+		decelearia[i].v.x = decele[i].pos.x - sp[0].pos.x;
+		decelearia[i].v.y = decele[i].pos.y - sp[0].pos.y;
+		decelearia[i].v.z = decele[i].pos.z - sp[0].pos.z;
+
+		decelearia[i].dis = decelearia[i].v.x * decelearia[i].v.x + decelearia[i].v.y * decelearia[i].v.y + decelearia[i].v.z * decelearia[i].v.z;
+		decelearia[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
+		return decelearia[i].dis < decelearia[i].radius_sum ? true : false;
+}
+
+void Decel_aria_effect() {
+	sph[0].zmove *= 0.93f;
+}
+
 //球と球の当たり判定を検知した後の処理
 void Sph_hit(float dis) {
-	float len = sqrtf(dis);
-	float radius_sum = sph[0].radius + obj.radius;
-	float merikomi = radius_sum - len;
+	float len = sqrtf(dis);//距離 sqrtf floatの平方根
+	float radius_sum = sph[0].radius + obj.radius;//半径の和
+	float merikomi = radius_sum - len;//めり込んでいる量を出す。 半径の和から　2点の長さを引く
 
-	if (len > 0) len = 1 / len;
+	if (len > 0) len = 1 / len; //単位ベクトル
 
-	vx *= len;
-	vy *= len;
-	vz *= len;
+	sph[0].v.x *= len;
+	sph[0].v.y *= len;
+	sph[0].v.z *= len;
 
-	merikomi /= 2.0f;
-	DrawFormatString(100, 140, GetColor(255, 255, 255), "[vx %.0f] [vy %.0f] [vz %.0f]", vx, vy, vz);
+	merikomi /= 2.0f; //戻す量
 
-	sph[0].pos.x -= vx * merikomi;
-	sph[0].pos.y -= vy * merikomi;
-	sph[0].pos.z -= vz * merikomi;
+	//めり込み修正
+	sph[0].pos.x -= sph[0].v.x * merikomi; 
+	sph[0].pos.y -= sph[0].v.y * merikomi;
+	sph[0].pos.z -= sph[0].v.z * merikomi;
 
-	obj.pos.x += vx * merikomi;
-	obj.pos.y += vy * merikomi;
-	obj.pos.z += vz * merikomi;
+	obj.pos.x += sph[0].v.x * merikomi;
+	obj.pos.y += sph[0].v.y * merikomi;
+	obj.pos.z += sph[0].v.z * merikomi;
 }
 
 void Ground_model_hit() {
-
-
-	
 	st_model_hit.movepos = VGet(0.0f, 0.0f,0.0f);//移動ベクトル
 	st_model_hit.MoveFlag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
 

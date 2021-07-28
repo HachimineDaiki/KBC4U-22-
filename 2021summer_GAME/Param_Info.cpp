@@ -7,9 +7,6 @@
 #include "3Dmodel.h"
 #include "Param_Info.h"
 
-
-
-
 void DrawParam_Info() {
 
     //// Camera.cppで使用している変数の数値など
@@ -19,7 +16,6 @@ void DrawParam_Info() {
 
     //// Hit_check.cppで使用している変数の数値など ////
     // 関数　Sph_hit(float dis)　で使用
-    DrawFormatString(100, 140, GetColor(255, 255, 255), "[vx %.0f] [vy %.0f] [vz %.0f]", vx, vy, vz);
 
     // 関数 Ground_model_hit_check(VECTOR MoveVector) で使用
     DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
