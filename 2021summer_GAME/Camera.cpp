@@ -119,7 +119,7 @@ void Input_camera_move() {
         }
     }
     if (p_zmoveflg == true) {
-        if (sph[0].pos.z >= st_model_hit.branch_point[0] && sph[0].pos.z <= st_model_hit.branch_point[0] + 5000) {
+        if (sph[0].pos.z >= branch.branch_point[branch.branch_position]) {
             if (CheckHitKey(KEY_INPUT_A) == 1)
             {
                 cameraHAngle += CAMERA_ANGLE_SPEED / 2;

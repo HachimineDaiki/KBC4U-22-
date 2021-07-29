@@ -23,7 +23,8 @@ void DrawParam_Info() {
 
     ////Player.cppで使用している変数の数値など
     //DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
-
+    /*if(st_model_hit.gmoveflg==true)DrawFormatString(100, 200, GetColor(255, 255, 255), "true");
+    if (st_model_hit.gmoveflg == false)DrawFormatString(100, 200, GetColor(255, 255, 255), "false");*/
     DrawFormatString(100, 300, GetColor(255, 255, 255), "スピード [ %.0f /150 ]", sph[0].zmove);
 
  /*   switch (Input_PlayerMoveDir())
