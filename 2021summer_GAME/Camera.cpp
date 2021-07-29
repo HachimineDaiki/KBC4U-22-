@@ -3,6 +3,7 @@
 #include "Init.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Hit_check.h"
 
 
 
@@ -17,7 +18,6 @@
 
 // ƒJƒƒ‰‚Æ’Ž‹“_‚Ì‹——£
 #define CAMERA_LOOK_AT_DISTANCE    1000.0f
-
 
 
 
@@ -119,22 +119,24 @@ void Input_camera_move() {
         }
     }
     if (p_zmoveflg == true) {
-        if (CheckHitKey(KEY_INPUT_A) == 1)
-        {
-            cameraHAngle += CAMERA_ANGLE_SPEED / 2;
-            if (cameraHAngle >= 45.0f)
+        if (sph[0].pos.z >= st_model_hit.branch_point[0] && sph[0].pos.z <= st_model_hit.branch_point[0] + 5000) {
+            if (CheckHitKey(KEY_INPUT_A) == 1)
             {
-                cameraHAngle = 45.0f;
-            }
+                cameraHAngle += CAMERA_ANGLE_SPEED / 2;
+                if (cameraHAngle >= 45.0f)
+                {
+                    cameraHAngle = 45.0f;
+                }
 
-        }
-        if (CheckHitKey(KEY_INPUT_D) == 1)
-        {
-            cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
-            if (cameraHAngle <= -45.0f) {
-                cameraHAngle = -45.0f;
             }
+            if (CheckHitKey(KEY_INPUT_D) == 1)
+            {
+                cameraHAngle -= CAMERA_ANGLE_SPEED / 2;
+                if (cameraHAngle <= -45.0f) {
+                    cameraHAngle = -45.0f;
+                }
 
+            }
         }
     }
 }

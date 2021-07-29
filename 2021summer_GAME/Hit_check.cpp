@@ -29,14 +29,14 @@ bool Sph_hit_check(Sph sp[], Sph ob) {
 	return s_dis < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
 }
 
-bool Decel_aria_check(Sph sp[], Sph decele[],int i) {
-		decelearia[i].v.x = decele[i].pos.x - sp[0].pos.x;
-		decelearia[i].v.y = decele[i].pos.y - sp[0].pos.y;
-		decelearia[i].v.z = decele[i].pos.z - sp[0].pos.z;
+bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
+	decelearia[i].v.x = decele[i].pos.x - sp[0].pos.x;
+	decelearia[i].v.y = decele[i].pos.y - sp[0].pos.y;
+	decelearia[i].v.z = decele[i].pos.z - sp[0].pos.z;
 
-		decelearia[i].dis = decelearia[i].v.x * decelearia[i].v.x + decelearia[i].v.y * decelearia[i].v.y + decelearia[i].v.z * decelearia[i].v.z;
-		decelearia[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
-		return decelearia[i].dis < decelearia[i].radius_sum ? true : false;
+	decelearia[i].dis = decelearia[i].v.x * decelearia[i].v.x + decelearia[i].v.y * decelearia[i].v.y + decelearia[i].v.z * decelearia[i].v.z;
+	decelearia[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
+	return decelearia[i].dis < decelearia[i].radius_sum ? true : false;
 }
 
 void Decel_aria_effect() {
@@ -45,17 +45,17 @@ void Decel_aria_effect() {
 
 //球と球の当たり判定を検知した後の処理
 void Sph_hit(float dis) {
-	float len = sqrtf(dis);//距離 sqrtf floatの平方根
-	float radius_sum = sph[0].radius + obj.radius;//半径の和
-	float merikomi = radius_sum - len;//めり込んでいる量を出す。 半径の和から　2点の長さを引く
+	float len = sqrtf(dis);
+	float radius_sum = sph[0].radius + obj.radius;
+	float merikomi = radius_sum - len;
 
-	if (len > 0) len = 1 / len; //単位ベクトル
+	if (len > 0) len = 1 / len;
 
 	sph[0].v.x *= len;
 	sph[0].v.y *= len;
 	sph[0].v.z *= len;
 
-	merikomi /= 2.0f; //戻す量
+	merikomi /= 2.0f;
 
 	//めり込み修正
 	//sph[0].pos.x -= sph[0].v.x * merikomi; 
@@ -94,16 +94,19 @@ void Ground_model_hit() {
 	if (p_zmoveflg == true) {
 
 		st_model_hit.movepos.z = st_model_hit.movepos.z + sph[0].zmove;
+		
+		if (st_model_hit.gmoveflg == false) {
+			// カメラの角度に合わせて移動ベクトルを回転してから加算
+			sinParam = (float)sin(cameraHAngle / 180.0f * DX_PI_F);
+			cosParam = (float)cos(cameraHAngle / 180.0f * DX_PI_F);
+			// 各ベクトルごとに計算yは放置
 
-		// カメラの角度に合わせて移動ベクトルを回転してから加算
-		sinParam = (float)sin(cameraHAngle / 180.0f * DX_PI_F);
-		cosParam = (float)cos(cameraHAngle / 180.0f * DX_PI_F);
-		// 各ベクトルごとに計算yは放置
-		TempMoveVector.x = st_model_hit.movepos.x * cosParam - st_model_hit.movepos.z * sinParam;
-		TempMoveVector.y = 0.0f;
-		TempMoveVector.z = st_model_hit.movepos.x * sinParam + st_model_hit.movepos.z * cosParam;
+			TempMoveVector.x = st_model_hit.movepos.x * cosParam - st_model_hit.movepos.z * sinParam;
+			TempMoveVector.y = 0.0f;
+			TempMoveVector.z = st_model_hit.movepos.x * sinParam + st_model_hit.movepos.z * cosParam;
 
-		st_model_hit.movepos = TempMoveVector;
+			st_model_hit.movepos = TempMoveVector;
+		}
 	}
 
 	Ground_model_hit_check(st_model_hit.movepos);
@@ -359,31 +362,35 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 //プレイヤーの左右移動範囲を制限する
 void Move_Limits()
 {
-	int lhit_magnification = 5;    //Xの移動範囲外にでた場合の戻す力の倍率
+	//球自体のX座標をもとに作る
+	int lhit_magnification = 2;    //Xの移動範囲外にでた場合の戻す力の倍率
+	//仮
+	static VECTOR player_before_pos = VGet(0.0f, 0.0f, 0.0f);
 
-	//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
-	if (st_model_hit.gplayer_limits <= st_model_hit.glimits_verification[0] || 
-		st_model_hit.gplayer_limits >= st_model_hit.glimits_verification[1]) {
-		st_model_hit.gmoveflg = true;
-	}
+	if (sph[0].pos.z < st_model_hit.branch_point[0] && sph[0].pos.y < 5470.0f) {
+		//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
+		if ((sph[0].pos.x <= st_model_hit.glimits_verification[0] ||
+			sph[0].pos.x >= st_model_hit.glimits_verification[1]) && st_model_hit.gmoveflg != true) {
+			st_model_hit.gmoveflg = true;
+			player_before_pos = sph[0].pos;
+		}
 
-	if (st_model_hit.gmoveflg == true&& sph[0].pos.z > 100.0f) {
-		//範囲内に戻す処理(左)
-		if (st_model_hit.gplayer_limits <= sph[0].zmove * lhit_magnification) {
-			sph[0].pos.x += 10;
-			st_model_hit.gplayer_limits += 10;
-		}
-		//範囲内に戻す処理(右)
-		else if (st_model_hit.gplayer_limits >= st_model_hit.glimits_verification[1] - sph[0].zmove * lhit_magnification) {
-			sph[0].pos.x -= 10;
-			st_model_hit.gplayer_limits -= 10;
-		}
-		//フラグをもとに戻す
-		else {
-			//sph[0].zmove = 0.0f;
-			//sph[0].zaccl = 2.0f;
-			st_model_hit.gmoveflg = false;
-			DrawFormatString(100, 200, GetColor(255, 255, 255), "[false]");
+		if (st_model_hit.gmoveflg == true) {
+			//範囲内に戻す処理(左)
+			if (sph[0].pos.x <= player_before_pos.x + sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 1) {
+				sph[0].pos.x += 10;
+			}
+			//範囲内に戻す処理(右)
+			else if (sph[0].pos.x >= player_before_pos.x - sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 2) {
+				sph[0].pos.x -= 10;
+			}
+			//フラグをもとに戻す
+			else {
+				//sph[0].zmove = 0.0f;
+				//sph[0].zaccl = 2.0f;
+				st_model_hit.gmoveflg = false;
+			}
+
 		}
 	}
 }

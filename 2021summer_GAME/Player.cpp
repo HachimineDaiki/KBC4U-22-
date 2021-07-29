@@ -21,9 +21,6 @@ void Sph_Gravity() {
         //        sph[0].v0y = 0;
         //    }
         //}
-
- /*      DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
-       DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);*/
 }
 void Accl() {
     //”«—äˆ—
@@ -79,9 +76,9 @@ void P_input_move() {
 
     switch (Input_PlayerMoveDir())
     {
-    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits -= sph[0].speed;
+    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; 
         break;
-    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits += sph[0].speed;
+    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
         break;
     }
 
@@ -93,15 +90,31 @@ void P_input_move() {
 int Input_PlayerMoveDir() {
 
     int input_dir = -1;
+    
+    if (p_zmoveflg==false) {
+        if (CheckHitKey(KEY_INPUT_A)&& sph[0].pos.x > st_model_hit.glimits_verification[0]+10)
+        {
+            input_dir = Left;
+        }
+        if (CheckHitKey(KEY_INPUT_D) && sph[0].pos.x < st_model_hit.glimits_verification[1]-10)
+        {
+            input_dir = Right;
+        }
+    }
+    else {
+        if (CheckHitKey(KEY_INPUT_A)&&st_model_hit.gmoveflg == false)
+        {
+            input_dir = Left;
+            st_model_hit.landr_move = 1;
+        }
+        if (CheckHitKey(KEY_INPUT_D) && st_model_hit.gmoveflg == false)
+        {
+            input_dir = Right;
+            st_model_hit.landr_move = 2;
+        }
 
-    if (CheckHitKey(KEY_INPUT_A)&& st_model_hit.glimits_verification[0] < st_model_hit.gplayer_limits)
-    {
-        input_dir = Left;
     }
-    if (CheckHitKey(KEY_INPUT_D) && st_model_hit.glimits_verification[1] > st_model_hit.gplayer_limits)
-    {
-        input_dir = Right;
-    }
+
     if (CheckHitKey(KEY_INPUT_S))
     {
         input_dir = Down;

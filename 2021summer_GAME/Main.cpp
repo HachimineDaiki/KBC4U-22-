@@ -69,31 +69,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //------------------------------計算関数
         Ground_model_hit();
         Camera_move();//カメラ動かす
-       
-        //不法投棄物とプレイヤーの当たり判定
+        
+       //不法投棄物とプレイヤーの当たり判定
         if (Sph_hit_check(sph, obj)) {
             Sph_hit(s_dis);
             htdrow.hitflg = true;
         }
-         if (htdrow.hitflg) {
-                obj.pos.x += 1;
-                 obj.pos.y += 30 * cos(10)*10;
-                 obj.pos.z += 200 * tan(10)*10;
-                 //obj.pos.x += 90 * tan(5);
-                DrawFormatString(100,600, GetColor(0, 255, 255),"[x %.0f][y %.0f][z %.0f]",obj.pos.x,obj.pos.y,obj.pos.z);
-               
-         }
+        if (htdrow.hitflg) {
+            obj.pos.x += 1;
+            obj.pos.y += 30 * cos(10) * 10;
+            obj.pos.z += 200 * tan(10) * 10;
+            //obj.pos.x += 90 * tan(5);
+            DrawFormatString(100, 600, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
 
+        }
 
         if (htdrow.hitflg) {
 
-            obj.zmove += - 5 * tan(5);
+            obj.zmove += -5 * tan(5);
         }
 
         //減速エリアに入っているかチェック
         decel.hit_flg = false;//減速フラグ
         for (int i = 0; i < DECELEARIA_NUM; i++) {
-            if (Decel_aria_check(sph, decelearia,i)) {
+            if (Decel_aria_check(sph, decelearia, i)) {
                 decel.hit_flg = true;//当たったら減速のフラグをON
             }
         }
@@ -103,17 +102,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             p_zmoveflg = false;
         }
 
-        
         //------------------------------描画関数
         Model3d_draw();//3Dモデル描画
          //第二引数の回転角度をセット
         MV1SetRotationXYZ(rock.handle, VGet(sph[0].pos.z, 0.0f, 0.0f));
         //不法投棄物描画
         DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-        
+
 
         //減速エリア描画
-        for (int i = 0; i < DECELEARIA_NUM;i++) {
+        for (int i = 0; i < DECELEARIA_NUM; i++) {
             SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);		//ブレンドモードをα(128/255)に設定
             DrawSphere3D(decelearia[i].pos, decelearia[i].radius, 32, decelearia[i].color, GetColor(255, 255, 255), TRUE);
             SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
@@ -128,7 +126,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
 
         //不法投棄物に当たった時に表示させるもの
-        if (htdrow.hitflg) {  DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離を表示させる予定"); }
+        if (htdrow.hitflg) { DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離を表示させる予定"); }
 
         DrawParam_Info();
 

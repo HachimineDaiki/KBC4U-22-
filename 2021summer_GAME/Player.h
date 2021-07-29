@@ -9,7 +9,7 @@ void P_move();//プレイヤー動き
 void Sph_Gravity();//プレイヤー重力
 void Accl();//加速処理
 
-enum Dir { Left, Right, Down, Up };//方向 列挙体
+enum Dir { Left, Right, Down, Up };
 
 extern float s_dis;
 extern bool p_zmoveflg;//前進に移動するフラグ

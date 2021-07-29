@@ -22,10 +22,9 @@ void DrawParam_Info() {
 
 
     //Player.cpp‚Åg—p‚µ‚Ä‚¢‚é•Ï”‚Ì”’l‚È‚Ç
-    DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
     DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
 
-	DrawFormatString(100, 300, GetColor(255, 255, 255), "p_zmove%f", sph[0].zmove);
+    DrawFormatString(100, 300, GetColor(255, 255, 255), "p_zmove%f", sph[0].zmove);
 
     switch (Input_PlayerMoveDir())
     {

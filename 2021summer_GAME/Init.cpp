@@ -24,7 +24,7 @@ void Obj_init(){
 
 //Œ¸‘¬ƒGƒŠƒA‰Šú‰»
 void Decelearia_init() {
-	for (int i = 0; i < DECELEARIA_NUM;i++) {
+	for (int i = 0; i < DECELEARIA_NUM; i++) {
 		decelearia[i].radius = 500.0f;
 		decelearia[i].color = GetColor(255, 0, 0);
 		decelearia[i].v = VGet(0.0f, 0.0f, 0.0f);
