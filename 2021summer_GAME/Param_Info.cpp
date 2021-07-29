@@ -18,15 +18,15 @@ void DrawParam_Info() {
     // 関数　Sph_hit(float dis)　で使用
 
     // 関数 Ground_model_hit_check(VECTOR MoveVector) で使用
-    DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+   /* DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);*/
 
 
-    //Player.cppで使用している変数の数値など
-    DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
+    ////Player.cppで使用している変数の数値など
+    //DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
 
-    DrawFormatString(100, 300, GetColor(255, 255, 255), "p_zmove%f", sph[0].zmove);
+    DrawFormatString(100, 300, GetColor(255, 255, 255), "スピード [ %.0f /150 ]", sph[0].zmove);
 
-    switch (Input_PlayerMoveDir())
+ /*   switch (Input_PlayerMoveDir())
     {
     case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
         break;
@@ -34,5 +34,5 @@ void DrawParam_Info() {
         break;
     case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
         break;
-    }
+    }*/
 }

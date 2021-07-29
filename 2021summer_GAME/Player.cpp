@@ -13,7 +13,6 @@ void Sph_Gravity() {
        if (sph[0].v0y >= 80) {
            g = 0;
        }
-       DrawFormatString(100, 360, GetColor(255, 255, 255), "重力発生");
 }
 void Accl() {
     //鉢嶺処理
@@ -39,31 +38,27 @@ void P_move() {
     if (p_zmoveflg == true) {
         switch (Input_PlayerMoveDir())
         {
-        case Left:/*sph[0].z += sph[0].speed;*/
-            /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+        case Left:
+            st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
             break;
-        case Right:/*sph[0].x += sph[0].speed;*/
-            /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+        case Right:
+            st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
             break;
         }
 
     }
-    //フラグが前進されているなら
-   if (p_zmoveflg) {
-   //    sph[0].pos.z += sph[0].zmove;
-   }
 
    Accl();//accelerator処理
    //押されている方向をテキスト表示
-    switch (Input_PlayerMoveDir())
-    {
-    case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
-        break;
-    case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
-        break;
-    case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
-        break;
-    }
+    //switch (Input_PlayerMoveDir())
+    //{
+    //case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
+    //    break;
+    //case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
+    //    break;
+    //case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
+    //    break;
+    //}
 }
 void P_input_move() {
     //スペースを押したら前進

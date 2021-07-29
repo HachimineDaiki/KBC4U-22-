@@ -98,6 +98,9 @@ void Gamemain() {
     //ゴールまで言ったら移動を止める
     if (sph[0].pos.z >= 130100) {
         p_zmoveflg = false;
+        SetFontSize(50);
+        DrawFormatString(500, 140, GetColor(0, 255, 255), " GOAL ");
+        SetFontSize(20);
     }
 
     //------------------------------描画関数
@@ -124,7 +127,7 @@ void Gamemain() {
     }
 
     //不法投棄物に当たった時に表示させるもの
-    if (htdrow.hitflg) { DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離を表示させる予定"); }
+    /*if (htdrow.hitflg) { DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離を表示させる予定"); }*/
 
     DrawParam_Info();
 }
