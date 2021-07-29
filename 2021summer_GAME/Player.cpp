@@ -14,13 +14,6 @@ void Sph_Gravity() {
            g = 0;
        }
        DrawFormatString(100, 360, GetColor(255, 255, 255), "重力発生");
-        //if (sph[0].pos.y < ground.y  + sph[0].radius) {
-        //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
-        //    sph[0].pos.y = ground.y + sph[0].radius;
-        //    if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
-        //        sph[0].v0y = 0;
-        //    }
-        //}
 }
 void Accl() {
     //鉢嶺処理
@@ -33,24 +26,28 @@ void Accl() {
         sph[0].zmove += p_vz2 * sph[0].control;
     }
 
+    if (sph[0].zmove >= 150.0f) {
+        sph[0].zmove = 150.0f;
+    }
+
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
 
 }
 void P_move() {    
-    //if (p_zmoveflg == true) {
-    //    switch (Input_PlayerMoveDir())
-    //    {
-    //    case Left:/*sph[0].z += sph[0].speed;*/
-    //        /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
-    //        break;
-    //    case Right:/*sph[0].x += sph[0].speed;*/
-    //        /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
-    //        break;
-    //    }
+    if (p_zmoveflg == true) {
+        switch (Input_PlayerMoveDir())
+        {
+        case Left:/*sph[0].z += sph[0].speed;*/
+            /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+            break;
+        case Right:/*sph[0].x += sph[0].speed;*/
+            /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+            break;
+        }
 
-    //}
+    }
     //フラグが前進されているなら
    if (p_zmoveflg) {
    //    sph[0].pos.z += sph[0].zmove;
