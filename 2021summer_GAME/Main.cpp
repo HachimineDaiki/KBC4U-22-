@@ -24,7 +24,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
     SetDrawScreen(DX_SCREEN_BACK);
     //--------------初期化関数
-    gameMode = GAME;
+    Titleinit();
+    gameMode = TITLE;
     Sph_init();//球の初期化
     Obj_init();//不法投棄物の初期化
     Decelearia_init();//減速エリア初期化
@@ -106,7 +107,7 @@ void Gamemain() {
     //------------------------------描画関数
     Model3d_draw();//3Dモデル描画
      //第二引数の回転角度をセット
-    MV1SetRotationXYZ(rock.handle, VGet(sph[0].pos.z, 0.0f, 0.0f));
+    MV1SetRotationXYZ(rock.handle, VGet(sph[0].pos.z, -cameraHAngle * DX_PI_F / 180.0f, 0.0f));
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
 

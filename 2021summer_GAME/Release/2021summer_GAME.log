@@ -1,7 +1,10 @@
-﻿  Init.cpp
+﻿  Main.cpp
+C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Main.cpp(79,39): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Main.cpp(80,40): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Main.cpp(88,33): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
   コード生成しています。
-  2 of 33 functions ( 6.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Title.cpp(7): warning C4715: 'TitleLoad': 値を返さないコントロール パスがあります。
+  All 35 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   コード生成が終了しました。
-  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Release\2021summer_GAME.exe
+  2021summer_GAME.vcxproj -> C:\Users\大城　秀人\OneDrive\ドキュメント\KBC4U-22-\2021summer_GAME\Release\2021summer_GAME.exe

@@ -16,6 +16,6 @@ void Titledraw() {//‰æ‘œ‚Ì•`‰æ
 	}
 
 	//if (CheckHitKey(KEY_INPUT_S)) {
-	//	gameMode = 1;
+	////	gameMode = 1;
 	//}
 }
