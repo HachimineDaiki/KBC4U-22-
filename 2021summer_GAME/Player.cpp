@@ -13,17 +13,6 @@ void Sph_Gravity() {
        if (sph[0].v0y >= 80) {
            g = 0;
        }
-       DrawFormatString(100, 360, GetColor(255, 255, 255), "重力発生");
-        //if (sph[0].pos.y < ground.y  + sph[0].radius) {
-        //    /*sph[i].v0y *= -1 * sph[i].bounce;*/
-        //    sph[0].pos.y = ground.y + sph[0].radius;
-        //    if (abs(int(sph[0].v0y)) < g) { //速度がある程度小さくなったら強制的に0にする
-        //        sph[0].v0y = 0;
-        //    }
-        //}
-
- /*      DrawFormatString(100, 200, GetColor(255, 255, 255), "%f", st_model_hit.gplayer_limits);
-       DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);*/
 }
 void Accl() {
     //鉢嶺処理
@@ -36,40 +25,24 @@ void Accl() {
         sph[0].zmove += p_vz2 * sph[0].control;
     }
 
-    if (sph[0].zmove >= 50.0f) {
-        sph[0].zaccl = 0.0f;
+    //スピード制限
+    if (sph[0].zmove >= 150.0f) {
+        sph[0].zmove = 150.0f;
     }
-
+    MV1SetRotationXYZ(rock.handle, VGet(sph[0].pos.z, 0.0f, 0.0f));
 }
 void P_move() {    
-    //if (p_zmoveflg == true) {
-    //    switch (Input_PlayerMoveDir())
-    //    {
-    //    case Left:/*sph[0].z += sph[0].speed;*/
-    //        /*sph[0].x -= sph[0].speed;*/ st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
-    //        break;
-    //    case Right:/*sph[0].x += sph[0].speed;*/
-    //        /* sph[0].z += sph[0].speed;*/ st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
-    //        break;
-    //    }
-
-    //}
-    //フラグが前進されているなら
-   if (p_zmoveflg) {
-   //    sph[0].pos.z += sph[0].zmove;
-   }
-
-   Accl();//accelerator処理
+   Accl();//accelerator処理 //7/29日　速度を止める
    //押されている方向をテキスト表示
-    switch (Input_PlayerMoveDir())
-    {
-    case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
-        break;
-    case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
-        break;
-    case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
-        break;
-    }
+    //switch (Input_PlayerMoveDir())
+    //{
+    //case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
+    //    break;
+    //case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
+    //    break;
+    //case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
+    //    break;
+    //}
 }
 void P_input_move() {
     //スペースを押したら前進
@@ -84,6 +57,18 @@ void P_input_move() {
     case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1; st_model_hit.gplayer_limits += sph[0].speed;
         break;
     }
+
+ /*      switch (Input_PlayerMoveDir())
+    {
+       case Left:sph[0].pos.x -= 50;
+        break;
+       case Right:sph[0].pos.x += 50;
+        break;
+       case Up:sph[0].pos.z += 50;
+        break;
+       case Down:sph[0].pos.z -= 50;
+        break;
+    }*/
 
     //判定処理
     Move_Limits();

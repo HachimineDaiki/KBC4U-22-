@@ -155,13 +155,16 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Param_Info.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3Dmodel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Init.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="Param_Info.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hit_check.h" />

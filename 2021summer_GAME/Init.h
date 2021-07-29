@@ -1,6 +1,6 @@
 #pragma once
 #include <DxLib.h>
-#define DECELEARIA_NUM 5
+#define DECELEARIA_NUM 100
 //\‘¢‘ÌéŒ¾
 struct Sph
 {
