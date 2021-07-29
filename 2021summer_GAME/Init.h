@@ -27,3 +27,7 @@ extern Sph obj;//不法投棄物
 extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
 
 extern float merikomi;
+
+extern int gameMode;
+
+//extern enum GAMEMODE;//ゲームモード
