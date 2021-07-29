@@ -22,7 +22,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         // ƒGƒ‰[‚ª”­¶‚µ‚½‚ç’¼‚¿‚ÉI—¹
         return -1;
     }
-
+    SetDrawScreen(DX_SCREEN_BACK);
     //--------------‰Šú‰»ŠÖ”
     gameMode = GAME;
     Sph_init();//‹…‚Ì‰Šú‰»

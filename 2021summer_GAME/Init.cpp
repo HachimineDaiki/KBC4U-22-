@@ -4,7 +4,7 @@ void Sph_init() {
 	//‹…‚Ì‰Šú‰»
 	for (int i = 0; i < 2; i++) {
 		sph[i].speed = 10.0f;
-		sph[i].radius = 100.0f;
+		sph[i].radius = 200.0f;
 		sph[i].v0y = 0.0f;
 		sph[i].pos = VGet(100.0f, 5471.0f, 1300.0f);
 		sph[i].color = GetColor(255, 255, 255);
@@ -18,7 +18,7 @@ void Sph_init() {
 
 void Obj_init(){
 	obj.pos = VGet(-2000.0f, -42459.0f, 130100.0f);
-	obj.radius = 100.0f;
+	obj.radius = 400.0f;
 	obj.color = GetColor(0, 255, 100);
 }
 
