@@ -44,25 +44,20 @@ void P_move() {
             st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
             break;
         }
-
-    }   
-    g_p_Rotate += sph[0].zmove / 15;
-
+    
+    }
+   P_rotate();//回転処理
+   Accl();//accelerator処理
+}
+//プレイヤー回転
+void P_rotate() {
+    const int rotate_amount = 15;//回転量
+    g_p_rotate_amount = sph[0].zmove / rotate_amount;//回転量生成
+    g_p_Rotate += g_p_rotate_amount;//回転量を回転に反映させる。
+    DrawFormatString(500, 160, GetColor(0, 255, 255), " プレイヤーの回転量 %.0f ",g_p_rotate_amount);
     if (g_p_Rotate >= 360) {
         g_p_Rotate = 0;
     }
-
-   Accl();//accelerator処理
-   //押されている方向をテキスト表示
-    //switch (Input_PlayerMoveDir())
-    //{
-    //case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
-    //    break;
-    //case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
-    //    break;
-    //case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
-    //    break;
-    //}
 }
 void P_input_move() {
     //スペースを押したら前進

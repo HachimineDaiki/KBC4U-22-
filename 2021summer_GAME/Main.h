@@ -35,6 +35,7 @@ float g_cameraVAngle;
 
 float g_p_direct; // プレイヤーの向き
 float g_p_Rotate; // プレイヤーの回転
+float g_p_rotate_amount;//回転量
 
 float merikomi;
 

@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include <math.h>
 #include "Init.h"
+#include"Player.h"
 
 // プレイヤー関係の定義
 #define PLAYER_MOVE_SPEED			30.0f		// 移動速度

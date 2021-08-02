@@ -19,6 +19,7 @@ struct Sph
 int Input_PlayerMoveDir();//プレイヤー入力方向
 void P_input_move();//プレイヤーの入力受付
 void P_move();//プレイヤー動き
+void P_rotate();
 
 void Sph_Gravity();//プレイヤー重力
 void Accl();//加速処理
@@ -35,8 +36,9 @@ extern Sph obj;//不法投棄物
 extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
 
 extern float s_dis;
-extern float g_p_direct;
-extern float g_p_Rotate;
+extern float g_p_direct;//プレイヤー方向
+extern float g_p_Rotate;//プレイヤーの回転
+extern float g_p_rotate_amount;//プレイヤーの回転量
 extern bool p_zmoveflg;//前進に移動するフラグ
 extern VECTOR TempMoveVector;
 extern Input input;

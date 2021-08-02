@@ -108,7 +108,9 @@ void Gamemain() {
     //------------------------------描画関数
     Model3d_draw();//3Dモデル描画
      //第二引数の回転角度をセット
-    MV1SetRotationXYZ(rock.handle, VGet(g_p_Rotate, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
+    MV1SetRotationXYZ(rock.handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
+    DrawFormatString(500, 140, GetColor(0, 255, 255), " プレイヤー向き [%.0f] " ,g_p_direct);
+
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
 
