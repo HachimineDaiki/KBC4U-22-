@@ -14,7 +14,6 @@ void Sph_Gravity() {
            g = 0;
        }
 }
-
 void Accl() {
     //鉢嶺処理
     float p_vz2 = -5 * tan(5);
@@ -33,9 +32,7 @@ void Accl() {
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
-
 }
-
 void P_move() {    
     if (p_zmoveflg == true) {
         switch (Input_PlayerMoveDir())
@@ -47,17 +44,30 @@ void P_move() {
             st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
             break;
         }
+
+    }   
+    g_p_Rotate += sph[0].zmove / 15;
+
+    if (g_p_Rotate >= 360) {
+        g_p_Rotate = 0;
     }
 
    Accl();//accelerator処理
+   //押されている方向をテキスト表示
+    //switch (Input_PlayerMoveDir())
+    //{
+    //case Left:DrawFormatString(100, 300, GetColor(255, 255, 255), "[左]");
+    //    break;
+    //case Right:DrawFormatString(100, 300, GetColor(255, 255, 255), "[右]");
+    //    break;
+    //case Up:DrawFormatString(100, 300, GetColor(255, 255, 255), "[上]");
+    //    break;
+    //}
 }
-
 void P_input_move() {
     //スペースを押したら前進
-    if (input.space) {
-        if (CheckHitKey(KEY_INPUT_SPACE)) {
-            p_zmoveflg = true;
-        }
+    if (CheckHitKey(KEY_INPUT_SPACE)) {
+        p_zmoveflg = true;
     }
 
     switch (Input_PlayerMoveDir())
@@ -70,8 +80,8 @@ void P_input_move() {
 
     //判定処理
     Move_Limits();
-}
 
+}
 //プレイヤーが押している方向を返す関数
 int Input_PlayerMoveDir() {
 

@@ -97,13 +97,13 @@ void Ground_model_hit() {
 		
 		if (st_model_hit.gmoveflg == false) {
 			// カメラの角度に合わせて移動ベクトルを回転してから加算
-			sinParam = (float)sin(cameraHAngle / 180.0f * DX_PI_F);
-			cosParam = (float)cos(cameraHAngle / 180.0f * DX_PI_F);
+			g_sinParam = (float)sin(g_p_direct / 180.0f * DX_PI_F);
+			g_cosParam = (float)cos(g_p_direct / 180.0f * DX_PI_F);
 			// 各ベクトルごとに計算yは放置
 
-			TempMoveVector.x = st_model_hit.movepos.x * cosParam - st_model_hit.movepos.z * sinParam;
+			TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - st_model_hit.movepos.z * g_sinParam;
 			TempMoveVector.y = 0.0f;
-			TempMoveVector.z = st_model_hit.movepos.x * sinParam + st_model_hit.movepos.z * cosParam;
+			TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + st_model_hit.movepos.z * g_cosParam;
 
 			st_model_hit.movepos = TempMoveVector;
 		}
@@ -361,13 +361,13 @@ void Move_Limits()
 {
 	//球自体のX座標をもとに作る
 	int lhit_magnification = 2;    //Xの移動範囲外にでた場合の戻す力の倍率
-	//仮
+	//プレイヤーが当たった時の座標を格納する
 	static VECTOR player_before_pos = VGet(0.0f, 0.0f, 0.0f);
 
-	if (sph[0].pos.z < st_model_hit.branch_point[0] && sph[0].pos.y < 5470.0f) {
+	if (sph[0].pos.y < 5470.0f) {
 		//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
-		if ((sph[0].pos.x <= st_model_hit.glimits_verification[0] ||
-			sph[0].pos.x >= st_model_hit.glimits_verification[1]) && st_model_hit.gmoveflg != true) {
+		if ((sph[0].pos.x <= st_model_hit.glimits_verification[branch.branch_position] ||
+			sph[0].pos.x >= st_model_hit.glimits_verification[branch.branch_position+1]) && st_model_hit.gmoveflg != true && branch.move_branch == 0) {
 			st_model_hit.gmoveflg = true;
 			player_before_pos = sph[0].pos;
 		}
@@ -383,11 +383,11 @@ void Move_Limits()
 			}
 			//フラグをもとに戻す
 			else {
-				//sph[0].zmove = 0.0f;
-				//sph[0].zaccl = 2.0f;
 				st_model_hit.gmoveflg = false;
 			}
 
 		}
 	}
+	//コーナーに曲がった時にカウントを1あげる
+	if (sph[0].pos.z >= branch.branch_point[branch.branch_position]) branch.move_branch = 1;
 }

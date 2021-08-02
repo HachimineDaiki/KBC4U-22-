@@ -2,7 +2,6 @@
 #include <DxLib.h>
 #include <math.h>
 #include "Init.h"
-#include "Player.h"
 
 // プレイヤー関係の定義
 #define PLAYER_MOVE_SPEED			30.0f		// 移動速度
@@ -27,7 +26,6 @@ void Sph_hit(float dis);
 void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
 void Move_Limits();		//プレイヤーの左右移動を制限する
-
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数
@@ -55,12 +53,10 @@ struct StageModelHit
 	bool groundflg = false;
 
 	int glimits_verification[2] = { -1500,1800 }; //端の数値　0: 左の端 900 : 右の端
-	int move_branch = 0;		//0:直線　1:左 2:右 それ以外:なし	道の分岐
 	int landr_move = 0;			//0:なし　1:左 2:右		左右のボタンどちらを押しているか
 	bool gmoveflg = false;    //false:制限範囲内　true:制限範囲外
-	int branch_point[1] = { 20000 };	//分岐地点の座標
+	
 };
-
 
 
 struct HitDrow
@@ -73,13 +69,14 @@ struct Decel {
 };
 
 //分岐構造体
-//struct Branch
-//{
-//	int branch_point[1] = { 20000 };	//分岐地点の座標
-//	int branch_position = 0;
-//};
+struct Branch
+{
+	int move_branch = 0;		//0:直線　1:左 2:右 それ以外:なし	道の分岐
+	int branch_point[1] = { 20000 };	//分岐地点の座標
+	int branch_position = 0;		//プレイヤーがどのコーナーにいるかのカウント
+};
 
 extern Decel decel;
 extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
-//extern Branch banch;
+extern Branch branch;

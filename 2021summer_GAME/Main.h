@@ -21,17 +21,21 @@ HitDrow htdrow;
 VECTOR TempMoveVector;
 Decel decel;
 Title title;
-Input input;
+Branch branch;
 
 void Gamemain();
 //int tree_handle[TREE_NUM];
 float s_dis;
 bool p_zmoveflg;
 
-float sinParam;
-float cosParam;
-float cameraHAngle;
-float  cameraVAngle;
+float g_sinParam;
+float g_cosParam;
+float g_cameraHAngle;
+float g_cameraVAngle;
+
+float g_p_direct; // プレイヤーの向き
+float g_p_Rotate; // プレイヤーの回転
+
 float merikomi;
 
 int gameMode;

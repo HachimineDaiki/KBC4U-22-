@@ -15,6 +15,7 @@ void Sph_init() {
 	}
 	
 	sph[0].v = VGet(0.0f, 0.0f, 0.0f);
+
 }
 
 void Obj_init(){

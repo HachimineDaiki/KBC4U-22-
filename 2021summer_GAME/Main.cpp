@@ -7,10 +7,11 @@
 #include "3Dmodel.h"
 #include "Param_Info.h"
 #include "Title.h"
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
-    SetGraphMode(1920,1080, 32);
-    ChangeWindowMode(FALSE);
+    SetGraphMode(1024,768, 32);
+    ChangeWindowMode(TRUE);
 
     //SetGraphMode(800, 600, 32);
 
@@ -25,7 +26,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     //--------------初期化関数
     Titleinit();
     gameMode = TITLE;
-    input.space = true;//スペースきーを押せる
     Sph_init();//球の初期化
     Obj_init();//不法投棄物の初期化
     Decelearia_init();//減速エリア初期化
@@ -99,7 +99,7 @@ void Gamemain() {
     //ゴールまで言ったら移動を止める
     if (sph[0].pos.z >= 130100) {
         p_zmoveflg = false;
-        input.space = false;
+        g_p_Rotate = 0;
         SetFontSize(50);
         DrawFormatString(500, 140, GetColor(0, 255, 255), " GOAL ");
         SetFontSize(20);
@@ -107,10 +107,8 @@ void Gamemain() {
 
     //------------------------------描画関数
     Model3d_draw();//3Dモデル描画
-
      //第二引数の回転角度をセット
-    /*MV1SetRotationXYZ(rock.handle, VGet(sph[0].pos.z, -cameraHAngle * DX_PI_F / 180.0f, 0.0f));*/
-    //不法投棄物描画
+    MV1SetRotationXYZ(rock.handle, VGet(g_p_Rotate, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
 

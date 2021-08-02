@@ -35,6 +35,8 @@ extern Sph obj;//不法投棄物
 extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
 
 extern float s_dis;
+extern float g_p_direct;
+extern float g_p_Rotate;
 extern bool p_zmoveflg;//前進に移動するフラグ
 extern VECTOR TempMoveVector;
 extern Input input;
