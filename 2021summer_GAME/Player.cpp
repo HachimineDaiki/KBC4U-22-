@@ -46,9 +46,10 @@ void P_move() {
         }
     
     }
-   P_rotate();//回転処理
    Accl();//accelerator処理
+   P_rotate();//回転処理
 }
+
 //プレイヤー回転
 void P_rotate() {
     const int rotate_amount = 15;//回転量
@@ -58,6 +59,8 @@ void P_rotate() {
     if (g_p_Rotate >= 360) {
         g_p_Rotate = 0;
     }
+    //回転をセット
+    MV1SetRotationXYZ(rock.handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
 }
 void P_input_move() {
     //スペースを押したら前進
