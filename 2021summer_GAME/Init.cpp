@@ -1,5 +1,6 @@
 #include "Init.h"
 #include "3Dmodel.h"
+#include "Player.h"
 void Sph_init() {
 	//球の初期化
 	for (int i = 0; i < 2; i++) {
@@ -35,7 +36,6 @@ void Decelearia_init() {
 	decelearia[1].pos = VGet(1000.0f, 1800.0f, 5000.0f);
 	/*decelearia[2].pos = VGet(0.0f, 1800.0f, 5000.0f);*/
 
-
 	decelearia[3].pos = VGet(-1000.0f, 500.0f, 10000.0f);
 	/*decelearia[4].pos = VGet(1000.0f, 500.0f, 10000.0f);*/
 	decelearia[5].pos = VGet(0.0f, 500.0f, 10000.0f);
@@ -44,17 +44,14 @@ void Decelearia_init() {
 	decelearia[7].pos = VGet(1000.0f, -800.0f, 15000.0f);
 	decelearia[8].pos = VGet(0.0f, -800.0f, 15000.0f);
 
-
 	//コーナー1////////////////////////////////////////////////////////////
 	decelearia[9].pos = VGet(-1000.0f, -2300.0f, 20000.0f);
 	decelearia[10].pos = VGet(1000.0f, -2300.0f, 20000.0f);
 	/*decelearia[11].pos = VGet(0.0f, -2300.0f, 20000.0f);*/
 
-
 	decelearia[12].pos = VGet(-1500.0f, -3500.0f, 25000.0f);
 	decelearia[13].pos = VGet(0.0f, -3500.0f, 25000.0f);
 	decelearia[14].pos = VGet(1000.0f, -3500.0f, 25000.0f);
-
 
 	decelearia[15].pos = VGet(-3000.0f, -4700.0f, 30000.0f);
 	decelearia[16].pos = VGet(-2000.0f, -4700.0f, 30000.0f);
@@ -77,17 +74,14 @@ void Decelearia_init() {
 	decelearia[28].pos = VGet(-25000.0f, -8900.0f, 40000.0f);
 	decelearia[29].pos = VGet(-25000.0f, -8800.0f, 38000.0f);
 
-
 	//コーナー2//////////////////////////////////////////////////////////////
 	decelearia[30].pos = VGet(-30000.0f, -9600.0f, 42000.0f);
 	/*decelearia[31].pos = VGet(-30000.0f, -9500.0f, 41000.0f);*/
 	decelearia[32].pos = VGet(-30000.0f, -9400.0f, 40000.0f);
 
-
 	/*decelearia[33].pos = VGet(-36000.0f, -10000.0f, 45000.0f);*/
 	decelearia[34].pos = VGet(-37000.0f, -10500.0f, 45000.0f);
 	/*decelearia[35].pos = VGet(-38000.0f, -10000.0f, 45000.0f);*/
-
 
 	decelearia[36].pos = VGet(-42000.0f, -11700.0f, 50000.0f);
 	decelearia[37].pos = VGet(-41000.0f, -11700.0f, 50000.0f);
@@ -100,14 +94,10 @@ void Decelearia_init() {
 	decelearia[42].pos = VGet(-37000.0f, -14500.0f, 60000.0f);
 	decelearia[43].pos = VGet(-38000.0f, -14500.0f, 60000.0f);
 	decelearia[44].pos = VGet(-38000.0f, -14500.0f, 60000.0f);
-
 	//直線3//////////////////////////////////////////////////////////////
-
 	decelearia[45].pos = VGet(-24000.0f, -17600.0f, 69000.0f);
 	decelearia[46].pos = VGet(-24000.0f, -17500.0f, 68000.0f);
 	decelearia[47].pos = VGet(-24000.0f, -17400.0f, 67000.0f);
-
-
 	//コーナー3///////////////////////////////////////////////////////////
 	decelearia[48].pos = VGet(0.0f, -19600.0f, 69000.0f);
 	decelearia[49].pos = VGet(0.0f, -19500.0f, 68000.0f);
@@ -116,7 +106,6 @@ void Decelearia_init() {
 	decelearia[51].pos = VGet(14000.0f, -22800.0f, 78000.0f);
 	decelearia[52].pos = VGet(13000.0f, -22700.0f, 78000.0f);
 	decelearia[53].pos = VGet(12000.0f, -22600.0f, 78000.0f);
-
 
 	//直線4
 	decelearia[54].pos = VGet(5000.0f, -26400.0f, 91000.0f);
@@ -135,7 +124,6 @@ void Decelearia_init() {
 	decelearia[64].pos = VGet(-23000.0f, -28400.0f, 88000.0f);
 	decelearia[65].pos = VGet(-23000.0f, -28300.0f, 87000.0f);
 
-
 	decelearia[66].pos = VGet(-37050.0f, -31900.0f, 98000.0f);
 	decelearia[67].pos = VGet(-37050.0f, -31900.0f, 97000.0f);
 	decelearia[68].pos = VGet(-37050.0f, -31900.0f, 96000.0f);
@@ -143,7 +131,6 @@ void Decelearia_init() {
 	decelearia[67].pos = VGet(-27000.0f, -34900.0f, 109000.0f);
 	decelearia[68].pos = VGet(-27000.0f, -34700.0f, 107000.0f);
 	decelearia[69].pos = VGet(-27000.0f, -34500.0f, 105000.0f);
-
 
 	decelearia[70].pos = VGet(-20000.0f, -35500.0f, 108000.0f);
 	//コーナー5

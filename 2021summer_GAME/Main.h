@@ -21,6 +21,7 @@ HitDrow htdrow;
 VECTOR TempMoveVector;
 Decel decel;
 Title title;
+Input input;
 
 void Gamemain();
 //int tree_handle[TREE_NUM];
