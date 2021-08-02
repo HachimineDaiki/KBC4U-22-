@@ -32,7 +32,6 @@ void Accl() {
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
-
 }
 void P_move() {    
     if (p_zmoveflg == true) {
@@ -46,6 +45,11 @@ void P_move() {
             break;
         }
 
+    }   
+    g_p_Rotate += sph[0].zmove / 15;
+
+    if (g_p_Rotate >= 360) {
+        g_p_Rotate = 0;
     }
 
    Accl();//acceleratorˆ—

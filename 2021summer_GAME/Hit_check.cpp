@@ -97,13 +97,13 @@ void Ground_model_hit() {
 		
 		if (st_model_hit.gmoveflg == false) {
 			// カメラの角度に合わせて移動ベクトルを回転してから加算
-			sinParam = (float)sin(cameraHAngle / 180.0f * DX_PI_F);
-			cosParam = (float)cos(cameraHAngle / 180.0f * DX_PI_F);
+			g_sinParam = (float)sin(g_p_direct / 180.0f * DX_PI_F);
+			g_cosParam = (float)cos(g_p_direct / 180.0f * DX_PI_F);
 			// 各ベクトルごとに計算yは放置
 
-			TempMoveVector.x = st_model_hit.movepos.x * cosParam - st_model_hit.movepos.z * sinParam;
+			TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - st_model_hit.movepos.z * g_sinParam;
 			TempMoveVector.y = 0.0f;
-			TempMoveVector.z = st_model_hit.movepos.x * sinParam + st_model_hit.movepos.z * cosParam;
+			TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + st_model_hit.movepos.z * g_cosParam;
 
 			st_model_hit.movepos = TempMoveVector;
 		}

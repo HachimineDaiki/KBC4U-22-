@@ -11,8 +11,10 @@ void DrawParam_Info() {
 
     //// Camera.cppで使用している変数の数値など
     // 関数　Camera_move()　で使用
-    DrawFormatString(100, 20, GetColor(255, 255, 255), "カメラ縦角度 %.0f", cameraVAngle);
-    DrawFormatString(100, 40, GetColor(255, 255, 255), "カメラ横角度 %.0f", cameraHAngle);
+    DrawFormatString(100, 20, GetColor(255, 255, 255), "カメラ縦角度 %.0f", g_cameraVAngle);
+    DrawFormatString(100, 40, GetColor(255, 255, 255), "カメラ横角度 %.0f", g_cameraHAngle);
+
+    DrawFormatString(100, 60, GetColor(255, 255, 255), "岩横角度 %.0f", g_p_direct);
 
     //// Hit_check.cppで使用している変数の数値など ////
     // 関数　Sph_hit(float dis)　で使用
