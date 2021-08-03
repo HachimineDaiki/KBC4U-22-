@@ -23,6 +23,12 @@ void Obj_init(){
 	obj.radius = 400.0f;
 	obj.color = GetColor(0, 255, 100);
 }
+//当たったらダメ―ジを受ける障害物初期化
+void Damege_Init() {
+	e_obj.pos = VGet(-1000.0f,2000.0f,4000.0f);
+	e_obj.radius = 600.0f;
+	e_obj.color = GetColor(255,255,100);
+}
 
 //減速エリア初期化
 void Decelearia_init() {

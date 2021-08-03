@@ -29,6 +29,17 @@ bool Sph_hit_check(Sph sp[], Sph ob) {
 	return s_dis < radius_sum ? true : false;//2“_ŠÔ‚Ì‹——£‚ª”¼Œa‚Ì˜a‚æ‚è¬‚³‚¯‚ê‚Î“–‚½‚Á‚Ä‚¢‚é‚Æ”»’è
 }
 
+bool Sph_ehit_chech(Sph sp[], Sph e_obj) {
+	sph[0].v.x = e_obj.pos.x - sp[0].pos.x;//x¬•ª
+	sph[0].v.y = e_obj.pos.y - sp[0].pos.y;//y¬•ª
+	sph[0].v.z = e_obj.pos.z - sp[0].pos.z;//z¬•ª
+
+	es_dis = sph[0].v.x * sph[0].v.x + sph[0].v.y * sph[0].v.y + sph[0].v.z * sph[0].v.z;//2“_ŠÔ‚Ì‹——£
+
+	float radius_sum = (sp[0].radius + e_obj.radius) * (sp[0].radius + e_obj.radius); //”¼Œa‚Ì˜a
+	return es_dis < radius_sum ? true : false;//2“_ŠÔ‚Ì‹——£‚ª”¼Œa‚Ì˜a‚æ‚è¬‚³‚¯‚ê‚Î“–‚½‚Á‚Ä‚¢‚é‚Æ”»’è
+}
+
 bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 	decelearia[i].v.x = decele[i].pos.x - sp[0].pos.x;
 	decelearia[i].v.y = decele[i].pos.y - sp[0].pos.y;
@@ -65,6 +76,21 @@ void Sph_hit(float dis) {
 	//obj.pos.x += sph[0].v.x * merikomi;
 	//obj.pos.y += sph[0].v.y * merikomi;
 	//obj.pos.z += sph[0].v.z * merikomi;
+}
+
+void Sph_ehit(float dis) {
+	float len = sqrtf(dis);
+	float radius_sum = sph[0].radius + e_obj.radius;
+	float merikomi = radius_sum - len;
+
+	if (len > 0) len = 1 / len;
+
+	sph[0].v.x *= len;
+	sph[0].v.y *= len;
+	sph[0].v.z *= len;
+
+	merikomi /= 2.0f;
+
 }
 
 void Ground_model_hit() {

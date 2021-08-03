@@ -28,6 +28,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     gameMode = TITLE;
     Sph_init();//球の初期化
     Obj_init();//不法投棄物の初期化
+    Damege_Init();//障害物の初期化
     Decelearia_init();//減速エリア初期化
     Model_init();
     Camera_set();//カメラセット
@@ -82,6 +83,14 @@ void Gamemain() {
         DrawFormatString(100, 600, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
 
     }
+    if (Sph_ehit_chech(sph, e_obj)) {
+        Sph_ehit(es_dis);
+        htdrow.e_hitflg = true;
+    }
+    if (htdrow.e_hitflg) {
+        DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");
+        htdrow.e_hitflg = false;
+    }
 
     if (htdrow.hitflg) {
 
@@ -110,7 +119,7 @@ void Gamemain() {
 
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-
+    DrawSphere3D(e_obj.pos, e_obj.radius, 16, e_obj.color, GetColor(0, 0, 0), TRUE);
 
     //減速エリア描画
     for (int i = 0; i < DECELEARIA_NUM; i++) {

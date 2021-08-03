@@ -13,6 +13,7 @@ enum GAMEMODE { TITLE, GAME, GAMEOVER};//ÉQÅ[ÉÄÉÇÅ[Éh
 MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
 Sph sph[2];
 Sph obj;
+Sph e_obj;
 Sph decelearia[DECELEARIA_NUM];
 Model ground;
 Model rock;
@@ -26,6 +27,7 @@ Branch branch;
 void Gamemain();
 //int tree_handle[TREE_NUM];
 float s_dis;
+float es_dis;
 bool p_zmoveflg;
 
 float g_sinParam;
