@@ -1,7 +1,7 @@
 ﻿  Main.cpp
 C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Main.cpp(80,39): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
 C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Main.cpp(81,40): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Main.cpp(98,33): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Hachimine Daiki\Desktop\U-22-3\2021summer_GAME\Main.cpp(101,33): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
   コード生成しています。
   2 of 39 functions ( 5.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

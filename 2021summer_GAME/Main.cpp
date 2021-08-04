@@ -86,6 +86,9 @@ void Gamemain() {
     if (Sph_ehit_chech(sph, e_obj)) {
         Sph_ehit(es_dis);
         sph->hp -= 1;
+        if (sph->hp < 0) {
+            sph->hp = 0;
+        }
         htdrow.e_hitflg = true;
     }
     if (htdrow.e_hitflg) {
