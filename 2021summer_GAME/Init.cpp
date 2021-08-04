@@ -12,6 +12,7 @@ void Sph_init() {
 		sph[i].zaccl = 2.0f;
 		sph[i].zmove = 0.0f;
 		sph[i].control = 0.02f;
+		sph[i].hp = 100;
 	}
 	
 	sph[0].v = VGet(0.0f, 0.0f, 0.0f);
