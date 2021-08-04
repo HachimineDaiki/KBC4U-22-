@@ -55,7 +55,7 @@ void P_rotate() {
     const int rotate_amount = 15;//‰ñ“]—Ê
     g_p_rotate_amount = sph[0].zmove / rotate_amount;//‰ñ“]—Ê¶¬
     g_p_Rotate += g_p_rotate_amount;//‰ñ“]—Ê‚ð‰ñ“]‚É”½‰f‚³‚¹‚éB
-    DrawFormatString(500, 160, GetColor(0, 255, 255), " ƒvƒŒƒCƒ„[‚Ì‰ñ“]—Ê %.0f ",g_p_rotate_amount);
+   /* DrawFormatString(500, 160, GetColor(0, 255, 255), " ƒvƒŒƒCƒ„[‚Ì‰ñ“]—Ê %.0f ",g_p_rotate_amount);*/
     if (g_p_Rotate >= 360) {
         g_p_Rotate = 0;
     }
