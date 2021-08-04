@@ -14,6 +14,7 @@ struct Sph
 	float zaccl; //Z軸加速
 	float zmove; //Z軸動く
 	float control;
+	int hp; //プレイヤーのHP
 };
 
 int Input_PlayerMoveDir();//プレイヤー入力方向
@@ -33,9 +34,11 @@ enum Dir { Left, Right, Down, Up };
 //オブジェクト生成
 extern Sph sph[2];//プレイヤー
 extern Sph obj;//不法投棄物
+extern Sph e_obj; //当たるとダメージをうけるオブジェクト
 extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
 
 extern float s_dis;
+extern float es_dis;//障害物用
 extern float g_p_direct;//プレイヤー方向
 extern float g_p_Rotate;//プレイヤーの回転
 extern float g_p_rotate_amount;//プレイヤーの回転量

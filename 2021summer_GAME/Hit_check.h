@@ -19,9 +19,11 @@
 
 //プロトタイプ宣言
 bool Sph_hit_check(Sph sp[], Sph ob);
+bool Sph_ehit_chech(Sph sp[], Sph eobj);
 bool Decel_aria_check(Sph sp[], Sph decelaria[], int i);
 void Decel_aria_effect();//エリアに入った時の効果
 void Sph_hit(float dis);
+void Sph_ehit(float dis);//障害物当たり判定
 //void Model_hit_check();
 //void Model_hit();
 void Ground_model_hit();
@@ -63,6 +65,7 @@ struct StageModelHit
 struct HitDrow
 {
 	bool hitflg;
+	bool e_hitflg;
 };
 
 struct Decel {
