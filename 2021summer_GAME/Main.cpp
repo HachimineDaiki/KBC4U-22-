@@ -85,6 +85,10 @@ void Gamemain() {
     }
     if (Sph_ehit_chech(sph, e_obj)) {
         Sph_ehit(es_dis);
+        sph->hp -= 1;
+        if (sph->hp < 0) {
+            sph->hp = 0;
+        }
         htdrow.e_hitflg = true;
     }
     if (htdrow.e_hitflg) {
@@ -121,6 +125,7 @@ void Gamemain() {
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
     DrawSphere3D(e_obj.pos, e_obj.radius, 16, e_obj.color, GetColor(0, 0, 0), TRUE);
 
+    DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph->hp);
     //減速エリア描画
     for (int i = 0; i < DECELEARIA_NUM; i++) {
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
