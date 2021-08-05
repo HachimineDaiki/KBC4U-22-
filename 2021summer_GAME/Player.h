@@ -1,6 +1,7 @@
 #pragma once
 #define VECTOR_SLIDE 0.86602540378
 #define DECELEARIA_NUM 100
+#define E_DAMEGE 6
 struct Sph
 {
 	float radius;
@@ -34,7 +35,7 @@ enum Dir { Left, Right, Down, Up };
 //オブジェクト生成
 extern Sph sph[2];//プレイヤー
 extern Sph obj;//不法投棄物
-extern Sph e_obj; //当たるとダメージをうけるオブジェクト
+extern Sph e_obj[E_DAMEGE]; //当たるとダメージをうけるオブジェクト
 extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
 
 extern float s_dis;

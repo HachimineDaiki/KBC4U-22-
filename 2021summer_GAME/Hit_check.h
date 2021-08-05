@@ -19,12 +19,12 @@
 
 //プロトタイプ宣言
 bool Sph_hit_check(Sph sp[], Sph ob);
-bool Sph_ehit_chech(Sph sp[], Sph e_obj);
+bool Sph_ehit_chech(Sph sp[], Sph e_obj[], int i);
 bool Decel_aria_check(Sph sp[], Sph decelaria[], int i);
 void Decel_aria_effect();//エリアに入った時の効果
 void Sph_ehit_effect(); //当たった時の効果
 void Sph_hit(float dis);
-void Sph_ehit(float dis);//障害物当たり判定
+void Sph_ehit(float dis, int i);//障害物当たり判定
 //void Model_hit_check();
 //void Model_hit();
 void Ground_model_hit();
@@ -33,20 +33,20 @@ void Move_Limits();		//プレイヤーの左右移動を制限する
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数
-	int MoveFlag;						// 水平方向に移動したかどうかのフラグ( ０:移動していない  １:移動した )
-	int HitFlag;						// ポリゴンに当たったかどうかを記憶しておくのに使う変数( ０:当たっていない  １:当たった )
-	MV1_COLL_RESULT_POLY_DIM HitDim[STAGECOLLOBJ_MAXNUM + 1];			// プレイヤーの周囲にあるポリゴンを検出した結果が代入される当たり判定結果構造体
-	int HitDimNum;						// HitDim の有効な配列要素数
-	int KabeNum;						// 壁ポリゴンと判断されたポリゴンの数
-	int YukaNum;						// 床ポリゴンと判断されたポリゴンの数
-	MV1_COLL_RESULT_POLY* Kabe[PLAYER_MAX_HITCOLL];	// 壁ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
-	MV1_COLL_RESULT_POLY* Yuka[PLAYER_MAX_HITCOLL];	// 床ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
-	MV1_COLL_RESULT_POLY* Poly;				// ポリゴンの構造体にアクセスするために使用するポインタ( 使わなくても済ませられますがプログラムが長くなるので・・・ )
-	HITRESULT_LINE LineRes;				// 線分とポリゴンとの当たり判定の結果を代入する構造体
-	VECTOR OldPos;						// 移動前の座標	
-	VECTOR NowPos;						// 移動後の座標
+	int moveflag;						// 水平方向に移動したかどうかのフラグ( ０:移動していない  １:移動した )
+	int hitflag;						// ポリゴンに当たったかどうかを記憶しておくのに使う変数( ０:当たっていない  １:当たった )
+	MV1_COLL_RESULT_POLY_DIM hitdim[STAGECOLLOBJ_MAXNUM + 1];			// プレイヤーの周囲にあるポリゴンを検出した結果が代入される当たり判定結果構造体
+	int hitdimnum;						// HitDim の有効な配列要素数
+	int kabenum;						// 壁ポリゴンと判断されたポリゴンの数
+	int yukanum;						// 床ポリゴンと判断されたポリゴンの数
+	MV1_COLL_RESULT_POLY* kabe[PLAYER_MAX_HITCOLL];	// 壁ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
+	MV1_COLL_RESULT_POLY* yuka[PLAYER_MAX_HITCOLL];	// 床ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
+	MV1_COLL_RESULT_POLY* poly;				// ポリゴンの構造体にアクセスするために使用するポインタ( 使わなくても済ませられますがプログラムが長くなるので・・・ )
+	HITRESULT_LINE lineres;				// 線分とポリゴンとの当たり判定の結果を代入する構造体
+	VECTOR oldpos;						// 移動前の座標	
+	VECTOR nowpos;						// 移動後の座標
 	//移動ベクトル
-	VECTOR TargetMoveDirection;			// モデルが向くべき方向のベクトル
+	VECTOR targetmovedirection;			// モデルが向くべき方向のベクトル
 	VECTOR movepos;
 
 	VECTOR upvec = VGet(0.0f, 0.0f, 10.0f);

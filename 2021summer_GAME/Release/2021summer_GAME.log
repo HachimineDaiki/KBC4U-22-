@@ -1,11 +1,18 @@
-﻿  Init.cpp
+﻿  3Dmodel.cpp
+  Camera.cpp
+  Hit_check.cpp
+  Init.cpp
   Main.cpp
-C:\Users\Hachimine Daiki\Desktop\U-22-3C\2021summer_GAME\Main.cpp(80,39): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Hachimine Daiki\Desktop\U-22-3C\2021summer_GAME\Main.cpp(81,40): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Hachimine Daiki\Desktop\U-22-3C\2021summer_GAME\Main.cpp(97,33): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Main.cpp(83,39): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Main.cpp(84,40): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\2021summer_GAME\2021summer_GAME\Main.cpp(104,33): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Param_Info.cpp
+  Player.cpp
+D:\2021summer_GAME\2021summer_GAME\Player.cpp(19,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Title.cpp
   コード生成しています。
-  3 of 40 functions ( 7.5%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+D:\2021summer_GAME\2021summer_GAME\Title.cpp(7): warning C4715: 'TitleLoad': 値を返さないコントロール パスがあります。
+  All 40 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   コード生成が終了しました。
-  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3C\2021summer_GAME\Release\2021summer_GAME.exe
+  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Release\2021summer_GAME.exe

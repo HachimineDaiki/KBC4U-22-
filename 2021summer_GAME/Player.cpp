@@ -32,20 +32,42 @@ void Accl() {
     if (sph[0].zmove >= 50.0f) {
         sph[0].zaccl = 0.0f;
     }
+
+ 
 }
 void P_move() {    
     if (p_zmoveflg == true) {
         switch (Input_PlayerMoveDir())
         {
         case Left:
-            st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1;
+            st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.moveflag = 1;
             break;
         case Right:
-            st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+            st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.moveflag = 1;
             break;
         }
     
     }
+
+ /*   if (CheckHitKey(KEY_INPUT_S))
+    {
+        sph[0].pos.z -= 10;
+    }
+
+    if (CheckHitKey(KEY_INPUT_W))
+    {
+        sph[0].pos.z += 10;
+    }
+
+    if (CheckHitKey(KEY_INPUT_A))
+    {
+        sph[0].pos.x -= 10;
+    }
+
+    if (CheckHitKey(KEY_INPUT_D))
+    {
+        sph[0].pos.x += 10;
+    }*/
    Accl();//acceleratorèàóù
    P_rotate();//âÒì]èàóù
 }
@@ -70,9 +92,9 @@ void P_input_move() {
 
     switch (Input_PlayerMoveDir())
     {
-    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.MoveFlag = 1; 
+    case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.moveflag = 1; 
         break;
-    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.MoveFlag = 1;
+    case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.moveflag = 1;
         break;
     }
 

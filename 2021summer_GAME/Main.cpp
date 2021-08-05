@@ -30,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Obj_init();//不法投棄物の初期化
     Damege_Init();//障害物の初期化
     Decelearia_init();//減速エリア初期化
-    Model_init();
+    Model_init();//モデル初期化
     Camera_set();//カメラセット
     Model3d_load();//3Dモデル読み込み
     Model3d_init();//3Dモデル初期化
@@ -45,6 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         // 画面をクリア
         ClearDrawScreen();
 
+        //ゲーム遷移
         switch (gameMode)
         {
         case TITLE: Titledraw();
@@ -75,6 +76,8 @@ void Gamemain() {
         Sph_hit(s_dis);
         htdrow.hitflg = true;
     }
+
+    //不法投棄物を飛ばす処理
     if (htdrow.hitflg) {
         obj.pos.x += 1;
         obj.pos.y += 30 * cos(10) * 10;
@@ -84,14 +87,18 @@ void Gamemain() {
 
     }
 
-    if (Sph_ehit_chech(sph, e_obj)) {
-        sph[0].zmove -= 40;
-        Sph_ehit(es_dis);
-        Sph_ehit_effect();
-        DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");
+    //障害物の当たり判定
+    for (int i = 0; i < E_DAMEGE; i++) {
+        if (Sph_ehit_chech(sph, e_obj,i)) {
+            sph[0].zmove -= 40;
+            Sph_ehit(es_dis,i);
+            Sph_ehit_effect();
+            DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");
+        }
     }
 
 
+    //不法投棄飛ばす
     if (htdrow.hitflg) {
 
         obj.zmove += -5 * tan(5);
@@ -106,9 +113,10 @@ void Gamemain() {
     }
     
     //ゴールまで言ったら移動を止める
-    if (sph[0].pos.z >= 130100) {
+    if (htdrow.hitflg) {
         p_zmoveflg = false;
         g_p_Rotate = 0;
+        sph[0].zmove = 0.0f;
         SetFontSize(50);
         DrawFormatString(500, 140, GetColor(0, 255, 255), " GOAL ");
         SetFontSize(20);
@@ -119,9 +127,14 @@ void Gamemain() {
 
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-    DrawSphere3D(e_obj.pos, e_obj.radius, 16, e_obj.color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
 
+    //障害物描画
+    for (int i = 0; i < E_DAMEGE;i++) {
+        DrawSphere3D(e_obj[i].pos, e_obj[i].radius, 16, e_obj[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
+    }
+    //体力描画
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph->hp);
+
     //減速エリア描画
     for (int i = 0; i < DECELEARIA_NUM; i++) {
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
@@ -131,14 +144,12 @@ void Gamemain() {
 
     //減速エリアに入っている間に減速ちゅうの文字を描画
     if (decel.hit_flg) {
-        Decel_aria_effect();
-        SetFontSize(50);
+        Decel_aria_effect();//減速エリアに入った時の処理
+        SetFontSize(50);//文字サイズを変更
         DrawFormatString(1000, 140, GetColor(0, 255, 255), "減速中");
-        SetFontSize(20);
+        SetFontSize(20);//文字サイズを元のサイズに変更
     }
 
-    //不法投棄物に当たった時に表示させるもの
-    /*if (htdrow.hitflg) { DrawFormatString(100, 340, GetColor(0, 255, 255), "飛ばした距離を表示させる予定"); }*/
-
+    //パラメーターを表示させる処理
     DrawParam_Info();
 }

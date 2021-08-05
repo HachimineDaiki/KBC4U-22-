@@ -10,22 +10,20 @@
 
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 
-MV1_COLL_RESULT_POLY_DIM HitPolyDim[TREE_NUM];
-Sph sph[2];
-Sph obj;
-Sph e_obj;
-Sph decelearia[DECELEARIA_NUM];
-Model ground;
-Model rock;
-StageModelHit st_model_hit;
-HitDrow htdrow;
+Sph sph[2];//プレイヤー
+Sph obj;//不法投棄
+Sph e_obj[E_DAMEGE];//障害物
+Sph decelearia[DECELEARIA_NUM];//減速エリア
+Model ground;//地面
+Model rock;//岩
+StageModelHit st_model_hit;//モデルヒット
+HitDrow htdrow;//ヒット描画
 VECTOR TempMoveVector;
-Decel decel;
-Title title;
+Decel decel;//減速
+Title title;//タイトル
 Branch branch;
 
-void Gamemain();
-//int tree_handle[TREE_NUM];
+void Gamemain();//ゲームメイン関数
 float s_dis;
 float es_dis;
 bool p_zmoveflg;
@@ -39,6 +37,6 @@ float g_p_direct; // プレイヤーの向き
 float g_p_Rotate; // プレイヤーの回転
 float g_p_rotate_amount;//回転量
 
-float merikomi;
+float merikomi;//めり込む量
 
-int gameMode;
+int gameMode;//ゲームモード

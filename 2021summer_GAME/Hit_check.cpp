@@ -29,17 +29,16 @@ bool Sph_hit_check(Sph sp[], Sph ob) {
 	return s_dis < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
 }
 
-bool Sph_ehit_chech(Sph sp[], Sph e_obj) {
-	sph[0].v.x = e_obj.pos.x - sp[0].pos.x;//x成分
-	sph[0].v.y = e_obj.pos.y - sp[0].pos.y;//y成分
-	sph[0].v.z = e_obj.pos.z - sp[0].pos.z;//z成分
+bool Sph_ehit_chech(Sph sp[], Sph e_obj[], int i) {
+	e_obj[i].v.x = e_obj[i].pos.x - sp[0].pos.x;//x成分
+	e_obj[i].v.y = e_obj[i].pos.y - sp[0].pos.y;//y成分
+	e_obj[i].v.z = e_obj[i].pos.z - sp[0].pos.z;//z成分
 
-	es_dis = sph[0].v.x * sph[0].v.x + sph[0].v.y * sph[0].v.y + sph[0].v.z * sph[0].v.z;//2点間の距離
-
-	float radius_sum = (sp[0].radius + e_obj.radius) * (sp[0].radius + e_obj.radius); //半径の和
-	return es_dis < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
+	e_obj[i].dis = e_obj[i].v.x * e_obj[i].v.x + e_obj[i].v.y * e_obj[i].v.y + e_obj[i].v.z * e_obj[i].v.z;//2点間の距離
+	e_obj[i].radius_sum = (sp[0].radius + e_obj[i].radius) * (sp[0].radius + e_obj[i].radius); //半径の和
+	return e_obj[i].dis < e_obj[i].radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
 }
-
+//減速エリアのチェック判定処理
 bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 	decelearia[i].v.x = decele[i].pos.x - sp[0].pos.x;
 	decelearia[i].v.y = decele[i].pos.y - sp[0].pos.y;
@@ -49,6 +48,7 @@ bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 	decelearia[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
 	return decelearia[i].dis < decelearia[i].radius_sum ? true : false;
 }
+//プレイヤーのHP管理処理
 void Sph_ehit_effect() {
 	sph->hp -= 1;
 	if (sph->hp < 0) {
@@ -56,6 +56,7 @@ void Sph_ehit_effect() {
 	}
 }
 
+//減速速度処理
 void Decel_aria_effect(){
 	sph[0].zmove *= 0.93f;
 }
@@ -84,9 +85,9 @@ void Sph_hit(float dis) {
 	//obj.pos.z += sph[0].v.z * merikomi;
 }
 
-void Sph_ehit(float dis) {
+void Sph_ehit(float dis , int i) {
 	float len = sqrtf(dis);
-	float radius_sum = sph[0].radius + e_obj.radius;
+	float radius_sum = sph[0].radius + e_obj[i].radius;
 	float merikomi = radius_sum - len;
 
 	if (len > 0) len = 1 / len;
@@ -101,9 +102,9 @@ void Sph_ehit(float dis) {
 	sph[0].pos.y -= sph[0].v.y * merikomi -800;
 	sph[0].pos.z -= sph[0].v.z * merikomi +1600;
 
-	sph[0].v.x+= e_obj.v.x * merikomi;
-	sph[0].v.y+= e_obj.v.y * merikomi;
-	sph[0].v.z += e_obj.v.z *merikomi;
+	sph[0].v.x+= e_obj[i].v.x * merikomi;
+	sph[0].v.y+= e_obj[i].v.y * merikomi;
+	sph[0].v.z += e_obj[i].v.z *merikomi;
 
 	/*e_obj.pos.x += sph[0].v.x * merikomi;
 	e_obj.pos.y += sph[0].v.y * merikomi;
@@ -112,7 +113,7 @@ void Sph_ehit(float dis) {
 
 void Ground_model_hit() {
 	st_model_hit.movepos = VGet(0.0f, 0.0f,0.0f);//移動ベクトル
-	st_model_hit.MoveFlag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
+	st_model_hit.moveflag = 0;// 移動したかどうかのフラグを初期状態では「移動していない」を表す０にする
 
 	P_input_move();//プレイヤー入力
 	P_move();
@@ -123,13 +124,13 @@ void Ground_model_hit() {
 	Sph_Gravity();//重力
 	/*DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);*/
 	// 移動ボタンが押されたかどうかで処理を分岐
-	if (st_model_hit.MoveFlag == 1)
+	if (st_model_hit.moveflag == 1)
 	{
 		// 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
-		st_model_hit.TargetMoveDirection = VNorm(st_model_hit.movepos);
+		st_model_hit.targetmovedirection = VNorm(st_model_hit.movepos);
 		/*DrawFormatString(100, 200, GetColor(255, 255, 255), " %.1f , %.1f , %.1f ", st_model_hit.TargetMoveDirection.x, st_model_hit.TargetMoveDirection.y, st_model_hit.TargetMoveDirection.z);*/
 		// プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
-		st_model_hit.movepos = VScale(st_model_hit.TargetMoveDirection, sph[0].speed);
+		st_model_hit.movepos = VScale(st_model_hit.targetmovedirection, sph[0].speed);
 
 
 		/*DrawFormatString(100, 230, GetColor(255, 0, 0), "Vscale %.1f , %.1f , %.1f ", st_model_hit.movepos.x, st_model_hit.movepos.y, st_model_hit.movepos.z);*/
@@ -156,72 +157,72 @@ void Ground_model_hit() {
 }
 void Ground_model_hit_check(VECTOR MoveVector) {
 	// 移動前の座標を保存
-	st_model_hit.OldPos = sph[0].pos;
+	st_model_hit.oldpos = sph[0].pos;
 	// 移動後の座標を算出
-	st_model_hit.NowPos = VAdd(sph[0].pos, MoveVector);
+	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
 	 //( 検出する範囲は移動距離も考慮する )
-	st_model_hit.HitDim[0] = MV1CollCheck_Sphere(ground.handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
+	st_model_hit.hitdim[0] = MV1CollCheck_Sphere(ground.handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
 	// プレイヤーの周囲にあるコリジョンオブジェクトのポリゴンも取得する
 	for (int i = 0; i < stg.CollObjNum; i++)
 	{
 
-		st_model_hit.HitDim[i + 1] = MV1CollCheck_Sphere(stg.CollObjModelHandle[i], -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
+		st_model_hit.hitdim[i + 1] = MV1CollCheck_Sphere(stg.CollObjModelHandle[i], -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
 	}
 
 	// HitDim の有効な数はコリジョンオブジェクトの数とステージ自体のコリジョン
-	st_model_hit.HitDimNum = stg.CollObjNum + 1;
+	st_model_hit.hitdimnum = stg.CollObjNum + 1;
 	// x軸かy軸方向に 0.01f 以上移動した場合は「移動した」フラグを１にする
 	if (fabs(MoveVector.x) > 0.01f || fabs(MoveVector.z) > 0.01f)
 	{
-		st_model_hit.MoveFlag = 1;
+		st_model_hit.moveflag = 1;
 	}
 	else
 	{
-		st_model_hit.MoveFlag = 0;
+		st_model_hit.moveflag = 0;
 	}
 
 	// 検出されたポリゴンが壁ポリゴン( ＸＺ平面に垂直なポリゴン )か床ポリゴン( ＸＺ平面に垂直ではないポリゴン )かを判断する
 	{
 		// 壁ポリゴンと床ポリゴンの数を初期化する
-		st_model_hit.KabeNum = 0;
-		st_model_hit.YukaNum = 0;
+		st_model_hit.kabenum = 0;
+		st_model_hit.yukanum = 0;
 
 
 		// 検出されたポリゴンの数だけ繰り返し
-		for (int j = 0; j < st_model_hit.HitDimNum; j++)
+		for (int j = 0; j < st_model_hit.hitdimnum; j++)
 		{
-			for (int i = 0; i < st_model_hit.HitDim[j].HitNum; i++)
+			for (int i = 0; i < st_model_hit.hitdim[j].HitNum; i++)
 			{
 				// ＸＺ平面に垂直かどうかはポリゴンの法線のＹ成分が０に限りなく近いかどうかで判断する
-				if (st_model_hit.HitDim[j].Dim[i].Normal.y < 0.000001f && st_model_hit.HitDim[j].Dim[i].Normal.y > -0.000001f)
+				if (st_model_hit.hitdim[j].Dim[i].Normal.y < 0.000001f && st_model_hit.hitdim[j].Dim[i].Normal.y > -0.000001f)
 				{
 					// 壁ポリゴンと判断された場合でも、プレイヤーのＹ座標＋１．０ｆより高いポリゴンのみ当たり判定を行う
-					if (st_model_hit.HitDim[j].Dim[i].Position[0].y > sph[0].pos.y + 1.0f ||
-						st_model_hit.HitDim[j].Dim[i].Position[1].y > sph[0].pos.y + 1.0f ||
-						st_model_hit.HitDim[j].Dim[i].Position[2].y > sph[0].pos.y + 1.0f)
+					if (st_model_hit.hitdim[j].Dim[i].Position[0].y > sph[0].pos.y + 1.0f ||
+						st_model_hit.hitdim[j].Dim[i].Position[1].y > sph[0].pos.y + 1.0f ||
+						st_model_hit.hitdim[j].Dim[i].Position[2].y > sph[0].pos.y + 1.0f)
 					{
 						// ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
-						if (st_model_hit.KabeNum < PLAYER_MAX_HITCOLL)
+						if (st_model_hit.kabenum < PLAYER_MAX_HITCOLL)
 						{
 							// ポリゴンの構造体のアドレスを壁ポリゴンポインタ配列に保存する
-							st_model_hit.Kabe[st_model_hit.KabeNum] = &st_model_hit.HitDim[j].Dim[i];
+							st_model_hit.kabe[st_model_hit.kabenum] = &st_model_hit.hitdim[j].Dim[i];
 
 							// 壁ポリゴンの数を加算する
-							st_model_hit.KabeNum++;
+							st_model_hit.kabenum++;
 						}
 					}
 				}
 				else
 				{
 					// ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
-					if (st_model_hit.YukaNum < PLAYER_MAX_HITCOLL)
+					if (st_model_hit.yukanum < PLAYER_MAX_HITCOLL)
 					{
 						// ポリゴンの構造体のアドレスを床ポリゴンポインタ配列に保存する
-						st_model_hit.Yuka[st_model_hit.YukaNum] = &st_model_hit.HitDim[j].Dim[i];
+						st_model_hit.yuka[st_model_hit.yukanum] = &st_model_hit.hitdim[j].Dim[i];
 
 						// 床ポリゴンの数を加算する
-						st_model_hit.YukaNum++;
+						st_model_hit.yukanum++;
 					}
 				}
 			}
@@ -306,67 +307,67 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 
 	// 床ポリゴンとの当たり判定
-	if (st_model_hit.YukaNum != 0)
+	if (st_model_hit.yukanum != 0)
 	{
 
 
-		float MaxY;
+		float maxy;
 
 		// 下降中かジャンプ中ではない場合の処理
 
 		// 床ポリゴンに当たったかどうかのフラグを倒しておく
-		st_model_hit.HitFlag = 0;
+		st_model_hit.hitflag = 0;
 
 		// 一番高い床ポリゴンにぶつける為の判定用変数を初期化
-		MaxY = 0.0f;
+		maxy = 0.0f;
 
 		// 床ポリゴンの数だけ繰り返し
-		for (int i = 0; i < st_model_hit.YukaNum; i++)
+		for (int i = 0; i < st_model_hit.yukanum; i++)
 		{
 			// i番目の床ポリゴンのアドレスを床ポリゴンポインタ配列から取得
-			st_model_hit.Poly = st_model_hit.Yuka[i];
+			st_model_hit.poly = st_model_hit.yuka[i];
 
 
 			// 走っている場合は頭の先からそこそこ低い位置の間で当たっているかを判定( 傾斜で落下状態に移行してしまわない為 )
 			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
-			st_model_hit.LineRes = HitCheck_Line_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, -200, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);
+			st_model_hit.lineres = HitCheck_Line_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, -200, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-			if (st_model_hit.LineRes.HitFlag == FALSE) { 
+			if (st_model_hit.lineres.HitFlag == FALSE) { 
 				
 				continue; 
 			}
 			//ここまでやった
 			
 			// 既に当たったポリゴンがあり、且つ今まで検出した床ポリゴンより低い場合は何もしない
-			if (st_model_hit.HitFlag == 1 && MaxY > st_model_hit.LineRes.Position.y) continue;
+			if (st_model_hit.hitflag == 1 && maxy > st_model_hit.lineres.Position.y) continue;
 
 			// ポリゴンに当たったフラグを立てる
-			st_model_hit.HitFlag = 1;
+			st_model_hit.hitflag = 1;
 			// 接触したＹ座標を保存する
-			MaxY = st_model_hit.LineRes.Position.y + sph[0].radius;
+			maxy = st_model_hit.lineres.Position.y + sph[0].radius;
 			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-		DrawLine3D(st_model_hit.NowPos, VAdd(st_model_hit.NowPos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
 		// 床ポリゴンに当たったかどうかで処理を分岐
-		if (st_model_hit.HitFlag == 1)
+		if (st_model_hit.hitflag == 1)
 		{
 			// 当たった場合
 
 			// 接触したポリゴンで一番高いＹ座標をプレイヤーのＹ座標にする
-			st_model_hit.NowPos.y = MaxY;
+			st_model_hit.nowpos.y = maxy;
 		}
 	}
 
 	
-	sph[0].pos = st_model_hit.NowPos;
+	sph[0].pos = st_model_hit.nowpos;
 	
 	MV1SetPosition(rock.handle, sph[0].pos);
 	/*DrawSphere3D(sph[0].pos, sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);*/
 	// 検出したプレイヤーの周囲のポリゴン情報を開放する
-	for (int i = 0; i < st_model_hit.HitDimNum; i++)
+	for (int i = 0; i < st_model_hit.hitdimnum; i++)
 	{
-		MV1CollResultPolyDimTerminate(st_model_hit.HitDim[i]);
+		MV1CollResultPolyDimTerminate(st_model_hit.hitdim[i]);
 	}
 }
 
