@@ -22,7 +22,7 @@ HitDrow htdrow;
 VECTOR TempMoveVector;
 Decel decel;
 Title title;
-Branch branch;
+BRAHCH branch;
 
 void Gamemain();
 //int tree_handle[TREE_NUM];
