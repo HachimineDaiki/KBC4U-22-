@@ -74,7 +74,7 @@ struct Decel {
 };
 
 //分岐構造体
-struct Branch
+struct BRAHCH
 {
 	int move_branch = 0;		//0:直線　1:左 2:右 それ以外:なし	道の分岐
 	int branch_point[1] = { 20000 };	//分岐地点の座標
@@ -84,4 +84,4 @@ struct Branch
 extern Decel decel;
 extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
-extern Branch branch;
+extern BRAHCH branch;
