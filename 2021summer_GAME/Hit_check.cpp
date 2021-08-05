@@ -98,12 +98,13 @@ void Sph_ehit(float dis) {
 	merikomi /= 2.0f;
 
 	sph[0].pos.x -= sph[0].v.x * merikomi; 
-	sph[0].pos.y -= sph[0].v.y * merikomi -400;
-	sph[0].pos.z -= sph[0].v.z * merikomi +1700;
+	sph[0].pos.y -= sph[0].v.y * merikomi -800;
+	sph[0].pos.z -= sph[0].v.z * merikomi +1600;
 
-	sph[0].v.x+= e_obj.pos.x * merikomi;
-	sph[0].v.y+= e_obj.pos.y * merikomi;
-	sph[0].v.z += e_obj.pos.z *merikomi;
+	sph[0].v.x+= e_obj.v.x * merikomi;
+	sph[0].v.y+= e_obj.v.y * merikomi;
+	sph[0].v.z += e_obj.v.z *merikomi;
+
 	/*e_obj.pos.x += sph[0].v.x * merikomi;
 	e_obj.pos.y += sph[0].v.y * merikomi;
 	e_obj.pos.z += sph[0].v.z * merikomi;*/

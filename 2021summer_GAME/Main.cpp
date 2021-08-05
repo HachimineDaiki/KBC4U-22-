@@ -85,6 +85,7 @@ void Gamemain() {
     }
 
     if (Sph_ehit_chech(sph, e_obj)) {
+        sph[0].zmove -= 40;
         Sph_ehit(es_dis);
         Sph_ehit_effect();
         DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");
@@ -118,7 +119,7 @@ void Gamemain() {
 
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-    DrawSphere3D(e_obj.pos, e_obj.radius, 16, e_obj.color, GetColor(0, 0, 0), TRUE);
+    DrawSphere3D(e_obj.pos, e_obj.radius, 16, e_obj.color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
 
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph->hp);
     //減速エリア描画

@@ -26,7 +26,7 @@ void Obj_init(){
 }
 //“–‚½‚Á‚½‚çƒ_ƒ\ƒW‚ğó‚¯‚éáŠQ•¨‰Šú‰»
 void Damege_Init() {
-	e_obj.pos = VGet(-1000.0f,2000.0f,4000.0f);
+	e_obj.pos = VGet(0.0f,1000.0f,7500.0f);
 	e_obj.radius = 600.0f;
 	e_obj.color = GetColor(255,255,100);
 }
