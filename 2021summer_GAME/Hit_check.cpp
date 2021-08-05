@@ -49,8 +49,14 @@ bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 	decelearia[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
 	return decelearia[i].dis < decelearia[i].radius_sum ? true : false;
 }
+void Sph_ehit_effect() {
+	sph->hp -= 1;
+	if (sph->hp < 0) {
+		sph->hp = 0;
+	}
+}
 
-void Decel_aria_effect() {
+void Decel_aria_effect(){
 	sph[0].zmove *= 0.93f;
 }
 
@@ -91,6 +97,16 @@ void Sph_ehit(float dis) {
 
 	merikomi /= 2.0f;
 
+	sph[0].pos.x -= sph[0].v.x * merikomi; 
+	sph[0].pos.y -= sph[0].v.y * merikomi -400;
+	sph[0].pos.z -= sph[0].v.z * merikomi +1700;
+
+	sph[0].v.x+= e_obj.pos.x * merikomi;
+	sph[0].v.y+= e_obj.pos.y * merikomi;
+	sph[0].v.z += e_obj.pos.z *merikomi;
+	/*e_obj.pos.x += sph[0].v.x * merikomi;
+	e_obj.pos.y += sph[0].v.y * merikomi;
+	e_obj.pos.z += sph[0].v.z * merikomi;*/
 }
 
 void Ground_model_hit() {

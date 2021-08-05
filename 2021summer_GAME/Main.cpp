@@ -83,18 +83,13 @@ void Gamemain() {
         DrawFormatString(100, 600, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
 
     }
+
     if (Sph_ehit_chech(sph, e_obj)) {
         Sph_ehit(es_dis);
-        sph->hp -= 1;
-        if (sph->hp < 0) {
-            sph->hp = 0;
-        }
-        htdrow.e_hitflg = true;
-    }
-    if (htdrow.e_hitflg) {
+        Sph_ehit_effect();
         DrawFormatString(0, 100, GetColor(0, 255, 255), "Ç‚Ç¡ÇΩÇ∫ÅB");
-        htdrow.e_hitflg = false;
     }
+
 
     if (htdrow.hitflg) {
 
