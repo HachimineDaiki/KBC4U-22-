@@ -63,7 +63,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     return 0;
 }
 
-
 void Gamemain() {
     //------------------------------“ü—ÍŠÖ”
     Input_camera_move();//ƒJƒƒ‰“ü—Í

@@ -90,7 +90,7 @@ void Model_init() {
 	ground.z = 0.0f;
 
 	//プレイヤー岩初期座標
-	rock.x = 100.0f;
-	rock.y = 5471.0f;
-	rock.z = 20000.0f;
+	//rock[0].x = 100.0f;
+	//rock[0].y = 5471.0f;
+	//rock[0].z = 20000.0f;
 }

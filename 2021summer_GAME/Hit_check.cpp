@@ -448,7 +448,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	
 	sph[0].pos = st_model_hit.nowpos;
 	
-	MV1SetPosition(rock.handle, sph[0].pos);
+	MV1SetPosition(rock[rock[0].handle_num].handle, sph[0].pos);//プレイヤーモデル描画
+
 	/*DrawSphere3D(sph[0].pos, sph[0].radius, 32, sph[0].color, GetColor(255, 255, 255), TRUE);*/
 	// 検出したプレイヤーの周囲のポリゴン情報を開放する
 	for (int i = 0; i < st_model_hit.hitdimnum; i++)

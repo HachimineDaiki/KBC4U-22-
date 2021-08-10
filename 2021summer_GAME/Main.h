@@ -15,7 +15,7 @@ Sph obj;//不法投棄
 Sph damege_aria[DAMEGE_ARIA_MAX];//障害物
 Sph decele_aria[DECELE_ARIA_MAX];//減速エリア
 Model ground;//地面
-Model rock;//岩
+Model rock[3];//岩
 StageModelHit st_model_hit;//モデルヒット
 HitDrow htdrow;//ヒット描画
 VECTOR TempMoveVector;

@@ -35,17 +35,18 @@ int Input_PlayerMoveDir();//プレイヤー入力方向
 void P_input_move();//プレイヤーの入力受付
 void P_move();//プレイヤー動き
 void P_rotate();
+int  P_rest_hp_handle(int hp);//残りhp見る。
 void P_hp(int obssize); //プレイヤーhp管理
-void P_rest_hp();//残りhp見る。
 void Sph_Gravity();//プレイヤー重力
 void Accl();//加速処理
-void P_debug();
 struct Input {
 	bool space;
 };
 
 enum Dir { Left, Right, Down, Up };
 enum Size { S = 1, M, L };//内部数値1から開始
+enum Color { RED, GREEN, BULE };
+
 
 //オブジェクト生成
 extern Sph sph[2];//プレイヤー

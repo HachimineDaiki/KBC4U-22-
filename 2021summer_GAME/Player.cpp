@@ -67,13 +67,31 @@ void P_move() {
 void P_hp(int obssize) {
     //プレイヤーの当たった時のスピードと障害物の種類でHPを減らす。
     sph[0].hp -= Hit_player_speed(sph, obssize);
-
+    rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
     //HPが0より下がらない
     if (sph[0].hp < 0) {
         sph[0].hp = 0;
     }
 }
 
+int  P_rest_hp_handle(int hp) {
+    //HPの残りゲージを見て色を返す。
+    int handle_num = 0;//色の添え字
+
+    if (300 >= hp && 151 <= hp) { //300～151
+        handle_num = 0;
+    }
+    else if (150 >= hp && 76 <= hp) { //151～76
+        handle_num = 1;
+    }
+    else if (75 >= hp && 0 <= hp) { //75～0
+        handle_num = 2;
+    }
+    else if (0 > hp) { //0以下
+        handle_num = 2;
+    }
+    return handle_num;
+}
 //プレイヤー回転
 void P_rotate() {
     const int rotate_amount = 15;//回転量
@@ -84,7 +102,7 @@ void P_rotate() {
         g_p_Rotate = 0;
     }
     //回転をセット
-    MV1SetRotationXYZ(rock.handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
+    MV1SetRotationXYZ(rock[rock[0].handle_num].handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
 }
 
 //プレイヤー入力受付
