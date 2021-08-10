@@ -208,6 +208,12 @@ void Ground_model_hit() {
 			// カメラの角度に合わせて移動ベクトルを回転してから加算
 			g_sinParam = (float)sin(g_p_direct / 180.0f * DX_PI_F);
 			g_cosParam = (float)cos(g_p_direct / 180.0f * DX_PI_F);
+			//岩の向いている方向の計算(目の前が坂かどうかを判断するのに使う)
+			TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - sph[0].front * g_sinParam;
+			TempMoveVector.y = 0.0f;
+			TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + sph[0].front * g_cosParam;
+
+			g_frontVector = VAdd(sph[0].pos, TempMoveVector);
 			// 各ベクトルごとに計算yは放置
 
 			TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - st_model_hit.movepos.z * g_sinParam;
@@ -225,6 +231,11 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	st_model_hit.oldpos = sph[0].pos;
 	// 移動後の座標を算出
 	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
+
+	HITRESULT_LINE frontpos2;
+	VECTOR frontpos = sph[0].pos;
+
+
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
 	 //( 検出する範囲は移動距離も考慮する )
 	st_model_hit.hitdim[0] = MV1CollCheck_Sphere(ground.handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
@@ -395,7 +406,9 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 			// 走っている場合は頭の先からそこそこ低い位置の間で当たっているかを判定( 傾斜で落下状態に移行してしまわない為 )
 			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
-			st_model_hit.lineres = HitCheck_Line_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, -200, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			st_model_hit.lineres = HitCheck_Line_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+
+			frontpos2 = HitCheck_Line_Triangle(st_model_hit.nowpos,VAdd(g_frontVector,VGet(0.0f,-100.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
 			if (st_model_hit.lineres.HitFlag == FALSE) { 
 				
@@ -414,6 +427,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
 		DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
+		//DrawLine3D(st_model_hit.nowpos, VAdd(g_frontVector, VGet(0.0f, -100.f, 0.0f)), GetColor(255, 0, 0));
 		// 床ポリゴンに当たったかどうかで処理を分岐
 		if (st_model_hit.hitflag == 1)
 		{
@@ -422,6 +436,13 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			// 接触したポリゴンで一番高いＹ座標をプレイヤーのＹ座標にする
 			st_model_hit.nowpos.y = maxy;
 		}
+	}
+
+	if (frontpos2.HitFlag == TRUE){
+		g_fronthit = 1;
+	}
+	if (frontpos2.HitFlag == FALSE) {
+		g_fronthit = 0;
 	}
 
 	

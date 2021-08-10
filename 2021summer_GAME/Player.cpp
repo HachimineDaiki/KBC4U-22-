@@ -21,12 +21,22 @@ void Accl() {
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //‚Ç‚ñ‚Ç‚ñ‘¬‚³‚ð•Ï‚¦‚é
 
+
     if (p_zmoveflg) {
-        sph[0].zmove += p_vz2 * sph[0].control;
+        if (g_fronthit == 0) {
+            sph[0].zmove += p_vz2 * sph[0].control;
+        }
+        else if (g_fronthit == 1) {
+
+            sph[0].zmove -= p_vz2 * sph[0].control;
+        }
     }
 
     if (sph[0].zmove >= 150.0f) {
         sph[0].zmove = 150.0f;
+    }
+    else if (sph[0].zmove <= -150.0f) {
+        sph[0].zmove = -150.0f;
     }
 
     if (sph[0].zmove >= 50.0f) {

@@ -19,6 +19,7 @@ Model rock;//岩
 StageModelHit st_model_hit;//モデルヒット
 HitDrow htdrow;//ヒット描画
 VECTOR TempMoveVector;
+VECTOR g_frontVector;//プレイヤーの前方を取る
 Decel decel;//減速
 Title title;//タイトル
 Branch branch;
@@ -40,5 +41,7 @@ float g_p_Rotate; // プレイヤーの回転
 float g_p_rotate_amount;//回転量
 
 float merikomi;//めり込む量
+
+int g_fronthit;//0　前に坂ナシ　1　前に坂アリ
 
 int gameMode;//ゲームモード
