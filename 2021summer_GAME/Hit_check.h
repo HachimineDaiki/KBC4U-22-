@@ -86,3 +86,4 @@ extern Decel decel;
 extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
 extern Branch branch;
+extern VECTOR g_frontVector;

@@ -65,7 +65,6 @@ void Camera_move() {
     // ƒJƒƒ‰‚Ìİ’è‚É”½‰f‚·‚é
     SetCameraPositionAndTarget_UpVecY(cameraPosition, cameraLookAtPosition);
 
-
 }
 
 void Input_camera_move() {

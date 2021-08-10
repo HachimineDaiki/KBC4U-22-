@@ -19,7 +19,7 @@ struct Sph
 	int name;//プレイヤーname情報
 	int hit_name;//当たったname情報
 	float hit_speed;//当たったスピード保存
-
+	float front;//プレイヤーの前方
 };
 
 struct Damege {
@@ -62,3 +62,4 @@ extern bool p_zmoveflg;//前進に移動するフラグ
 extern VECTOR TempMoveVector;
 extern Input input;
 extern Damege obs_damege;//障害物のダメージ量
+extern int g_fronthit;//0　前に坂ナシ　1　前に坂アリ
