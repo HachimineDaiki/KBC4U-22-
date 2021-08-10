@@ -17,6 +17,61 @@ struct STAGE
 
 STAGE stg;
 
+//当たった時プレイヤーに影響するHP
+int Hit_player_speed(Sph player[], int obs_info) {
+	int hp = 0;
+	
+	if (obs_info == L) {//大きい障害物
+		if (player[0].zmove >= 0 && player[0].zmove <= 60) {
+			hp = obs_damege._30;
+		}
+		else if (player[0].zmove >= 61 && player[0].zmove <= 100) {
+			hp = obs_damege._50;
+		}
+		else if (player[0].zmove >= 101) {
+			hp = obs_damege._100;
+		}
+		else {
+			hp = obs_damege._0;
+		}
+	}
+	else if(obs_info == M){//中障害物
+		if (player[0].zmove >= 0 && player[0].zmove <= 60) {
+			hp = obs_damege._15;
+		}
+		else if (player[0].zmove >= 61 && player[0].zmove <= 100) {
+			hp = obs_damege._25;
+		}
+		else if (player[0].zmove >= 101) {
+			hp = obs_damege._50;
+		}
+		else {
+			hp = obs_damege._0;
+		}
+	}
+	else {//小さい障害物
+		hp = obs_damege._0;
+	}
+
+	return hp;
+}
+//どの障害物にあたったのか
+int IsObs_check(Sph obs[], int i) {
+	int obs_size = 0;//障害物のサイズを返す変数
+
+	switch (obs[i].hit_name)//当たった障害物の名前を探す
+	{
+	case L:obs_size = L;//大きいサイズ
+		break;
+	case M:obs_size = M;//中サイズ
+		break;
+	case S:obs_size = S;//小さいサイズ
+		break;
+	}
+
+	return obs_size;//障害物のサイズを返す
+}
+
 //球同士当たり判定
 bool Sph_hit_check(Sph sp[], Sph ob) {
 	sph[0].v.x = ob.pos.x - sp[0].pos.x;//x成分
@@ -29,32 +84,42 @@ bool Sph_hit_check(Sph sp[], Sph ob) {
 	return s_dis < radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
 }
 
-bool Sph_ehit_chech(Sph sp[], Sph e_obj[], int i) {
-	e_obj[i].v.x = e_obj[i].pos.x - sp[0].pos.x;//x成分
-	e_obj[i].v.y = e_obj[i].pos.y - sp[0].pos.y;//y成分
-	e_obj[i].v.z = e_obj[i].pos.z - sp[0].pos.z;//z成分
+//ダメージエリア
+bool Sph_ehit_chech(Sph sp[], Sph _damege_aria[], int i) {
+	damege_aria[i].v.x = _damege_aria[i].pos.x - sp[0].pos.x;//x成分
+	damege_aria[i].v.y = _damege_aria[i].pos.y - sp[0].pos.y;//y成分
+	damege_aria[i].v.z = _damege_aria[i].pos.z - sp[0].pos.z;//z成分
 
-	e_obj[i].dis = e_obj[i].v.x * e_obj[i].v.x + e_obj[i].v.y * e_obj[i].v.y + e_obj[i].v.z * e_obj[i].v.z;//2点間の距離
-	e_obj[i].radius_sum = (sp[0].radius + e_obj[i].radius) * (sp[0].radius + e_obj[i].radius); //半径の和
-	return e_obj[i].dis < e_obj[i].radius_sum ? true : false;//2点間の距離が半径の和より小さければ当たっていると判定
+	damege_aria[i].dis = damege_aria[i].v.x * damege_aria[i].v.x + damege_aria[i].v.y * damege_aria[i].v.y + damege_aria[i].v.z * damege_aria[i].v.z;//2点間の距離
+	damege_aria[i].radius_sum = (sp[0].radius + damege_aria[i].radius) * (sp[0].radius + damege_aria[i].radius); //半径の和
+	
+	bool hit;//当たったのか返す用
+
+	//ダメージエリアに入っているかチェック
+	if (damege_aria[i].dis < damege_aria[i].radius_sum) {
+		hit = true;//当たった。
+		damege_aria[i].hit_name = damege_aria[i].name;//当たったダメージエリアの名前を入れる。
+		damege_aria[i].hit_speed = sph[0].zmove;//当たった時のプレイヤーの速度を入れる。
+		P_hp(IsObs_check(damege_aria, i));//当たったダメージエリアのサイズでHP減少。
+	}
+	else
+	{
+		hit = false;//当たっていない。
+	}
+
+	return hit;//当たっているか情報を返す。
 }
 //減速エリアのチェック判定処理
 bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
-	decelearia[i].v.x = decele[i].pos.x - sp[0].pos.x;
-	decelearia[i].v.y = decele[i].pos.y - sp[0].pos.y;
-	decelearia[i].v.z = decele[i].pos.z - sp[0].pos.z;
+	decele_aria[i].v.x = decele[i].pos.x - sp[0].pos.x;
+	decele_aria[i].v.y = decele[i].pos.y - sp[0].pos.y;
+	decele_aria[i].v.z = decele[i].pos.z - sp[0].pos.z;
 
-	decelearia[i].dis = decelearia[i].v.x * decelearia[i].v.x + decelearia[i].v.y * decelearia[i].v.y + decelearia[i].v.z * decelearia[i].v.z;
-	decelearia[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
-	return decelearia[i].dis < decelearia[i].radius_sum ? true : false;
+	decele_aria[i].dis = decele_aria[i].v.x * decele_aria[i].v.x + decele_aria[i].v.y * decele_aria[i].v.y + decele_aria[i].v.z * decele_aria[i].v.z;
+	decele_aria[i].radius_sum = (decele[i].radius + sp[0].radius) * (decele[i].radius + sp[0].radius);
+	return decele_aria[i].dis < decele_aria[i].radius_sum ? true : false;
 }
-//プレイヤーのHP管理処理
-void Sph_ehit_effect() {
-	sph->hp -= 1;
-	if (sph->hp < 0) {
-		sph->hp = 0;
-	}
-}
+
 
 //減速速度処理
 void Decel_aria_effect(){
@@ -87,7 +152,7 @@ void Sph_hit(float dis) {
 
 void Sph_ehit(float dis , int i) {
 	float len = sqrtf(dis);
-	float radius_sum = sph[0].radius + e_obj[i].radius;
+	float radius_sum = sph[0].radius + damege_aria[i].radius;
 	float merikomi = radius_sum - len;
 
 	if (len > 0) len = 1 / len;
@@ -98,17 +163,17 @@ void Sph_ehit(float dis , int i) {
 
 	merikomi /= 2.0f;
 
-	sph[0].pos.x -= sph[0].v.x * merikomi; 
-	sph[0].pos.y -= sph[0].v.y * merikomi -800;
-	sph[0].pos.z -= sph[0].v.z * merikomi +1600;
+	sph[0].pos.x -= sph[0].v.x * merikomi;
+	sph[0].pos.y -= sph[0].v.y * merikomi - 800;
+	sph[0].pos.z -= sph[0].v.z * merikomi + 1600;
 
-	sph[0].v.x+= e_obj[i].v.x * merikomi;
-	sph[0].v.y+= e_obj[i].v.y * merikomi;
-	sph[0].v.z += e_obj[i].v.z *merikomi;
+	//sph[0].v.x += damege_aria[i].v.x * merikomi;
+	//sph[0].v.y += damege_aria[i].v.y * merikomi;
+	//sph[0].v.z += damege_aria[i].v.z * merikomi;
 
-	/*e_obj.pos.x += sph[0].v.x * merikomi;
-	e_obj.pos.y += sph[0].v.y * merikomi;
-	e_obj.pos.z += sph[0].v.z * merikomi;*/
+	/*_damege_aria.pos.x += sph[0].v.x * merikomi;
+	_damege_aria.pos.y += sph[0].v.y * merikomi;
+	_damege_aria.pos.z += sph[0].v.z * merikomi;*/
 }
 
 void Ground_model_hit() {

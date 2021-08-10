@@ -1,7 +1,7 @@
 #pragma once
 #define VECTOR_SLIDE 0.86602540378
-#define DECELEARIA_NUM 100
-#define E_DAMEGE 6
+#define DECELE_ARIA_MAX 100 //減速エリア最大値
+#define DAMEGE_ARIA_MAX 10//ダメージエリア最大値
 struct Sph
 {
 	float radius;
@@ -16,27 +16,42 @@ struct Sph
 	float zmove; //Z軸動く
 	float control;
 	int hp; //プレイヤーのHP
+	int name;//プレイヤーname情報
+	int hit_name;//当たったname情報
+	float hit_speed;//当たったスピード保存
+
+};
+
+struct Damege {
+	const int _0 = 0;
+	const int _15 = 15;
+	const int _25 = 25;
+	const int _30 = 30;
+	const int _50 = 50;
+	const int _100 = 100;
 };
 
 int Input_PlayerMoveDir();//プレイヤー入力方向
 void P_input_move();//プレイヤーの入力受付
 void P_move();//プレイヤー動き
 void P_rotate();
-
+void P_hp(int obssize); //プレイヤーhp管理
+void P_rest_hp();//残りhp見る。
 void Sph_Gravity();//プレイヤー重力
 void Accl();//加速処理
-
+void P_debug();
 struct Input {
 	bool space;
 };
 
 enum Dir { Left, Right, Down, Up };
+enum Size { S = 1, M, L };//内部数値1から開始
 
 //オブジェクト生成
 extern Sph sph[2];//プレイヤー
 extern Sph obj;//不法投棄物
-extern Sph e_obj[E_DAMEGE]; //当たるとダメージをうけるオブジェクト
-extern Sph decelearia[DECELEARIA_NUM]; //減速エリア
+extern Sph damege_aria[DAMEGE_ARIA_MAX]; //当たるとダメージをうけるオブジェクト
+extern Sph decele_aria[DECELE_ARIA_MAX]; //減速エリア
 
 extern float s_dis;
 extern float es_dis;//障害物用
@@ -46,3 +61,4 @@ extern float g_p_rotate_amount;//プレイヤーの回転量
 extern bool p_zmoveflg;//前進に移動するフラグ
 extern VECTOR TempMoveVector;
 extern Input input;
+extern Damege obs_damege;//障害物のダメージ量

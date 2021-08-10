@@ -22,7 +22,8 @@ bool Sph_hit_check(Sph sp[], Sph ob);
 bool Sph_ehit_chech(Sph sp[], Sph e_obj[], int i);
 bool Decel_aria_check(Sph sp[], Sph decelaria[], int i);
 void Decel_aria_effect();//エリアに入った時の効果
-void Sph_ehit_effect(); //当たった時の効果
+int IsObs_check(Sph obs[], int i);//どの障害物に当たったか
+int Hit_player_speed(Sph player[], int obs_info);//当たった時のプレイヤー速度
 void Sph_hit(float dis);
 void Sph_ehit(float dis, int i);//障害物当たり判定
 //void Model_hit_check();

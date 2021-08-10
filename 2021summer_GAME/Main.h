@@ -9,11 +9,11 @@
 #include "Title.h"
 
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
-
+//構造体
 Sph sph[2];//プレイヤー
 Sph obj;//不法投棄
-Sph e_obj[E_DAMEGE];//障害物
-Sph decelearia[DECELEARIA_NUM];//減速エリア
+Sph damege_aria[DAMEGE_ARIA_MAX];//障害物
+Sph decele_aria[DECELE_ARIA_MAX];//減速エリア
 Model ground;//地面
 Model rock;//岩
 StageModelHit st_model_hit;//モデルヒット
@@ -22,6 +22,8 @@ VECTOR TempMoveVector;
 Decel decel;//減速
 Title title;//タイトル
 Branch branch;
+Damege obs_damege;//障害物のダメージ量
+//列挙体
 
 void Gamemain();//ゲームメイン関数
 float s_dis;

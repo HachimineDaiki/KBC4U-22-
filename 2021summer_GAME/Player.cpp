@@ -48,28 +48,20 @@ void P_move() {
         }
     
     }
-
- /*   if (CheckHitKey(KEY_INPUT_S))
-    {
-        sph[0].pos.z -= 10;
-    }
-
-    if (CheckHitKey(KEY_INPUT_W))
-    {
-        sph[0].pos.z += 10;
-    }
-
-    if (CheckHitKey(KEY_INPUT_A))
-    {
-        sph[0].pos.x -= 10;
-    }
-
-    if (CheckHitKey(KEY_INPUT_D))
-    {
-        sph[0].pos.x += 10;
-    }*/
    Accl();//accelerator処理
    P_rotate();//回転処理
+}
+
+//ここまで
+//プレイヤーのHP管理処理
+void P_hp(int obssize) {
+    //プレイヤーの当たった時のスピードと障害物の種類でHPを減らす。
+    sph[0].hp -= Hit_player_speed(sph, obssize);
+
+    //HPが0より下がらない
+    if (sph[0].hp < 0) {
+        sph[0].hp = 0;
+    }
 }
 
 //プレイヤー回転
@@ -84,6 +76,8 @@ void P_rotate() {
     //回転をセット
     MV1SetRotationXYZ(rock.handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
 }
+
+//プレイヤー入力受付
 void P_input_move() {
     //スペースを押したら前進
     if (CheckHitKey(KEY_INPUT_SPACE)) {
@@ -141,3 +135,25 @@ int Input_PlayerMoveDir() {
     }
     return input_dir;
 }
+
+//void P_debug() {
+//    if (CheckHitKey(KEY_INPUT_A))
+//    {
+//        sph[0].pos.x -= 10;
+//    }
+//
+//    if (CheckHitKey(KEY_INPUT_D))
+//    {
+//        sph[0].pos.x += 10;
+//    }
+//
+//    if (CheckHitKey(KEY_INPUT_W))
+//    {
+//        sph[0].pos.z += 10;
+//    }
+//
+//    if (CheckHitKey(KEY_INPUT_S))
+//    {
+//        sph[0].pos.z -= 10;
+//    }
+//}

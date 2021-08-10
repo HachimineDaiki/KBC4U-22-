@@ -87,16 +87,14 @@ void Gamemain() {
 
     }
 
-    //障害物の当たり判定
-    for (int i = 0; i < E_DAMEGE; i++) {
-        if (Sph_ehit_chech(sph, e_obj,i)) {
+    //障害物エリアの当たり判定
+    for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
+        if (Sph_ehit_chech(sph, damege_aria,i)) {
             sph[0].zmove -= 40;
             Sph_ehit(es_dis,i);
-            Sph_ehit_effect();
-            DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");
+            /*DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");*/
         }
     }
-
 
     //不法投棄飛ばす
     if (htdrow.hitflg) {
@@ -106,8 +104,8 @@ void Gamemain() {
 
     //減速エリアに入っているかチェック
     decel.hit_flg = false;//減速フラグ
-    for (int i = 0; i < DECELEARIA_NUM; i++) {
-        if (Decel_aria_check(sph, decelearia, i)) {
+    for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+        if (Decel_aria_check(sph, decele_aria, i)) {
             decel.hit_flg = true;//当たったら減速のフラグをON
         }
     }
@@ -129,16 +127,17 @@ void Gamemain() {
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
 
     //障害物描画
-    for (int i = 0; i < E_DAMEGE;i++) {
-        DrawSphere3D(e_obj[i].pos, e_obj[i].radius, 16, e_obj[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
+    for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
+        DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 16, damege_aria[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
     }
+
     //体力描画
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph->hp);
 
     //減速エリア描画
-    for (int i = 0; i < DECELEARIA_NUM; i++) {
+    for (int i = 0; i < DECELE_ARIA_MAX; i++) {
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
-        DrawSphere3D(decelearia[i].pos, decelearia[i].radius, 32, decelearia[i].color, GetColor(255, 255, 255), TRUE);
+        DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
     }
 
