@@ -28,36 +28,41 @@ void Obj_init(){
 }
 //当たったらダメ―ジを受ける障害物初期化
 void Damege_Init() {
-	for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
-		if (i >= 0 && i <= 2 ) {
+	for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
+		if (i >= 0 && i <= 2) {
 			damege_aria[i].radius = 100.0f;
 			damege_aria[i].color = GetColor(255, 0, 0);
 			damege_aria[i].name = S;//障害物の大きさL
+			damege_aria[i].hp = 10;//test用の体力
+			damege_aria[i].obj_flag = true;
 		}
 		else if (i >= 3 && i <= 5) {
 			damege_aria[i].radius = 200.0f;
 			damege_aria[i].color = GetColor(255, 255, 0);
 			damege_aria[i].name = M;//障害物の大きさM
+			damege_aria[i].hp = 50;//test用の体力
+			damege_aria[i].obj_flag = true;
 		}
 		else {
 			damege_aria[i].radius = 400.0f;
 			damege_aria[i].color = GetColor(0, 255, 0);
 			damege_aria[i].name = L;//障害物の大きさS
+			damege_aria[i].hp = 100;//test用の体力
+			damege_aria[i].obj_flag = true;
 		}
+
+			//ダメージエリア初期座標
+			damege_aria[0].pos = VGet(11853.0f, -4330.0f, 28851.0f);
+			damege_aria[1].pos = VGet(11232.0f, -4669.0f, 31544.0f);
+			damege_aria[2].pos = VGet(11922.0f, -4477.0f, 29957.0f);
+			damege_aria[3].pos = VGet(20700.0f, -6489.0f, 41609.0f);
+			damege_aria[4].pos = VGet(24099.0f, -5814.0f, 42633.0f);
+			damege_aria[5].pos = VGet(25916.0f, -9196.0f, 57011.0f);
+			damege_aria[6].pos = VGet(28500.0f, -10060.0f, 61438.0f);
+			damege_aria[7].pos = VGet(27000.0f, -11351.0f, 69486.0f);
+			damege_aria[8].pos = VGet(25555.0f, -12654.0f, 76525.0f);
+			damege_aria[9].pos = VGet(27000.0f, -12654.0f, 76525.0f);
 	}
-
-	//ダメージエリア初期座標
-	damege_aria[0].pos = VGet(11853.0f, -4330.0f, 28851.0f);
-	damege_aria[1].pos = VGet(11232.0f, -4669.0f, 31544.0f);
-	damege_aria[2].pos = VGet(11922.0f, -4477.0f, 29957.0f);
-	damege_aria[3].pos = VGet(20700.0f, -6489.0f, 41609.0f);
-	damege_aria[4].pos = VGet(24099.0f, -5814.0f, 42633.0f);
-	damege_aria[5].pos = VGet(25916.0f, -9196.0f, 57011.0f);
-	damege_aria[6].pos = VGet(28500.0f, -10060.0f, 61438.0f);
-	damege_aria[7].pos = VGet(27000.0f, -11351.0f, 69486.0f);
-	damege_aria[8].pos = VGet(25555.0f, -12654.0f, 76525.0f);
-	damege_aria[9].pos = VGet(27000.0f, -12654.0f, 76525.0f);
-
 }
 
 //減速エリア初期化
