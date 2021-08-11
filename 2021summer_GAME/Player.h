@@ -20,6 +20,7 @@ struct Sph
 	int hit_name;//当たったname情報
 	float hit_speed;//当たったスピード保存
 	float front;//プレイヤーの前方
+	bool obj_flag;//敵が存在するかフラグ。
 };
 
 struct Damege {

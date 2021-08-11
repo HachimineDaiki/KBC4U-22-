@@ -55,6 +55,30 @@ int Hit_player_speed(Sph player[], int obs_info) {
 
 	return hp;
 }
+void Hit_badobject_helth(Sph player[], int obs_info, int i) {
+
+	if (obs_info == L) {
+		if (player[0].zmove >= 100) {
+			DrawFormatString(0, 0, GetColor(0, 255, 255), "HIT_L");
+			damege_aria[i].obj_flag = false;
+			damege_aria[i].radius = 0;
+		}
+	}
+	else if (obs_info == M) {
+		if (player[0].zmove >= 50) {
+			DrawFormatString(0, 0, GetColor(0, 255, 255), "HIT_M");
+			damege_aria[i].obj_flag = false;
+			damege_aria[i].radius = 0;
+		}
+	}
+	else {
+		if (player[0].zmove >= 10) {
+			DrawFormatString(0, 0, GetColor(0, 255, 255), "HIT_S");
+			damege_aria[i].obj_flag = false;
+			damege_aria[i].radius = 0;
+		}
+	}
+}
 //どの障害物にあたったのか
 int IsObs_check(Sph obs[], int i) {
 	int obs_size = 0;//障害物のサイズを返す変数
@@ -101,6 +125,7 @@ bool Sph_ehit_chech(Sph sp[], Sph _damege_aria[], int i) {
 		damege_aria[i].hit_name = damege_aria[i].name;//当たったダメージエリアの名前を入れる。
 		damege_aria[i].hit_speed = sph[0].zmove;//当たった時のプレイヤーの速度を入れる。
 		P_hp(IsObs_check(damege_aria, i));//当たったダメージエリアのサイズでHP減少。
+		Hit_badobject_helth(sph, IsObs_check(damege_aria, i), i);
 	}
 	else
 	{

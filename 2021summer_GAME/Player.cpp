@@ -92,6 +92,8 @@ int  P_rest_hp_handle(int hp) {
     }
     return handle_num;
 }
+
+
 //ƒvƒŒƒCƒ„[‰ñ“]
 void P_rotate() {
     const int rotate_amount = 15;//‰ñ“]—Ê

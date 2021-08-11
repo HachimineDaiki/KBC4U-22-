@@ -127,7 +127,10 @@ void Gamemain() {
 
     //障害物描画
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
-        DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 16, damege_aria[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
+        if (damege_aria[i].obj_flag) {
+            DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 16, damege_aria[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
+        }
+        //DrawFormatString(600,0+(i*1)*20,GetColor(0,255,255),"%d",damege_aria[i].hp);
     }
 
     //体力描画

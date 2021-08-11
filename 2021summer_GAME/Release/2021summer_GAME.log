@@ -1,16 +1,7 @@
-﻿  Camera.cpp
-  Hit_check.cpp
-  Init.cpp
-  Main.cpp
-D:\2021summer_GAME\2021summer_GAME\Main.cpp(82,39): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\2021summer_GAME\2021summer_GAME\Main.cpp(83,40): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\2021summer_GAME\2021summer_GAME\Main.cpp(101,33): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  Param_Info.cpp
-  Player.cpp
-D:\2021summer_GAME\2021summer_GAME\Player.cpp(19,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  Hit_check.cpp
   コード生成しています。
-  4 of 43 functions ( 9.3%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
+  3 of 44 functions ( 6.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
-  2021summer_GAME.vcxproj -> D:\2021summer_GAME\2021summer_GAME\Release\2021summer_GAME.exe
+  2021summer_GAME.vcxproj -> C:\Users\Hachimine Daiki\Desktop\U-22-3C\2021summer_GAME\Release\2021summer_GAME.exe
