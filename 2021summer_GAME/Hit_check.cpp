@@ -151,6 +151,11 @@ void Decel_aria_effect(){
 	sph[0].zmove *= 0.93f;
 }
 
+//ダメージエリア　減速処理
+void Damege_aria_Decele() {
+	sph[0].zmove *= 0.7f;
+}
+
 //球と球の当たり判定を検知した後の処理
 void Sph_hit(float dis) {
 	float len = sqrtf(dis);
@@ -166,9 +171,9 @@ void Sph_hit(float dis) {
 	merikomi /= 2.0f;
 
 	//めり込み修正
-	//sph[0].pos.x -= sph[0].v.x * merikomi; 
-	//sph[0].pos.y -= sph[0].v.y * merikomi;
-	//sph[0].pos.z -= sph[0].v.z * merikomi;
+	sph[0].pos.x -= sph[0].v.x * merikomi; 
+	sph[0].pos.y -= sph[0].v.y * merikomi;
+	sph[0].pos.z -= sph[0].v.z * merikomi;
 
 	//obj.pos.x += sph[0].v.x * merikomi;
 	//obj.pos.y += sph[0].v.y * merikomi;
@@ -177,7 +182,7 @@ void Sph_hit(float dis) {
 
 void Sph_ehit(float dis , int i) {
 	float len = sqrtf(dis);
-	float radius_sum = sph[0].radius + damege_aria[i].radius;
+	float radius_sum = sph[0].radius + obj.radius;
 	float merikomi = radius_sum - len;
 
 	if (len > 0) len = 1 / len;
@@ -188,17 +193,33 @@ void Sph_ehit(float dis , int i) {
 
 	merikomi /= 2.0f;
 
+	//めり込み修正
 	sph[0].pos.x -= sph[0].v.x * merikomi;
-	sph[0].pos.y -= sph[0].v.y * merikomi - 800;
-	sph[0].pos.z -= sph[0].v.z * merikomi + 1600;
-
-	//sph[0].v.x += damege_aria[i].v.x * merikomi;
-	//sph[0].v.y += damege_aria[i].v.y * merikomi;
-	//sph[0].v.z += damege_aria[i].v.z * merikomi;
-
-	/*_damege_aria.pos.x += sph[0].v.x * merikomi;
-	_damege_aria.pos.y += sph[0].v.y * merikomi;
-	_damege_aria.pos.z += sph[0].v.z * merikomi;*/
+	sph[0].pos.y -= sph[0].v.y * merikomi;
+	sph[0].pos.z -= sph[0].v.z * merikomi;
+//	float len = sqrtf(dis);
+//	float radius_sum = sph[0].radius + damege_aria[i].radius;
+//	float merikomi = radius_sum - len;
+//
+//	if (len > 0) len = 1 / len;
+//
+//	sph[0].v.x *= len;
+//	sph[0].v.y *= len;
+//	sph[0].v.z *= len;
+//
+//	merikomi /= 2.0f;
+//
+//	//sph[0].pos.x -= sph[i].v.x * merikomi;
+//	//sph[0].pos.y -= sph[i].v.y * merikomi/* - 800*/;
+//	//sph[0].pos.z -= sph[i].v.z * merikomi/* + 1600*/;
+//
+//	//sph[0].v.x += damege_aria[i].v.x * merikomi;
+//	//sph[0].v.y += damege_aria[i].v.y * merikomi;
+//	//sph[0].v.z += damege_aria[i].v.z * merikomi;
+//
+//	/*_damege_aria.pos.x += sph[0].v.x * merikomi;
+//	_damege_aria.pos.y += sph[0].v.y * merikomi;
+//	_damege_aria.pos.z += sph[0].v.z * merikomi;*/
 }
 
 void Ground_model_hit() {

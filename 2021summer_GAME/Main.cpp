@@ -89,7 +89,8 @@ void Gamemain() {
     //áŠQ•¨ƒGƒŠƒA‚Ì“–‚½‚è”»’è
     for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
         if (Sph_ehit_chech(sph, damege_aria,i)) {
-            sph[0].zmove -= 40;
+            Damege_aria_Decele();
+            /*sph[0].zmove -= 40;*/
             Sph_ehit(es_dis,i);
             /*DrawFormatString(0, 100, GetColor(0, 255, 255), "‚â‚Á‚½‚ºB");*/
         }

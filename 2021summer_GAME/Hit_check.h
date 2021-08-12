@@ -32,6 +32,7 @@ void Sph_ehit(float dis, int i);//障害物当たり判定
 void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
 void Move_Limits();		//プレイヤーの左右移動を制限する
+void Damege_aria_Decele();//ダメージエリアの減速
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数
