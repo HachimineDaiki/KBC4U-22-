@@ -3,7 +3,8 @@
 #include"Player.h"
 #include"Hit_check.h"
 #include"3Dmodel.h"
-float g = 9.81f; //地球の重力
+#include"Init.h"
+//float g = 9.81f; //地球の重力
 
 void Sph_Gravity() {
         //重力作成
@@ -69,7 +70,8 @@ void P_hp(int obssize) {
     sph[0].hp -= Hit_player_speed(sph, obssize);
     rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
     //HPが0より下がらない
-    if (sph[0].hp < 0) {
+    if (sph[0].hp <= 0) {
+        gameMode = 2;
         sph[0].hp = 0;
     }
 }
@@ -130,6 +132,21 @@ void P_input_move() {
 int Input_PlayerMoveDir() {
 
     int input_dir = -1;
+
+    if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
+        g = 9.81f;
+        rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
+        Sph_init();//球の初期化
+        Obj_init();//不法投棄物の初期化
+        Damege_Init();//障害物の初期化
+        Decelearia_init();//減速エリア初期化
+        Model_init();//モデル初期化
+        //Camera_set();//カメラセット
+        Model3d_load();//3Dモデル読み込み
+        Model3d_init();//3Dモデル初期化
+
+    }
+
     
     if (p_zmoveflg==false) {
         if (CheckHitKey(KEY_INPUT_A)&& sph[0].pos.x > st_model_hit.glimits_verification[0]+10)

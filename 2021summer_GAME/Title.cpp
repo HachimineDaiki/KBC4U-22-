@@ -13,6 +13,7 @@ void Titledraw() {//‰æ‘œ‚Ì•`‰æ
 	DrawGraph(0,0,title.g_title,FALSE); 
 	if (CheckHitKey(KEY_INPUT_SPACE)) {
 		gameMode = 1;
+
 	}
 
 	//if (CheckHitKey(KEY_INPUT_S)) {

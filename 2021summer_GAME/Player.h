@@ -48,6 +48,7 @@ enum Dir { Left, Right, Down, Up };
 enum Size { S = 1, M, L };//内部数値1から開始
 enum Color { RED, GREEN, BULE };
 
+extern float g;//重力 9.81
 
 //オブジェクト生成
 extern Sph sph[2];//プレイヤー
