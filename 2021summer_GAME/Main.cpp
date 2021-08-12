@@ -26,6 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetDrawScreen(DX_SCREEN_BACK);
     //--------------‰Šú‰»ŠÖ”
     Titleinit();
+    Gameoverinit();
     gameMode = TITLE;
     Sph_init();//‹…‚Ì‰Šú‰»
     Obj_init();//•s–@“ŠŠü•¨‚Ì‰Šú‰»

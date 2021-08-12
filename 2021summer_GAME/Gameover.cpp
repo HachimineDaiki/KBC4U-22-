@@ -5,7 +5,7 @@
 #include"3Dmodel.h"
 
 int Gameoverload() {  //ゲームオーバーの画像をロードする
-	if ((gameover.g_gameover = LoadGraph("images/title.png")) == -1)return -1;
+	if ((gameover.g_gameover = LoadGraph("images/gameover2.png")) == -1)return -1;
 }
 
 void Gameoverinit() {  //ゲームオーバーの画像をロードする
@@ -28,8 +28,5 @@ void Gameoverdraw() {   //ゲームオーバーの画像を描画する
 		Model3d_load();//3Dモデル読み込み
 		Model3d_init();//3Dモデル初期化
 		gameMode = 0;
-
-		
-		
 	}
 }
