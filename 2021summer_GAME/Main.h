@@ -7,6 +7,7 @@
 #include "3Dmodel.h"
 #include "Param_Info.h"
 #include "Title.h"
+#include "Gameover.h"
 
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 //構造体
@@ -22,9 +23,13 @@ VECTOR TempMoveVector;
 VECTOR g_frontVector;//プレイヤーの前方を取る
 Decel decel;//減速
 Title title;//タイトル
+Gameover gameover;//ゲームオーバー
 Branch branch;
 Damege obs_damege;//障害物のダメージ量
+
 //列挙体
+
+float g=9.81;//重力を代入
 
 void Gamemain();//ゲームメイン関数
 float s_dis;

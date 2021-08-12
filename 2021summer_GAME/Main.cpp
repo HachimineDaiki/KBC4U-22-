@@ -7,6 +7,7 @@
 #include "3Dmodel.h"
 #include "Param_Info.h"
 #include "Title.h"
+#include "Gameover.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // 画面モードの設定
@@ -51,6 +52,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         case TITLE: Titledraw();
             break;
         case GAME: Gamemain();
+            break;
+        case GAMEOVER:Gameoverdraw();
             break;
         }
 
@@ -117,6 +120,23 @@ void Gamemain() {
         SetFontSize(50);
         DrawFormatString(500, 140, GetColor(0, 255, 255), " GOAL ");
         SetFontSize(20);
+
+        if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
+            g = 9.81;
+            p_zmoveflg = true;
+            htdrow.hitflg = false;
+            rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
+            Sph_init();//球の初期化
+            Obj_init();//不法投棄物の初期化
+            Damege_Init();//障害物の初期化
+            Decelearia_init();//減速エリア初期化
+            Model_init();//モデル初期化
+            //Camera_set();//カメラセット
+            Model3d_load();//3Dモデル読み込み
+            Model3d_init();//3Dモデル初期化
+            gameMode = 0;
+
+        }
     }
 
     //------------------------------描画関数
