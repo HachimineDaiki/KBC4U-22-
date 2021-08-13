@@ -12,7 +12,10 @@ void Titleinit() {
 void Titledraw() {//‰æ‘œ‚Ì•`‰æ
 	DrawGraph(0,0,title.g_title,FALSE); 
 	if (CheckHitKey(KEY_INPUT_SPACE)) {
+		//1000=1•b‘Ò‚Â
+		WaitTimer(1000);
 		gameMode = 1;
+
 
 	}
 
