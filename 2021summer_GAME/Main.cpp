@@ -10,6 +10,8 @@
 #include "Gameover.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+    //タイトル
+    SetMainWindowText("この不法投棄物にお仕置きを");
     // 画面モードの設定
     SetGraphMode(1024,768, 32);
     ChangeWindowMode(TRUE);

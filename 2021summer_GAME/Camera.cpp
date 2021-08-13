@@ -22,17 +22,20 @@
 
 
 void Camera_set() {
+
+
 	// カメラの向きを初期化
 	g_cameraHAngle = 0.0f;
 	g_cameraVAngle = 25.0f;
+    g_cameraPosition;
 
     g_p_direct = 0.0f;
 }
 
 void Camera_move() {
+    SetCameraNearFar(100.0f, 300000.0f);
     VECTOR tempPosition1;
     VECTOR tempPosition2;
-    VECTOR cameraPosition;
     VECTOR cameraLookAtPosition;
 
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
@@ -56,14 +59,14 @@ void Camera_move() {
     tempPosition2.z = g_sinParam * tempPosition1.x + g_cosParam * tempPosition1.z;
 
     // 算出した座標に注視点の位置を加算したものがカメラの位置
-    cameraPosition = VAdd(tempPosition2, cameraLookAtPosition);
+    g_cameraPosition = VAdd(tempPosition2, cameraLookAtPosition);
 
     // 角度表示
-   // DrawFormatString(100, 0, GetColor(255, 255, 255), "カメラ座標 X%.0f Y%.0f Z%.0f", cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    DrawFormatString(100, 0, GetColor(255, 255, 255), "カメラ座標 X%.0f Y%.0f Z%.0f", g_cameraPosition.x, g_cameraPosition.y, g_cameraPosition.z);
    // DrawFormatString(100, 40, GetColor(255, 255, 255), "カメラ横角度 %.0f", g_cameraHAngle);
-
+    //DrawFormatString(0,0,GetColor(255,255,255), "カメラざ");
     // カメラの設定に反映する
-    SetCameraPositionAndTarget_UpVecY(cameraPosition, cameraLookAtPosition);
+    SetCameraPositionAndTarget_UpVecY(g_cameraPosition, cameraLookAtPosition);
 
 }
 
@@ -125,23 +128,47 @@ void Input_camera_move() {
 
         }
 
-        if (g_p_direct >= g_cameraHAngle - 10 || g_p_direct <= g_cameraHAngle + 10) {
-            if (g_p_direct >= g_cameraHAngle) {
-                g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
-                if (g_cameraHAngle >= g_p_direct) {
-                    g_cameraHAngle = g_p_direct;
+        if (sph[0].zmove >= 0) {
+            if (g_p_direct >= g_cameraHAngle - 10 || g_p_direct <= g_cameraHAngle + 10) {
+                if (g_p_direct >= g_cameraHAngle) {
+                    g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
+                    if (g_cameraHAngle >= g_p_direct) {
+                        g_cameraHAngle = g_p_direct;
+                    }
+                    if (g_cameraHAngle <= g_p_direct - 10) {
+                        g_cameraHAngle = g_p_direct - 10;
+                    }
                 }
-                if (g_cameraHAngle <= g_p_direct - 10) {
-                    g_cameraHAngle = g_p_direct - 10;
+                if (g_p_direct <= g_cameraHAngle) {
+                    g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
+                    if (g_cameraHAngle <= g_p_direct) {
+                        g_cameraHAngle = g_p_direct;
+                    }
+                    if (g_cameraHAngle >= g_p_direct + 10) {
+                        g_cameraHAngle = g_p_direct + 10;
+                    }
                 }
             }
-            if (g_p_direct <= g_cameraHAngle) {
-                g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
-                if (g_cameraHAngle <= g_p_direct) {
-                    g_cameraHAngle = g_p_direct;
+        }
+        else if (sph[0].zmove < 0) {
+            if ((g_p_direct+180) >= g_cameraHAngle - 10 || (g_p_direct-180) <= g_cameraHAngle + 10) {
+                if ((g_p_direct+180) >= g_cameraHAngle) {
+                    g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
+                    if (g_cameraHAngle >= g_p_direct+180) {
+                        g_cameraHAngle = g_p_direct+180;
+                    }
+                    if (g_cameraHAngle <= (g_p_direct+180) - 10) {
+                        g_cameraHAngle = (g_p_direct+180) - 10;
+                    }
                 }
-                if (g_cameraHAngle >= g_p_direct + 10) {
-                    g_cameraHAngle = g_p_direct + 10;
+                if ((g_p_direct-180) <= g_cameraHAngle) {
+                    g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
+                    if (g_cameraHAngle <= g_p_direct-180) {
+                        g_cameraHAngle = g_p_direct-180;
+                    }
+                    if (g_cameraHAngle >= (g_p_direct-180) + 10) {
+                        g_cameraHAngle = (g_p_direct-180) + 10;
+                    }
                 }
             }
         }

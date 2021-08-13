@@ -476,7 +476,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
 		DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
-		//DrawLine3D(st_model_hit.nowpos, VAdd(g_frontVector, VGet(0.0f, -100.f, 0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(VAdd(st_model_hit.nowpos, VGet(-300.0f, 0.0f, 0.0f)), VAdd(st_model_hit.nowpos, VGet(300.0f, 0.0f, 0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(VAdd(st_model_hit.nowpos, VGet(0.0f, 0.0f, -300.0f)), VAdd(st_model_hit.nowpos, VGet(0.0f, 0.0f, 300.0f)), GetColor(255, 0, 0));
 		// 床ポリゴンに当たったかどうかで処理を分岐
 		if (st_model_hit.hitflag == 1)
 		{

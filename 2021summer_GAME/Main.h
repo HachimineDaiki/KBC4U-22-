@@ -21,6 +21,7 @@ StageModelHit st_model_hit;//モデルヒット
 HitDrow htdrow;//ヒット描画
 VECTOR TempMoveVector;
 VECTOR g_frontVector;//プレイヤーの前方を取る
+VECTOR g_cameraPosition;//カメラの座標
 Decel decel;//減速
 Title title;//タイトル
 Gameover gameover;//ゲームオーバー
