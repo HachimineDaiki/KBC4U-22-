@@ -62,6 +62,7 @@ void Hit_badobject_helth(Sph player[], int obs_info, int i) {
 			DrawFormatString(0, 0, GetColor(0, 255, 255), "HIT_L");
 			damege_aria[i].obj_flag = false;
 			damege_aria[i].radius = 0;
+			damege_aria[i].pos = VGet(1.0f, 1.0f, 1.0f);
 		}
 	}
 	else if (obs_info == M) {
@@ -69,6 +70,7 @@ void Hit_badobject_helth(Sph player[], int obs_info, int i) {
 			DrawFormatString(0, 0, GetColor(0, 255, 255), "HIT_M");
 			damege_aria[i].obj_flag = false;
 			damege_aria[i].radius = 0;
+			damege_aria[i].pos = VGet(1.0f, 1.0f, 1.0f);
 		}
 	}
 	else {
@@ -76,6 +78,7 @@ void Hit_badobject_helth(Sph player[], int obs_info, int i) {
 			DrawFormatString(0, 0, GetColor(0, 255, 255), "HIT_S");
 			damege_aria[i].obj_flag = false;
 			damege_aria[i].radius = 0;
+			damege_aria[i].pos = VGet(1.0f, 1.0f, 1.0f);
 		}
 	}
 }
