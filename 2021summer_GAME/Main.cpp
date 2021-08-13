@@ -176,5 +176,5 @@ void Gamemain() {
     }
 
     //パラメーターを表示させる処理
-    DrawParam_Info();
+   // DrawParam_Info();
 }

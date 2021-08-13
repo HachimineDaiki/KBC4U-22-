@@ -112,10 +112,10 @@ void P_rotate() {
 //プレイヤー入力受付
 void P_input_move() {
     //スペースを押したら前進
+
     if (CheckHitKey(KEY_INPUT_SPACE)) {
         p_zmoveflg = true;
     }
-
     switch (Input_PlayerMoveDir())
     {
     case Left:st_model_hit.movepos = st_model_hit.leftvec; st_model_hit.moveflag = 1; 
