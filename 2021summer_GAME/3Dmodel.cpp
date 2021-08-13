@@ -13,6 +13,8 @@ void Model3d_load() {
 void Model3d_init() {
 	//画面に映る位置に３Ｄモデルを移動
 	MV1SetPosition(ground.handle, VGet(ground.x, ground.y, ground.z));//初期位置設定
+	rock[0].handle_num = 0;//岩モデル　初期色　handle
+
 	//for (int i = 0; i < TREE_NUM / 4; i++) {
 	//	MV1SetPosition(tree_handle[i], VGet(-1200.0f, ground.y, -650.0f + (wood_interval * i)));
 	//	//MV1SetRotationXYZ(tree_handle[i], VGet(10.0f, 0.0f, 0.0f));
