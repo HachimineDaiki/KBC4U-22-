@@ -94,6 +94,15 @@ void Model_init() {
 	ground.y = 0.0f;
 	ground.z = 0.0f;
 
+	//壁の初期座標
+	wall[0].x = -2000.0f;
+	wall[0].y = -1000.0f;
+	wall[0].z = 8000.0f;
+
+	wall[1].x = 2000.0f;
+	wall[1].y = -1000.0f;
+	wall[1].z = 8000.0f;
+
 	//プレイヤー岩初期座標
 	//rock[0].x = 100.0f;
 	//rock[0].y = 5471.0f;

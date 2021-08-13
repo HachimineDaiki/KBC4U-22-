@@ -18,9 +18,9 @@ void DrawParam_Info() {
 
     //// Hit_check.cppで使用している変数の数値など ////
     // 関数　Sph_hit(float dis)　で使用
-    for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
-        DrawFormatString(500, 100 + (i + 1) * 20, GetColor(255, 255, 255), "[speed %.0f]", damege_aria[i].hit_speed);
-    }
+    //for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
+    //    DrawFormatString(500, 100 + (i + 1) * 20, GetColor(255, 255, 255), "[speed %.0f]", damege_aria[i].hit_speed);
+    //}
     // 関数 Ground_model_hit_check(VECTOR MoveVector) で使用
     /*DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);*/
     ////Player.cppで使用している変数の数値など

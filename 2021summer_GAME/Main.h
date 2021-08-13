@@ -26,7 +26,7 @@ Title title;//タイトル
 Gameover gameover;//ゲームオーバー
 Branch branch;
 Damege obs_damege;//障害物のダメージ量
-
+Model wall[WALL_MAX];
 //列挙体
 
 float g=9.81;//重力を代入
