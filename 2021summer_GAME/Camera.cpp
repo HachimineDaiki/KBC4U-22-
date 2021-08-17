@@ -64,7 +64,7 @@ void Camera_move() {
     g_cameraPosition = VAdd(tempPosition2, cameraLookAtPosition);
 
     // 角度表示
-    DrawFormatString(100, 0, GetColor(255, 255, 255), "カメラ座標 X%.0f Y%.0f Z%.0f", g_cameraPosition.x, g_cameraPosition.y, g_cameraPosition.z);
+    DrawFormatString(300, 0, GetColor(255, 255, 255), "カメラ座標 X%.0f Y%.0f Z%.0f", g_cameraPosition.x, g_cameraPosition.y, g_cameraPosition.z);
    // DrawFormatString(100, 40, GetColor(255, 255, 255), "カメラ横角度 %.0f", g_cameraHAngle);
     //DrawFormatString(0,0,GetColor(255,255,255), "カメラざ");
     // カメラの設定に反映する
@@ -130,8 +130,8 @@ void Input_camera_move() {
 
         }
 
-        if (sph[0].zmove >= 0) {
-            if (g_p_direct >= g_cameraHAngle - 10 || g_p_direct <= g_cameraHAngle + 10) {
+        if (sph[0].zmove >= 0) {// 岩が前に進んでいるときの岩の処理
+            if (g_p_direct >= g_cameraHAngle - 10 || g_p_direct <= g_cameraHAngle + 10) {//岩の前方の範囲
                 if (g_p_direct >= g_cameraHAngle) {
                     g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
                     if (g_cameraHAngle >= g_p_direct) {
@@ -152,26 +152,51 @@ void Input_camera_move() {
                 }
             }
         }
-        else if (sph[0].zmove < 0) {
-            if ((g_p_direct+180) >= g_cameraHAngle - 10 || (g_p_direct-180) <= g_cameraHAngle + 10) {
-                if ((g_p_direct+180) >= g_cameraHAngle) {
-                    g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
-                    if (g_cameraHAngle >= g_p_direct+180) {
-                        g_cameraHAngle = g_p_direct+180;
+        else if (sph[0].zmove < 0) {//後ろに進んでいるときのカメラの動き
+            if (g_p_direct >= 0) {//岩の向きが整数なら
+                if ((g_p_direct - 180) >= g_cameraHAngle - 10 || (g_p_direct - 180) <= g_cameraHAngle + 10) {
+                    if ((g_p_direct - 180) >= g_cameraHAngle) {
+                        g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
+                        if (g_cameraHAngle >= g_p_direct - 180) {
+                            g_cameraHAngle = g_p_direct - 180;
+                        }
+                        if (g_cameraHAngle <= (g_p_direct - 180) - 10) {
+                            g_cameraHAngle = (g_p_direct - 180) - 10;
+                        }
                     }
-                    if (g_cameraHAngle <= (g_p_direct+180) - 10) {
-                        g_cameraHAngle = (g_p_direct+180) - 10;
+                    if ((g_p_direct - 180) <= g_cameraHAngle) {
+                        g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
+                        if (g_cameraHAngle <= g_p_direct - 180) {
+                            g_cameraHAngle = g_p_direct - 180;
+                        }
+                        if (g_cameraHAngle >= (g_p_direct - 180) + 10) {
+                            g_cameraHAngle = (g_p_direct - 180) + 10;
+                        }
                     }
                 }
-                if ((g_p_direct-180) <= g_cameraHAngle) {
-                    g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
-                    if (g_cameraHAngle <= g_p_direct-180) {
-                        g_cameraHAngle = g_p_direct-180;
+            }
+            else if (g_p_direct < 0) {// 輪の向きが負の数なら
+                if ((g_p_direct + 180) >= g_cameraHAngle - 10 || (g_p_direct + 180) <= g_cameraHAngle + 10) {
+                    if ((g_p_direct + 180) >= g_cameraHAngle) {
+                        g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
+                        if (g_cameraHAngle >= g_p_direct + 180) {
+                            g_cameraHAngle = g_p_direct + 180;
+                        }
+                        if (g_cameraHAngle <= (g_p_direct + 180) - 10) {
+                            g_cameraHAngle = (g_p_direct + 180) - 10;
+                        }
                     }
-                    if (g_cameraHAngle >= (g_p_direct-180) + 10) {
-                        g_cameraHAngle = (g_p_direct-180) + 10;
+                    if ((g_p_direct + 180) <= g_cameraHAngle) {
+                        g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
+                        if (g_cameraHAngle <= g_p_direct + 180) {
+                            g_cameraHAngle = g_p_direct + 180;
+                        }
+                        if (g_cameraHAngle >= (g_p_direct + 180) + 10) {
+                            g_cameraHAngle = (g_p_direct + 180) + 10;
+                        }
                     }
                 }
+
             }
         }
     }

@@ -17,7 +17,7 @@ void Sph_init() {
 	}
 	
 	sph[0].v = VGet(0.0f, 0.0f, 0.0f);//プレイヤーベクトル
-	g_fronthit = 0;//前に坂があるかどうかの初期化
+	g_frontmoveflg = 0;//前に坂があるかどうかの初期化
 	p_zmoveflg = false;
 }
 

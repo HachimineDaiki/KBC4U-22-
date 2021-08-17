@@ -22,7 +22,8 @@ void DrawParam_Info() {
     //    DrawFormatString(500, 100 + (i + 1) * 20, GetColor(255, 255, 255), "[speed %.0f]", damege_aria[i].hit_speed);
     //}
     // 関数 Ground_model_hit_check(VECTOR MoveVector) で使用
-    DrawFormatString(300, 40, GetColor(255, 255, 255), "前に坂があるか %d", g_fronthit);
+    DrawFormatString(300, 20, GetColor(255, 255, 255), "前に進んでいるか %d 進んでいると 0 ", g_frontmoveflg);
+    DrawFormatString(300, 40, GetColor(255, 255, 255), "前に坂があるか %d  ", g_frontpos2.HitFlag);
     DrawFormatString(300, 60, GetColor(255, 255, 255), "ステージの上か %d", st_model_hit.lineres.HitFlag);
     
     /*DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);*/

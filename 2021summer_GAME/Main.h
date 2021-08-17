@@ -50,7 +50,7 @@ float g_p_rotate_amount;//回転量
 
 float merikomi;//めり込む量
 
-int g_fronthit;//0　前に坂ナシ　1　前に坂アリ
+int g_frontmoveflg;//0　前に進んでいる　1　後ろに進んでいる
 int g_goalflag;//ゴールしたかどうか　0ゴールしてない　1ゴールした
 
 int gameMode;//ゲームモード

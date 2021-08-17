@@ -22,24 +22,41 @@ void Accl() {
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
-    
+    //SetFontSize(20);
+    //DrawFormatString(0, 40, GetColor(255, 255, 255), "pvz2 %.0f", p_vz2);
+
+    //DrawFormatString(0, 0, GetColor(255, 255, 255), "pvz2 %f", p_vz2 * sph[0].control);
 
 
     if (p_zmoveflg) {
-        if (g_fronthit == 0) {//前に進んでいる
+        if (g_frontmoveflg == 0) {//前に進んでいると前に加速
             sph[0].zmove += p_vz2 * sph[0].control;
+        }
+        if (g_frontmoveflg == 1) {//後ろに進んでいると後ろに加速
+            sph[0].zmove -= p_vz2 * sph[0].control;
+        }
+
+        if (g_frontpos2.HitFlag == FALSE) {//前に坂がないので前に進む
+            
             if (sph[0].zmove <= 0) {
                 sph[0].zmove += p_vz2 * (sph[0].control + 0.01f);
-
             }
         }
-        else if (g_fronthit == 1) {//後ろに進んでいる
-
-            sph[0].zmove -= p_vz2 * sph[0].control;
+        else if (g_frontpos2.HitFlag == TRUE) {//前に坂があるので後ろに進む
+            
             if (sph[0].zmove >= 0) {
+
                 sph[0].zmove -= p_vz2 * (sph[0].control + 0.01f);
+                
             }
         }
+    }
+
+    if (sph[0].zmove >= 0.0f) {//前に進んでいたらフラグを0にする
+        g_frontmoveflg = 0;
+    }
+    else if (sph[0].zmove < 0.0f) {//後ろに進んでいたらフラグを1にする
+        g_frontmoveflg = 1;
     }
 
     if (sph[0].zmove >= 150.0f) {
