@@ -96,7 +96,6 @@ void Gamemain() {
     for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
         if (Sph_ehit_chech(sph, damege_aria,i)) {
             Damege_aria_Decele();
-            /*sph[0].zmove -= 40;*/
             Sph_ehit(es_dis,i);
             /*DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");*/
         }
@@ -152,7 +151,8 @@ void Gamemain() {
     //障害物描画
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
         if (damege_aria[i].obj_flag) {
-            DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 16, damege_aria[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
+            MV1DrawModel(e_rock[i].handle);
+            //DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 16, damege_aria[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
         }
         //DrawFormatString(600,0+(i*1)*20,GetColor(0,255,255),"%d",damege_aria[i].hp);
     }
@@ -160,12 +160,12 @@ void Gamemain() {
     //体力描画
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph->hp);
 
-    //減速エリア描画
-    for (int i = 0; i < DECELE_ARIA_MAX; i++) {
-        SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
-        DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
-        SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
-    }
+    ////減速エリア描画
+    //for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+    //    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
+    //    DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
+    //    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
+    //}
 
     //減速エリアに入っている間に減速ちゅうの文字を描画
     if (decel.hit_flg) {
@@ -174,7 +174,7 @@ void Gamemain() {
         DrawFormatString(1000, 140, GetColor(0, 255, 255), "減速中");
         SetFontSize(20);//文字サイズを元のサイズに変更
     }
-
+    DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);
     //パラメーターを表示させる処理
    // DrawParam_Info();
 }

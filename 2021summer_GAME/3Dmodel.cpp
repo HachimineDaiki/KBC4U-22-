@@ -12,6 +12,21 @@ void Model3d_load() {
 	for (int i = 0; i < WALL_MAX; i++) {
 		wall[i].handle = MV1LoadModel("3Dmodel/Wall_1.mv1");
 	}
+	//ぬかるみ床
+	for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+		gensoku[i].handle = MV1LoadModel("3Dmodel/MuDColor1.mv1");
+	}
+	//障害物岩
+	for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
+		if (damege_aria[i].name == L) {
+			e_rock[i].handle = MV1LoadModel("3Dmodel/Rock_L.mv1");
+		}
+		else if(damege_aria[i].name == M){
+			e_rock[i].handle = MV1LoadModel("3Dmodel/Rock_M.mv1");
+		}else if (damege_aria[i].name == S) {
+			e_rock[i].handle = MV1LoadModel("3Dmodel/Rock_S.mv1");
+		}
+	}
 }
 
 void Model3d_init() {
@@ -22,6 +37,14 @@ void Model3d_init() {
 	for (int i = 0; i < WALL_MAX;i++) {
 		MV1SetPosition(wall[i].handle, VGet(wall[i].x,wall[i].y,wall[i].z));//初期位置設定
 		rock[0].handle_num = 0;//岩モデル　初期色　handle
+	}
+
+	for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+		MV1SetPosition(gensoku[i].handle, VGet(decele_aria[i].pos.x, decele_aria[i].pos.y-120, decele_aria[i].pos.z));//初期位置設定
+	}
+
+	for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
+		MV1SetPosition(e_rock[i].handle, VGet(damege_aria[i].pos.x, damege_aria[i].pos.y - 60, damege_aria[i].pos.z));//初期位置設定
 	}
 
 	
@@ -54,6 +77,11 @@ void Model3d_draw() {
 	for (int i = 0; i < WALL_MAX; i++) {
 		MV1DrawModel(wall[i].handle);
 	}
+	for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+		MV1DrawModel(gensoku[i].handle);
+		MV1SetRotationXYZ(gensoku[i].handle, VGet(10.0f * DX_PI_F / 180.0f, 0.0f, 0.0f));
+	}
+	//SetUseLighting(FALSE);//ライティング計算オフ
 }
 
 void Model3d_dlet() {
@@ -66,5 +94,11 @@ void Model3d_dlet() {
 	for (int i = 0; i < PLYAER_COLOR; i++) { //プレイヤー色
 		MV1DeleteModel(rock[i].handle);
 	}
+	for (int i = 0; i < DECELE_ARIA_MAX; i++) { //プレイヤー色
+		MV1DeleteModel(gensoku[i].handle);
+	}
 
+	for (int i = 0; i < DAMEGE_ARIA_MAX; i++) { //プレイヤー色
+		MV1DeleteModel(e_rock[i].handle);
+	}
 }

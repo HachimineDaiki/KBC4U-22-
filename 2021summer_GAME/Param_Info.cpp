@@ -29,6 +29,7 @@ void DrawParam_Info() {
     if (st_model_hit.gmoveflg == false)DrawFormatString(100, 200, GetColor(255, 255, 255), "false");*/
     DrawFormatString(300, 300, GetColor(255, 255, 255), "handle num [ %d ]", rock[0].handle_num);
     DrawFormatString(100, 300, GetColor(255, 255, 255), "スピード [ %.0f /150 ]", sph[0].zmove);
+    DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);
 
  /*   switch (Input_PlayerMoveDir())
     {

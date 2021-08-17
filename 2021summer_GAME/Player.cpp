@@ -17,11 +17,11 @@ void Sph_Gravity() {
 }
 void Accl() {
     //鉢嶺処理
-    float p_vz2 = -5 * tan(5);
+    double p_vz2 = -5 * tan(5);
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
-
+    DrawFormatString(100, 200, GetColor(255, 255, 255), "加速 [ %.1lf]", p_vz2 * sph[0].control);
 
     if (p_zmoveflg) {
         if (g_fronthit == 0) {
@@ -76,6 +76,7 @@ void P_hp(int obssize) {
     }
 }
 
+
 int  P_rest_hp_handle(int hp) {
     //HPの残りゲージを見て色を返す。
     int handle_num = 0;//色の添え字
@@ -109,6 +110,7 @@ void P_rotate() {
     MV1SetRotationXYZ(rock[rock[0].handle_num].handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
 }
 
+
 //プレイヤー入力受付
 void P_input_move() {
     //スペースを押したら前進
@@ -128,6 +130,7 @@ void P_input_move() {
     Move_Limits();
 
 }
+
 //プレイヤーが押している方向を返す関数
 int Input_PlayerMoveDir() {
 
@@ -147,7 +150,6 @@ int Input_PlayerMoveDir() {
 
     }
 
-    
     if (p_zmoveflg==false) {
         if (CheckHitKey(KEY_INPUT_A)&& sph[0].pos.x > st_model_hit.glimits_verification[0]+10)
         {
@@ -182,25 +184,3 @@ int Input_PlayerMoveDir() {
     }
     return input_dir;
 }
-
-//void P_debug() {
-//    if (CheckHitKey(KEY_INPUT_A))
-//    {
-//        sph[0].pos.x -= 10;
-//    }
-//
-//    if (CheckHitKey(KEY_INPUT_D))
-//    {
-//        sph[0].pos.x += 10;
-//    }
-//
-//    if (CheckHitKey(KEY_INPUT_W))
-//    {
-//        sph[0].pos.z += 10;
-//    }
-//
-//    if (CheckHitKey(KEY_INPUT_S))
-//    {
-//        sph[0].pos.z -= 10;
-//    }
-//}

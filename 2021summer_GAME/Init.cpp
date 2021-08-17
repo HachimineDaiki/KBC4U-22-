@@ -29,14 +29,14 @@ void Obj_init(){
 //当たったらダメ―ジを受ける障害物初期化
 void Damege_Init() {
 	for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
-		if (i >= 0 && i <= 2) {
-			damege_aria[i].radius = 100.0f;
-			damege_aria[i].color = GetColor(255, 0, 0);
-			damege_aria[i].name = S;//障害物の大きさL
-			damege_aria[i].hp = 10;//test用の体力
-			damege_aria[i].obj_flag = true;
-		}
-		else if (i >= 3 && i <= 5) {
+		//if (i >= 0 && i <= 2) {
+		//	damege_aria[i].radius = 100.0f;
+		//	damege_aria[i].color = GetColor(255, 0, 0);
+		//	damege_aria[i].name = S;//障害物の大きさS
+		//	damege_aria[i].hp = 10;//test用の体力
+		//	damege_aria[i].obj_flag = true;
+		//}
+		if (i >= 0 && i <= 5) {
 			damege_aria[i].radius = 200.0f;
 			damege_aria[i].color = GetColor(255, 255, 0);
 			damege_aria[i].name = M;//障害物の大きさM
@@ -46,7 +46,7 @@ void Damege_Init() {
 		else {
 			damege_aria[i].radius = 400.0f;
 			damege_aria[i].color = GetColor(0, 255, 0);
-			damege_aria[i].name = L;//障害物の大きさS
+			damege_aria[i].name = L;//障害物の大きさL
 			damege_aria[i].hp = 100;//test用の体力
 			damege_aria[i].obj_flag = true;
 		}

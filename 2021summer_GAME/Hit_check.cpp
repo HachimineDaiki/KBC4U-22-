@@ -232,9 +232,9 @@ void Ground_model_hit() {
 	P_input_move();//プレイヤー入力
 	P_move();
 	//地面についていなかったら重力発生
-	if (!st_model_hit.groundflg) {
-		Sph_Gravity();//重力
-	}
+	//if (!st_model_hit.groundflg) {
+	//	Sph_Gravity();//重力
+	//}
 	Sph_Gravity();//重力
 	/*DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);*/
 	// 移動ボタンが押されたかどうかで処理を分岐
@@ -245,9 +245,6 @@ void Ground_model_hit() {
 		/*DrawFormatString(100, 200, GetColor(255, 255, 255), " %.1f , %.1f , %.1f ", st_model_hit.TargetMoveDirection.x, st_model_hit.TargetMoveDirection.y, st_model_hit.TargetMoveDirection.z);*/
 		// プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
 		st_model_hit.movepos = VScale(st_model_hit.targetmovedirection, sph[0].speed);
-
-
-		/*DrawFormatString(100, 230, GetColor(255, 0, 0), "Vscale %.1f , %.1f , %.1f ", st_model_hit.movepos.x, st_model_hit.movepos.y, st_model_hit.movepos.z);*/
 	}
 	if (p_zmoveflg == true) {
 

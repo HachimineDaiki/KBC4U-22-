@@ -28,6 +28,8 @@ Gameover gameover;//ゲームオーバー
 Branch branch;
 Damege obs_damege;//障害物のダメージ量
 Model wall[WALL_MAX];
+Model gensoku[DECELE_ARIA_MAX];
+Model e_rock[DAMEGE_ARIA_MAX];;
 //列挙体
 
 float g=9.81;//重力を代入
