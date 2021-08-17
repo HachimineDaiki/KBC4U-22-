@@ -157,6 +157,7 @@
     <ClCompile Include="Param_Info.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="User_Interface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3Dmodel.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Param_Info.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="User_Interface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hit_check.h" />

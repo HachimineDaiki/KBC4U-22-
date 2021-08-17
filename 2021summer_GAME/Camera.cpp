@@ -27,7 +27,7 @@ void Camera_set() {
 	// カメラの向きを初期化
 	g_cameraHAngle = 0.0f;
 	g_cameraVAngle = 25.0f;
-    g_cameraPosition;
+   // g_cameraPosition;
 
     g_p_direct = 0.0f;
 }
@@ -37,6 +37,8 @@ void Camera_move() {
     VECTOR tempPosition1;
     VECTOR tempPosition2;
     VECTOR cameraLookAtPosition;
+    float sinParam;
+    float cosParam;
 
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
     cameraLookAtPosition = VGet(sph[0].pos.x,sph[0].pos.y,sph[0].pos.z);
@@ -45,18 +47,18 @@ void Camera_move() {
     // カメラの位置はカメラの水平角度と垂直角度から算出
 
     // 最初に垂直角度を反映した位置を算出
-    g_sinParam = (float)sin(g_cameraVAngle / 180.0f * DX_PI_F);
-    g_cosParam = (float)cos(g_cameraVAngle / 180.0f * DX_PI_F);
+    sinParam = (float)sin(g_cameraVAngle / 180.0f * DX_PI_F);
+    cosParam = (float)cos(g_cameraVAngle / 180.0f * DX_PI_F);
     tempPosition1.x = 0.0f;
-    tempPosition1.y = g_sinParam * CAMERA_LOOK_AT_DISTANCE;
-    tempPosition1.z = -g_cosParam * CAMERA_LOOK_AT_DISTANCE;
+    tempPosition1.y = sinParam * CAMERA_LOOK_AT_DISTANCE;
+    tempPosition1.z = -cosParam * CAMERA_LOOK_AT_DISTANCE;
 
     // 次に水平角度を反映した位置を算出
-    g_sinParam = (float)sin(g_cameraHAngle / 180.0f * DX_PI_F);
-    g_cosParam = (float)cos(g_cameraHAngle / 180.0f * DX_PI_F);
-    tempPosition2.x = g_cosParam * tempPosition1.x - g_sinParam * tempPosition1.z;
+    sinParam = (float)sin(g_cameraHAngle / 180.0f * DX_PI_F);
+    cosParam = (float)cos(g_cameraHAngle / 180.0f * DX_PI_F);
+    tempPosition2.x = cosParam * tempPosition1.x - sinParam * tempPosition1.z;
     tempPosition2.y = tempPosition1.y;
-    tempPosition2.z = g_sinParam * tempPosition1.x + g_cosParam * tempPosition1.z;
+    tempPosition2.z = sinParam * tempPosition1.x + cosParam * tempPosition1.z;
 
     // 算出した座標に注視点の位置を加算したものがカメラの位置
     g_cameraPosition = VAdd(tempPosition2, cameraLookAtPosition);

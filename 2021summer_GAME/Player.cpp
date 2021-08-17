@@ -4,6 +4,7 @@
 #include"Hit_check.h"
 #include"3Dmodel.h"
 #include"Init.h"
+#include"Camera.h"
 //float g = 9.81f; //地球の重力
 
 void Sph_Gravity() {
@@ -21,15 +22,23 @@ void Accl() {
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
+    
 
 
     if (p_zmoveflg) {
-        if (g_fronthit == 0) {
+        if (g_fronthit == 0) {//前に進んでいる
             sph[0].zmove += p_vz2 * sph[0].control;
+            if (sph[0].zmove <= 0) {
+                sph[0].zmove += p_vz2 * (sph[0].control + 0.01f);
+
+            }
         }
-        else if (g_fronthit == 1) {
+        else if (g_fronthit == 1) {//後ろに進んでいる
 
             sph[0].zmove -= p_vz2 * sph[0].control;
+            if (sph[0].zmove >= 0) {
+                sph[0].zmove -= p_vz2 * (sph[0].control + 0.01f);
+            }
         }
     }
 
@@ -133,18 +142,20 @@ int Input_PlayerMoveDir() {
 
     int input_dir = -1;
 
-    if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
-        g = 9.81f;
-        rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
-        Sph_init();//球の初期化
-        Obj_init();//不法投棄物の初期化
-        Damege_Init();//障害物の初期化
-        Decelearia_init();//減速エリア初期化
-        Model_init();//モデル初期化
-        //Camera_set();//カメラセット
-        Model3d_load();//3Dモデル読み込み
-        Model3d_init();//3Dモデル初期化
+    if (htdrow.hitflg == false) {
+        if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
+            g = 9.81f;
+            rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
+            Sph_init();//球の初期化
+            Obj_init();//不法投棄物の初期化
+            Damege_Init();//障害物の初期化
+            Decelearia_init();//減速エリア初期化
+            Model_init();//モデル初期化
+            Camera_set();//カメラセット
+            Model3d_load();//3Dモデル読み込み
+            Model3d_init();//3Dモデル初期化
 
+        }
     }
 
     

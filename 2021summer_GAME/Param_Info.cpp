@@ -8,7 +8,7 @@
 #include "Param_Info.h"
 
 void DrawParam_Info() {
-
+    SetFontSize(20);
     //// Camera.cppで使用している変数の数値など
     // 関数　Camera_move()　で使用
     DrawFormatString(100, 20, GetColor(255, 255, 255), "カメラ縦角度 %.0f", g_cameraVAngle);
@@ -22,6 +22,9 @@ void DrawParam_Info() {
     //    DrawFormatString(500, 100 + (i + 1) * 20, GetColor(255, 255, 255), "[speed %.0f]", damege_aria[i].hit_speed);
     //}
     // 関数 Ground_model_hit_check(VECTOR MoveVector) で使用
+    DrawFormatString(300, 40, GetColor(255, 255, 255), "前に坂があるか %d", g_fronthit);
+    DrawFormatString(300, 60, GetColor(255, 255, 255), "ステージの上か %d", st_model_hit.lineres.HitFlag);
+    
     /*DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);*/
     ////Player.cppで使用している変数の数値など
     //DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);

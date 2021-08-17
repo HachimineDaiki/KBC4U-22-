@@ -152,6 +152,18 @@ bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 //減速速度処理
 void Decel_aria_effect(){
 	sph[0].zmove *= 0.93f;
+
+	if (g_fronthit == 1) {
+		if ((sph[0].zmove >= -15) && (sph[0].zmove <= 0)) {
+			sph[0].zmove = -15;
+		}
+	}
+	if (g_fronthit == 0) {
+		if ((sph[0].zmove <= 15) && (sph[0].zmove >= 0)) {
+			sph[0].zmove = 15;
+		}
+	}
+
 }
 
 //ダメージエリア　減速処理
@@ -281,8 +293,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	// 移動後の座標を算出
 	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
 
-	HITRESULT_LINE frontpos2;
-	VECTOR frontpos = sph[0].pos;
+
+	VECTOR frontpos = g_frontVector;
 
 
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
@@ -457,7 +469,13 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
 			st_model_hit.lineres = HitCheck_Line_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-			frontpos2 = HitCheck_Line_Triangle(st_model_hit.nowpos,VAdd(g_frontVector,VGet(0.0f,-100.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			g_frontpos2 = HitCheck_Line_Triangle(st_model_hit.nowpos,VAdd(g_frontVector,VGet(0.0f,-100.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			if (g_frontpos2.HitFlag == TRUE) {
+				g_fronthit = 1;
+			}
+			if (g_frontpos2.HitFlag == FALSE) {
+				g_fronthit = 0;
+			}
 
 			if (st_model_hit.lineres.HitFlag == FALSE) { 
 				
@@ -476,6 +494,10 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
 		DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(st_model_hit.nowpos, VAdd(g_frontVector, VGet(0.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(VAdd(st_model_hit.nowpos, VGet(-300.0f, -110.0f, 0.0f)), VAdd(st_model_hit.nowpos, VGet(300.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(VAdd(st_model_hit.nowpos, VGet(0.0f, -110.0f, -300.0f)), VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 300.0f)), GetColor(255, 0, 0));
+		// 岩の周囲を簡易的に見る線
 		DrawLine3D(VAdd(st_model_hit.nowpos, VGet(-300.0f, 0.0f, 0.0f)), VAdd(st_model_hit.nowpos, VGet(300.0f, 0.0f, 0.0f)), GetColor(255, 0, 0));
 		DrawLine3D(VAdd(st_model_hit.nowpos, VGet(0.0f, 0.0f, -300.0f)), VAdd(st_model_hit.nowpos, VGet(0.0f, 0.0f, 300.0f)), GetColor(255, 0, 0));
 		// 床ポリゴンに当たったかどうかで処理を分岐
@@ -486,14 +508,10 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			// 接触したポリゴンで一番高いＹ座標をプレイヤーのＹ座標にする
 			st_model_hit.nowpos.y = maxy;
 		}
+
 	}
 
-	if (frontpos2.HitFlag == TRUE){
-		g_fronthit = 1;
-	}
-	if (frontpos2.HitFlag == FALSE) {
-		g_fronthit = 0;
-	}
+
 
 	
 	sph[0].pos = st_model_hit.nowpos;

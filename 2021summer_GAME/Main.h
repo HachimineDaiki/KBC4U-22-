@@ -22,12 +22,14 @@ HitDrow htdrow;//ヒット描画
 VECTOR TempMoveVector;
 VECTOR g_frontVector;//プレイヤーの前方を取る
 VECTOR g_cameraPosition;//カメラの座標
+VECTOR g_Ill_dump1;//不法投棄物の初期値を入れる
 Decel decel;//減速
 Title title;//タイトル
 Gameover gameover;//ゲームオーバー
 Branch branch;
 Damege obs_damege;//障害物のダメージ量
 Model wall[WALL_MAX];
+HITRESULT_LINE g_frontpos2;
 //列挙体
 
 float g=9.81;//重力を代入
@@ -49,5 +51,6 @@ float g_p_rotate_amount;//回転量
 float merikomi;//めり込む量
 
 int g_fronthit;//0　前に坂ナシ　1　前に坂アリ
+int g_goalflag;//ゴールしたかどうか　0ゴールしてない　1ゴールした
 
 int gameMode;//ゲームモード
