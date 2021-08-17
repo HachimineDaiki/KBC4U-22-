@@ -4,6 +4,7 @@
 #include"Hit_check.h"
 #include"3Dmodel.h"
 #include"Init.h"
+#include"Camera.h"
 //float g = 9.81f; //地球の重力
 
 void Sph_Gravity() {
@@ -17,20 +18,45 @@ void Sph_Gravity() {
 }
 void Accl() {
     //鉢嶺処理
-    double p_vz2 = -5 * tan(5);
+    float p_vz2 = -5 * tan(5);
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
-    DrawFormatString(100, 200, GetColor(255, 255, 255), "加速 [ %.1lf]", p_vz2 * sph[0].control);
+    //SetFontSize(20);
+    //DrawFormatString(0, 40, GetColor(255, 255, 255), "pvz2 %.0f", p_vz2);
+
+    //DrawFormatString(0, 0, GetColor(255, 255, 255), "pvz2 %f", p_vz2 * sph[0].control);
+
 
     if (p_zmoveflg) {
-        if (g_fronthit == 0) {
+        if (g_frontmoveflg == 0) {//前に進んでいると前に加速
             sph[0].zmove += p_vz2 * sph[0].control;
         }
-        else if (g_fronthit == 1) {
-
+        if (g_frontmoveflg == 1) {//後ろに進んでいると後ろに加速
             sph[0].zmove -= p_vz2 * sph[0].control;
         }
+
+        if (g_frontpos2.HitFlag == FALSE) {//前に坂がないので前に進む
+            
+            if (sph[0].zmove <= 0) {
+                sph[0].zmove += p_vz2 * (sph[0].control + 0.01f);
+            }
+        }
+        else if (g_frontpos2.HitFlag == TRUE) {//前に坂があるので後ろに進む
+            
+            if (sph[0].zmove >= 0) {
+
+                sph[0].zmove -= p_vz2 * (sph[0].control + 0.01f);
+                
+            }
+        }
+    }
+
+    if (sph[0].zmove >= 0.0f) {//前に進んでいたらフラグを0にする
+        g_frontmoveflg = 0;
+    }
+    else if (sph[0].zmove < 0.0f) {//後ろに進んでいたらフラグを1にする
+        g_frontmoveflg = 1;
     }
 
     if (sph[0].zmove >= 150.0f) {
@@ -76,7 +102,6 @@ void P_hp(int obssize) {
     }
 }
 
-
 int  P_rest_hp_handle(int hp) {
     //HPの残りゲージを見て色を返す。
     int handle_num = 0;//色の添え字
@@ -110,7 +135,6 @@ void P_rotate() {
     MV1SetRotationXYZ(rock[rock[0].handle_num].handle, VGet(g_p_Rotate * DX_PI_F / 180.0f, -g_p_direct * DX_PI_F / 180.0f, 0.0f));
 }
 
-
 //プレイヤー入力受付
 void P_input_move() {
     //スペースを押したら前進
@@ -130,26 +154,28 @@ void P_input_move() {
     Move_Limits();
 
 }
-
 //プレイヤーが押している方向を返す関数
 int Input_PlayerMoveDir() {
 
     int input_dir = -1;
 
-    if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
-        g = 9.81f;
-        rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
-        Sph_init();//球の初期化
-        Obj_init();//不法投棄物の初期化
-        Damege_Init();//障害物の初期化
-        Decelearia_init();//減速エリア初期化
-        Model_init();//モデル初期化
-        //Camera_set();//カメラセット
-        Model3d_load();//3Dモデル読み込み
-        Model3d_init();//3Dモデル初期化
+    if (htdrow.hitflg == false) {
+        if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
+            g = 9.81f;
+            rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
+            Sph_init();//球の初期化
+            Obj_init();//不法投棄物の初期化
+            Damege_Init();//障害物の初期化
+            Decelearia_init();//減速エリア初期化
+            Model_init();//モデル初期化
+            Camera_set();//カメラセット
+            Model3d_load();//3Dモデル読み込み
+            Model3d_init();//3Dモデル初期化
 
+        }
     }
 
+    
     if (p_zmoveflg==false) {
         if (CheckHitKey(KEY_INPUT_A)&& sph[0].pos.x > st_model_hit.glimits_verification[0]+10)
         {
@@ -184,3 +210,25 @@ int Input_PlayerMoveDir() {
     }
     return input_dir;
 }
+
+//void P_debug() {
+//    if (CheckHitKey(KEY_INPUT_A))
+//    {
+//        sph[0].pos.x -= 10;
+//    }
+//
+//    if (CheckHitKey(KEY_INPUT_D))
+//    {
+//        sph[0].pos.x += 10;
+//    }
+//
+//    if (CheckHitKey(KEY_INPUT_W))
+//    {
+//        sph[0].pos.z += 10;
+//    }
+//
+//    if (CheckHitKey(KEY_INPUT_S))
+//    {
+//        sph[0].pos.z -= 10;
+//    }
+//}

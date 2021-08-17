@@ -8,10 +8,11 @@
 #include "Param_Info.h"
 #include "Title.h"
 #include "Gameover.h"
+#include "User_Interface.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
-    SetMainWindowText("この不法投棄物にお仕置きを");
+    SetMainWindowText("この不法投棄物に粛清を！");
     // 画面モードの設定
     SetGraphMode(1024,768, 32);
     ChangeWindowMode(TRUE);
@@ -38,6 +39,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Camera_set();//カメラセット
     Model3d_load();//3Dモデル読み込み
     Model3d_init();//3Dモデル初期化
+    UIinit();//UIの初期化
 
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
@@ -84,11 +86,14 @@ void Gamemain() {
 
     //不法投棄物を飛ばす処理
     if (htdrow.hitflg) {
-        obj.pos.x += 1;
-        obj.pos.y += 30 * cos(10) * 10;
-        obj.pos.z += 200 * tan(10) * 10;
+     //   obj.pos.x += 1;
+        //obj.pos.y += 30 * cos(10) * 10;
+        //obj.pos.z += 200 * tan(10) * 10;
+
+
+        obj.pos.z += obj.zmove;
         //obj.pos.x += 90 * tan(5);
-        DrawFormatString(100, 600, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
+        DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
 
     }
 
@@ -103,8 +108,12 @@ void Gamemain() {
 
     //不法投棄飛ばす
     if (htdrow.hitflg) {
-
-        obj.zmove += -5 * tan(5);
+        if (obj.zmove > 0) {
+            obj.zmove = obj.zmove * 0.89;
+        }
+        else if (obj.zmove <= 0) {
+            obj.zmove = 0;
+        }
     }
 
     //減速エリアに入っているかチェック
@@ -117,12 +126,18 @@ void Gamemain() {
     
     //ゴールまで言ったら移動を止める
     if (htdrow.hitflg) {
+        if (g_goalflag == 0) {
+            obj.zmove = sph[0].zmove * (sph[0].hp / 3);
+            Judgement();
+            g_goalflag = 1;
+        }
         p_zmoveflg = false;
         g_p_Rotate = 0;
         sph[0].zmove = 0.0f;
         SetFontSize(50);
-        DrawFormatString(500, 140, GetColor(0, 255, 255), " GOAL ");
+        //DrawFormatString(512, 140, GetColor(0, 255, 255), " GOAL ");
         SetFontSize(20);
+        Distance_Calculation(); 
 
         if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
             g = 9.81;
@@ -134,9 +149,10 @@ void Gamemain() {
             Damege_Init();//障害物の初期化
             Decelearia_init();//減速エリア初期化
             Model_init();//モデル初期化
-            //Camera_set();//カメラセット
+            Camera_set();//カメラセット
             Model3d_load();//3Dモデル読み込み
             Model3d_init();//3Dモデル初期化
+            UIinit();//UIの初期化
             gameMode = 0;
 
         }
@@ -176,5 +192,10 @@ void Gamemain() {
     }
     DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);
     //パラメーターを表示させる処理
-   // DrawParam_Info();
+    DrawParam_Info();
+
+    //ゴールまで行ったら不法投棄物の飛んだ距離を表示
+    if (htdrow.hitflg) {
+        UIdraw();
+    }
 }

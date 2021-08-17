@@ -89,3 +89,4 @@ extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
 extern Branch branch;
 extern VECTOR g_frontVector;
+extern HITRESULT_LINE g_frontpos2;//Šâ‚Ìè‘O‚Éâ‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚é‚½‚ß‚Ì‚à‚Ì

@@ -13,11 +13,12 @@ void Sph_init() {
 		sph[i].zmove = 0.0f;//プレイヤーZ方向移動
 		sph[i].control = 0.02f;//プレイヤー速度調整変数
 		sph[i].hp = 300;//プレイヤー体力
-		sph[0].front = 900;//プレイヤーの前方900
+		sph[0].front = 500;//プレイヤーの前方500
 	}
 	
 	sph[0].v = VGet(0.0f, 0.0f, 0.0f);//プレイヤーベクトル
-
+	g_frontmoveflg = 0;//前に坂があるかどうかの初期化
+	p_zmoveflg = false;
 }
 
 //不法投棄初期化
