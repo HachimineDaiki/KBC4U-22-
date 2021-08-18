@@ -3,6 +3,7 @@
 #include"Init.h"
 #include"Player.h"
 #include"3Dmodel.h"
+#include"Camera.h"
 
 int Gameoverload() {  //ゲームオーバーの画像をロードする
 	if ((gameover.g_gameover = LoadGraph("images/gameover2.png")) == -1)return -1;
@@ -24,7 +25,7 @@ void Gameoverdraw() {   //ゲームオーバーの画像を描画する
 		Damege_Init();//障害物の初期化
 		Decelearia_init();//減速エリア初期化
 		Model_init();//モデル初期化
-		/*Camera_set()*/;//カメラセット
+		Camera_set();//カメラセット
 		Model3d_load();//3Dモデル読み込み
 		Model3d_init();//3Dモデル初期化
 		gameMode = 0;

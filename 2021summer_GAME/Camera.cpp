@@ -27,9 +27,10 @@ void Camera_set() {
 	// ƒJƒƒ‰‚ÌŒü‚«‚ğ‰Šú‰»
 	g_cameraHAngle = 0.0f;
 	g_cameraVAngle = 25.0f;
+    g_p_direct = 0.0f;
    // g_cameraPosition;
 
-    g_p_direct = 0.0f;
+
 }
 
 void Camera_move() {
