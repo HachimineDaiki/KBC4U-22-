@@ -100,6 +100,7 @@ void Gamemain() {
     //障害物エリアの当たり判定
     for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
         if (Sph_ehit_chech(sph, damege_aria,i)) {
+            g_CollisionReflectionFlag = 1;//衝突フラグを１にする
             Damege_aria_Decele();
             Sph_ehit(es_dis,i);
             sph[0].zmove = P_CollisionVelocity();//衝突後の速度
