@@ -4,6 +4,8 @@
 float wood_interval = 1300;//�؂̊Ԋu
 
 void Model3d_load() {
+	//Stage15
+	//Stage_Short.mv1
 	ground.handle = MV1LoadModel("3Dmodel/Stage_Short.mv1");
 	rock[0].handle = MV1LoadModel("3Dmodel/Rock.mv1");
 	rock[1].handle = MV1LoadModel("3Dmodel/Rock_1.mv1");

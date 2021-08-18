@@ -32,6 +32,8 @@ Model wall[WALL_MAX];
 HITRESULT_LINE g_frontpos2;
 Model gensoku[DECELE_ARIA_MAX];
 Model e_rock[DAMEGE_ARIA_MAX];
+
+DrawStr speed_draw_str; //•¶š•`‰æ
 //—ñ‹“‘Ì
 
 float g=9.81;//d—Í‚ğ‘ã“ü

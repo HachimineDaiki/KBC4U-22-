@@ -21,6 +21,7 @@ struct Sph
 	float hit_speed;//当たったスピード保存
 	float front;//プレイヤーの前方
 	bool obj_flag;//敵が存在するかフラグ。
+	VECTOR direction; //向いている方向
 };
 
 struct Damege {
@@ -40,6 +41,8 @@ int  P_rest_hp_handle(int hp);//残りhp見る。
 void P_hp(int obssize); //プレイヤーhp管理
 void Sph_Gravity();//プレイヤー重力
 void Accl();//加速処理
+void P_Direction();//プレイヤー方向
+float P_CollisionVelocity();//反射処理
 struct Input {
 	bool space;
 };

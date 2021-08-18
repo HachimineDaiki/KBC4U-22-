@@ -16,16 +16,36 @@ void Sph_Gravity() {
            g = 0;
        }
 }
+//反射
+float P_CollisionVelocity() {
+    float e = 0.5f;
+    float v_collision;//衝突後の速度
+    v_collision = -e * sph[0].zmove;
+
+    return v_collision;
+}
+void P_Direction() {
+    //VECTOR p_oldpos;//前回の座標
+    //
+    //sph[0].direction = VSub(sph[0].pos, p_oldpos);
+    //p_oldpos = sph[0].pos;
+
+    //float len = sqrtf(sph[0].pos.x * sph[0].pos.x + sph[0].pos.y * sph[0].pos.y + sph[0].pos.z * sph[0].pos.z);
+    //sph[0].direction.x = sph[0].pos.x / len;
+    //sph[0].direction.y = sph[0].pos.y / len;
+    //sph[0].direction.z = sph[0].pos.z / len;
+
+    //視点
+    //DrawLine3D(sph[0].pos, VAdd(sph[0].pos, VGet(0, 0, sph[0].radius * 2)), GetColor(255, 255, 255));
+    ///*float dis = sqrtf(sph[0].pos.x * sph[0].pos.x + sph[0].pos.y * sph[0].pos.y + sph[0].pos.z * sph[0].pos.z);*/
+    //DrawFormatString(300, 80, GetColor(255, 255, 255), " プレイヤー方向 x %.1f y %.1f z %.1f", sph[0].direction.x, sph[0].direction.y, sph[0].direction.z);
+}
 void Accl() {
     //鉢嶺処理
     float p_vz2 = -5 * tan(5);
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //どんどん速さを変える
-    //SetFontSize(20);
-    //DrawFormatString(0, 40, GetColor(255, 255, 255), "pvz2 %.0f", p_vz2);
-
-    //DrawFormatString(0, 0, GetColor(255, 255, 255), "pvz2 %f", p_vz2 * sph[0].control);
 
 
     if (p_zmoveflg) {
@@ -87,6 +107,7 @@ void P_move() {
     }
    Accl();//accelerator処理
    P_rotate();//回転処理
+   P_Direction();
 }
 
 //ここまで

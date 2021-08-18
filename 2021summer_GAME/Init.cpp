@@ -19,6 +19,8 @@ void Sph_init() {
 	sph[0].v = VGet(0.0f, 0.0f, 0.0f);//プレイヤーベクトル
 	g_frontmoveflg = 0;//前に坂があるかどうかの初期化
 	p_zmoveflg = false;
+
+	sph[0].direction = VGet(0, 0, 1);//プレイヤの向いて方向 初期 z方向
 }
 
 //不法投棄初期化

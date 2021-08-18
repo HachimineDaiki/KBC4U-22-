@@ -152,53 +152,53 @@ void Input_camera_move() {
                 }
             }
         }
-        else if (sph[0].zmove < 0) {//後ろに進んでいるときのカメラの動き
-            if (g_p_direct >= 0) {//岩の向きが整数なら
-                if ((g_p_direct - 180) >= g_cameraHAngle - 10 || (g_p_direct - 180) <= g_cameraHAngle + 10) {
-                    if ((g_p_direct - 180) >= g_cameraHAngle) {
-                        g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
-                        if (g_cameraHAngle >= g_p_direct - 180) {
-                            g_cameraHAngle = g_p_direct - 180;
-                        }
-                        if (g_cameraHAngle <= (g_p_direct - 180) - 10) {
-                            g_cameraHAngle = (g_p_direct - 180) - 10;
-                        }
-                    }
-                    if ((g_p_direct - 180) <= g_cameraHAngle) {
-                        g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
-                        if (g_cameraHAngle <= g_p_direct - 180) {
-                            g_cameraHAngle = g_p_direct - 180;
-                        }
-                        if (g_cameraHAngle >= (g_p_direct - 180) + 10) {
-                            g_cameraHAngle = (g_p_direct - 180) + 10;
-                        }
-                    }
-                }
-            }
-            else if (g_p_direct < 0) {// 輪の向きが負の数なら
-                if ((g_p_direct + 180) >= g_cameraHAngle - 10 || (g_p_direct + 180) <= g_cameraHAngle + 10) {
-                    if ((g_p_direct + 180) >= g_cameraHAngle) {
-                        g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
-                        if (g_cameraHAngle >= g_p_direct + 180) {
-                            g_cameraHAngle = g_p_direct + 180;
-                        }
-                        if (g_cameraHAngle <= (g_p_direct + 180) - 10) {
-                            g_cameraHAngle = (g_p_direct + 180) - 10;
-                        }
-                    }
-                    if ((g_p_direct + 180) <= g_cameraHAngle) {
-                        g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
-                        if (g_cameraHAngle <= g_p_direct + 180) {
-                            g_cameraHAngle = g_p_direct + 180;
-                        }
-                        if (g_cameraHAngle >= (g_p_direct + 180) + 10) {
-                            g_cameraHAngle = (g_p_direct + 180) + 10;
-                        }
-                    }
-                }
+        //else if (sph[0].zmove < 0) {//後ろに進んでいるときのカメラの動き
+        //    if (g_p_direct >= 0) {//岩の向きが整数なら
+        //        if ((g_p_direct - 180) >= g_cameraHAngle - 10 || (g_p_direct - 180) <= g_cameraHAngle + 10) {
+        //            if ((g_p_direct - 180) >= g_cameraHAngle) {
+        //                g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
+        //                if (g_cameraHAngle >= g_p_direct - 180) {
+        //                    g_cameraHAngle = g_p_direct - 180;
+        //                }
+        //                if (g_cameraHAngle <= (g_p_direct - 180) - 10) {
+        //                    g_cameraHAngle = (g_p_direct - 180) - 10;
+        //                }
+        //            }
+        //            if ((g_p_direct - 180) <= g_cameraHAngle) {
+        //                g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
+        //                if (g_cameraHAngle <= g_p_direct - 180) {
+        //                    g_cameraHAngle = g_p_direct - 180;
+        //                }
+        //                if (g_cameraHAngle >= (g_p_direct - 180) + 10) {
+        //                    g_cameraHAngle = (g_p_direct - 180) + 10;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    else if (g_p_direct < 0) {// 輪の向きが負の数なら
+        //        if ((g_p_direct + 180) >= g_cameraHAngle - 10 || (g_p_direct + 180) <= g_cameraHAngle + 10) {
+        //            if ((g_p_direct + 180) >= g_cameraHAngle) {
+        //                g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
+        //                if (g_cameraHAngle >= g_p_direct + 180) {
+        //                    g_cameraHAngle = g_p_direct + 180;
+        //                }
+        //                if (g_cameraHAngle <= (g_p_direct + 180) - 10) {
+        //                    g_cameraHAngle = (g_p_direct + 180) - 10;
+        //                }
+        //            }
+        //            if ((g_p_direct + 180) <= g_cameraHAngle) {
+        //                g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
+        //                if (g_cameraHAngle <= g_p_direct + 180) {
+        //                    g_cameraHAngle = g_p_direct + 180;
+        //                }
+        //                if (g_cameraHAngle >= (g_p_direct + 180) + 10) {
+        //                    g_cameraHAngle = (g_p_direct + 180) + 10;
+        //                }
+        //            }
+        //        }
 
-            }
-        }
+        //    }
+        //}
     }
 }
 

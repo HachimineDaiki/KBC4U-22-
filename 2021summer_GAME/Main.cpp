@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Model3d_load();//3Dモデル読み込み
     Model3d_init();//3Dモデル初期化
     UIinit();//UIの初期化
-
+    Init_Draw_Display();//画面描画初期化
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -102,7 +102,7 @@ void Gamemain() {
         if (Sph_ehit_chech(sph, damege_aria,i)) {
             Damege_aria_Decele();
             Sph_ehit(es_dis,i);
-            /*DrawFormatString(0, 100, GetColor(0, 255, 255), "やったぜ。");*/
+            sph[0].zmove = P_CollisionVelocity();//衝突後の速度
         }
     }
 
@@ -160,7 +160,6 @@ void Gamemain() {
 
     //------------------------------描画関数
     Model3d_draw();//3Dモデル描画
-
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
 
@@ -168,13 +167,13 @@ void Gamemain() {
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
         if (damege_aria[i].obj_flag) {
             MV1DrawModel(e_rock[i].handle);
-            //DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 16, damege_aria[i].color, GetColor(0, 0, 0), TRUE);//障害物制作テストとして一つ置いている。
         }
-        //DrawFormatString(600,0+(i*1)*20,GetColor(0,255,255),"%d",damege_aria[i].hp);
     }
 
     //体力描画
-    DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph->hp);
+    DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph[0].hp);
+    
+    DrawDisplay();//画面情報
 
     ////減速エリア描画
     //for (int i = 0; i < DECELE_ARIA_MAX; i++) {
@@ -187,13 +186,11 @@ void Gamemain() {
     if (decel.hit_flg) {
         Decel_aria_effect();//減速エリアに入った時の処理
         SetFontSize(50);//文字サイズを変更
-        DrawFormatString(1000, 140, GetColor(0, 255, 255), "減速中");
         SetFontSize(20);//文字サイズを元のサイズに変更
     }
     DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);
     //パラメーターを表示させる処理
     DrawParam_Info();
-
     //ゴールまで行ったら不法投棄物の飛んだ距離を表示
     if (htdrow.hitflg) {
         UIdraw();
