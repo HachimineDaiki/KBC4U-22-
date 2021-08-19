@@ -1,6 +1,9 @@
 #include "Init.h"
 #include "3Dmodel.h"
 #include "Player.h"
+#include"Hit_check.h"
+#include"User_Interface.h"
+#include"Camera.h"
 void Sph_init() {
 	//プレイヤーの初期化
 	for (int i = 0; i < 2; i++) {
@@ -114,4 +117,20 @@ void Model_init() {
 	//rock[0].x = 100.0f;
 	//rock[0].y = 5471.0f;
 	//rock[0].z = 20000.0f;
+}
+
+void All_Init() {
+	g = 9.81;
+	p_zmoveflg = true;
+	htdrow.hitflg = false;
+	rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
+	Sph_init();//球の初期化
+	Obj_init();//不法投棄物の初期化
+	Damege_Init();//障害物の初期化
+	Decelearia_init();//減速エリア初期化
+	Model_init();//モデル初期化
+	Camera_set();//カメラセット
+	Model3d_init();//3Dモデル初期化
+	UIinit();//UIの初期化
+
 }

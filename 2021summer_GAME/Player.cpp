@@ -7,6 +7,8 @@
 #include"Camera.h"
 //float g = 9.81f; //地球の重力
 
+int count=0;
+
 void Sph_Gravity() {
         //重力作成
        sph[0].v0y += g;
@@ -193,16 +195,7 @@ int Input_PlayerMoveDir() {
 
     if (htdrow.hitflg == false) {
         if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
-            g = 9.81f;
-            rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
-            Sph_init();//球の初期化
-            Obj_init();//不法投棄物の初期化
-            Damege_Init();//障害物の初期化
-            Decelearia_init();//減速エリア初期化
-            Model_init();//モデル初期化
-            Camera_set();//カメラセット
-            Model3d_load();//3Dモデル読み込み
-            Model3d_init();//3Dモデル初期化
+            All_Init();
 
         }
     }

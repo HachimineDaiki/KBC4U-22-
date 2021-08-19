@@ -61,4 +61,6 @@ int g_frontmoveflg;//0　前に進んでいる　1　後ろに進んでいる
 int g_CollisionReflectionFlag;//0 衝突して反射していない 1 衝突して反射している
 int g_goalflag;//ゴールしたかどうか　0ゴールしてない　1ゴールした
 
+int CheckKey;
 int gameMode;//ゲームモード
+

@@ -4,6 +4,8 @@ int Gameoverload();
 void Gameoverinit();
 void Gameoverdraw();
 
+
+
 struct Gameover
 {
 	int g_gameover;
