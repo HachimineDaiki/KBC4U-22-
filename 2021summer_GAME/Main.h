@@ -34,6 +34,9 @@ Model gensoku[DECELE_ARIA_MAX];
 Model e_rock[DAMEGE_ARIA_MAX];
 
 DrawStr speed_draw_str; //•¶š•`‰æ
+Title_Slect title_slect[2];
+Title_Slect title_slectfream[2];
+bool gameexit;
 //—ñ‹“‘Ì
 
 float g=9.81;//d—Í‚ğ‘ã“ü

@@ -248,7 +248,6 @@ void Ground_model_hit() {
 	//	Sph_Gravity();//重力
 	//}
 	Sph_Gravity();//重力
-	/*DrawFormatString(100, 220, GetColor(255, 0, 0), " %d", st_model_hit.groundflg);*/
 	// 移動ボタンが押されたかどうかで処理を分岐
 	if (st_model_hit.moveflag == 1)
 	{
@@ -290,9 +289,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	// 移動後の座標を算出
 	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
 
-
 	VECTOR frontpos = g_frontVector;
-
+	stg.CollObjNum = 2;//テストおおお
 
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
 	 //( 検出する範囲は移動距離も考慮する )
@@ -300,10 +298,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	// プレイヤーの周囲にあるコリジョンオブジェクトのポリゴンも取得する
 	for (int i = 0; i < stg.CollObjNum; i++)
 	{
-
 		st_model_hit.hitdim[i + 1] = MV1CollCheck_Sphere(stg.CollObjModelHandle[i], -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
 	}
-
 	// HitDim の有効な数はコリジョンオブジェクトの数とステージ自体のコリジョン
 	st_model_hit.hitdimnum = stg.CollObjNum + 1;
 	// x軸かy軸方向に 0.01f 以上移動した場合は「移動した」フラグを１にする
@@ -323,6 +319,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 		st_model_hit.yukanum = 0;
 
 
+		DrawFormatString(100, 20, GetColor(255, 0, 0), " %f");
 		// 検出されたポリゴンの数だけ繰り返し
 		for (int j = 0; j < st_model_hit.hitdimnum; j++)
 		{
@@ -362,82 +359,82 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			}
 		}
 	}
+	//ここから壁
+	// 壁ポリゴンとの当たり判定処理
+	if (st_model_hit.kabenum != 0)
+	{
+		// 壁に当たったかどうかのフラグは初期状態では「当たっていない」にしておく
+		st_model_hit.hitflag = 0;
 
-	//// 壁ポリゴンとの当たり判定処理
-	//if (st_model_hit.KabeNum != 0)
-	//{
-	//	// 壁に当たったかどうかのフラグは初期状態では「当たっていない」にしておく
-	//	st_model_hit.HitFlag = 0;
+		// 移動したかどうかで処理を分岐
+		if (st_model_hit.moveflag == 1)
+		{
+			// 壁ポリゴンの数だけ繰り返し
+			//for (int i = 0; i < st_model_hit.kabenum; i++)
+			//{
+			//	// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+			//	st_model_hit.poly = st_model_hit.kabe[i];
 
-	//	// 移動したかどうかで処理を分岐
-	//	if (st_model_hit.MoveFlag == 1)
-	//	{
-	//		// 壁ポリゴンの数だけ繰り返し
-	//		for (int i = 0; i < st_model_hit.KabeNum; i++)
-	//		{
-	//			// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-	//			st_model_hit.Poly = st_model_hit.Kabe[i];
+			//	// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
+			//	if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
 
-	//			// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
-	//			if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == FALSE) continue;
+			//	// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
+			//	st_model_hit.hitflag = 1;
 
-	//			// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
-	//			st_model_hit.HitFlag = 1;
+			//	//壁に当たったら壁に遮られない移動成分分だけ移動する
+			//	{
+			//		VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
 
-	//			//壁に当たったら壁に遮られない移動成分分だけ移動する
-	//			{
-	//				VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
+			//		// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
+			//		SlideVec = VCross(MoveVector, st_model_hit.poly->Normal);
 
-	//				// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
-	//				SlideVec = VCross(MoveVector, st_model_hit.Poly->Normal);
+			//		// 算出したベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出、これが
+			//		// 元の移動成分から壁方向の移動成分を抜いたベクトル
+			//		SlideVec = VCross(st_model_hit.poly->Normal, SlideVec);
 
-	//				// 算出したベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出、これが
-	//				// 元の移動成分から壁方向の移動成分を抜いたベクトル
-	//				SlideVec = VCross(st_model_hit.Poly->Normal, SlideVec);
+			//		// それを移動前の座標に足したものを新たな座標とする
+			//		st_model_hit.nowpos = VAdd(st_model_hit.oldpos, SlideVec);
+			//	}
 
-	//				// それを移動前の座標に足したものを新たな座標とする
-	//				st_model_hit.NowPos = VAdd(st_model_hit.OldPos, SlideVec);
-	//			}
+			//	int j;
+			//	// 新たな移動座標で壁ポリゴンと当たっていないかどうかを判定する
+			//	for (j = 0; j < st_model_hit.kabenum; j++)
+			//	{
+			//		// j番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+			//		st_model_hit.poly = st_model_hit.kabe[j];
 
-	//			int j;
-	//			// 新たな移動座標で壁ポリゴンと当たっていないかどうかを判定する
-	//			for (j = 0; j < st_model_hit.KabeNum; j++)
-	//			{
-	//				// j番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-	//				st_model_hit.Poly = st_model_hit.Kabe[j];
+			//		// 当たっていたらループから抜ける
+			//		if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
+			//	}
 
-	//				// 当たっていたらループから抜ける
-	//				if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == TRUE) break;
-	//			}
+			//	// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
+			//	// 壁に当たったフラグを倒した上でループから抜ける
+			//	if (j == st_model_hit.kabenum)
+			//	{
+			//		st_model_hit.hitflag = 0;
+			//		break;
+			//	}
+			//}
+		}
+		else
+		{
+			// 移動していない場合の処理
 
-	//			// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
-	//			// 壁に当たったフラグを倒した上でループから抜ける
-	//			if (j == st_model_hit.KabeNum)
-	//			{
-	//				st_model_hit.HitFlag = 0;
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else
-	//	{
-	//		// 移動していない場合の処理
+			// 壁ポリゴンの数だけ繰り返し
+			for (int i = 0; i < st_model_hit.kabenum; i++)
+			{
+				// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+				st_model_hit.poly = st_model_hit.kabe[i];
 
-	//		// 壁ポリゴンの数だけ繰り返し
-	//		for (int i = 0; i < st_model_hit.KabeNum; i++)
-	//		{
-	//			// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-	//			st_model_hit.Poly = st_model_hit.Kabe[i];
-
-	//			// ポリゴンに当たっていたら当たったフラグを立てた上でループから抜ける
-	//			if (HitCheck_Capsule_Triangle(st_model_hit.NowPos, VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]) == TRUE)
-	//			{
-	//				st_model_hit.HitFlag = 1;
-	//				break;
-	//			}
-	//		}
-	//	}
-	//}
+				// ポリゴンに当たっていたら当たったフラグを立てた上でループから抜ける
+				if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE)
+				{
+					st_model_hit.hitflag = 1;
+					break;
+				}
+			}
+		}
+	}
 
 
 	// 床ポリゴンとの当たり判定

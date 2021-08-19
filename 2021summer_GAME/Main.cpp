@@ -62,6 +62,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             break;
         }
 
+        //ゲーム終了
+        if (gameexit) {
+            return -1;
+        }
         ScreenFlip();//裏画面の内容を表画面に反映する
     }
 
