@@ -296,17 +296,21 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
 
 	VECTOR frontpos = g_frontVector;
-	stg.CollObjNum = 2;//テストおおお
+	stg.CollObjNum = 1;//テストおおお
 
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
 	 //( 検出する範囲は移動距離も考慮する )
 	st_model_hit.hitdim[0] = MV1CollCheck_Sphere(ground.handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
 	// プレイヤーの周囲にあるコリジョンオブジェクトのポリゴンも取得する
-	for (int i = 0; i < stg.CollObjNum; i++)
-	{
-		st_model_hit.hitdim[i + 1] = MV1CollCheck_Sphere(stg.CollObjModelHandle[i], -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
-	}
+	//for (int i = 0; i < stg.CollObjNum; i++)
+	//{
+	//	st_model_hit.hitdim[i + 1] = MV1CollCheck_Sphere(stg.CollObjModelHandle[i], -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
+	//}
+
+	
+
 	// HitDim の有効な数はコリジョンオブジェクトの数とステージ自体のコリジョン
+	//HitDimの配列要素
 	st_model_hit.hitdimnum = stg.CollObjNum + 1;
 	// x軸かy軸方向に 0.01f 以上移動した場合は「移動した」フラグを１にする
 	if (fabs(MoveVector.x) > 0.01f || fabs(MoveVector.z) > 0.01f)
@@ -324,42 +328,42 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 		st_model_hit.kabenum = 0;
 		st_model_hit.yukanum = 0;
 
-
-		DrawFormatString(100, 20, GetColor(255, 0, 0), " %f");
 		// 検出されたポリゴンの数だけ繰り返し
-		for (int j = 0; j < st_model_hit.hitdimnum; j++)
+		for (int j = 0; j < st_model_hit.hitdimnum; j++) //2回回る。
 		{
-			for (int i = 0; i < st_model_hit.hitdim[j].HitNum; i++)
+			for (int i = 0; i < st_model_hit.hitdim[j].HitNum; i++)//ヒットしたポリゴンの数分回る
 			{
+				
 				// ＸＺ平面に垂直かどうかはポリゴンの法線のＹ成分が０に限りなく近いかどうかで判断する
-				if (st_model_hit.hitdim[j].Dim[i].Normal.y < 0.000001f && st_model_hit.hitdim[j].Dim[i].Normal.y > -0.000001f)
+				if (st_model_hit.hitdim[j].Dim[i].Normal.y < 0.9f && st_model_hit.hitdim[j].Dim[i].Normal.y > -0.9f)
 				{
-					// 壁ポリゴンと判断された場合でも、プレイヤーのＹ座標＋１．０ｆより高いポリゴンのみ当たり判定を行う
-					if (st_model_hit.hitdim[j].Dim[i].Position[0].y > sph[0].pos.y + 1.0f ||
-						st_model_hit.hitdim[j].Dim[i].Position[1].y > sph[0].pos.y + 1.0f ||
-						st_model_hit.hitdim[j].Dim[i].Position[2].y > sph[0].pos.y + 1.0f)
-					{
-						// ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
+					//	 壁ポリゴンと判断された場合でも、プレイヤーのＹ座標＋１．０ｆより高いポリゴンのみ当たり判定を行う
+					//if (st_model_hit.hitdim[j].Dim[i].Position[0].y > sph[0].pos.y + 1.0f ||
+					//	st_model_hit.hitdim[j].Dim[i].Position[1].y > sph[0].pos.y + 1.0f ||
+					//	st_model_hit.hitdim[j].Dim[i].Position[2].y > sph[0].pos.y + 1.0f)
+					//{
+						//		 ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
 						if (st_model_hit.kabenum < PLAYER_MAX_HITCOLL)
 						{
-							// ポリゴンの構造体のアドレスを壁ポリゴンポインタ配列に保存する
+							//			 ポリゴンの構造体のアドレスを壁ポリゴンポインタ配列に保存する
 							st_model_hit.kabe[st_model_hit.kabenum] = &st_model_hit.hitdim[j].Dim[i];
 
-							// 壁ポリゴンの数を加算する
+							//			 壁ポリゴンの数を加算する
 							st_model_hit.kabenum++;
 						}
-					}
+					//}
 				}
 				else
 				{
-					// ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
+				//	 ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
 					if (st_model_hit.yukanum < PLAYER_MAX_HITCOLL)
 					{
-						// ポリゴンの構造体のアドレスを床ポリゴンポインタ配列に保存する
+				//		 ポリゴンの構造体のアドレスを床ポリゴンポインタ配列に保存する
 						st_model_hit.yuka[st_model_hit.yukanum] = &st_model_hit.hitdim[j].Dim[i];
 
-						// 床ポリゴンの数を加算する
+				//		 床ポリゴンの数を加算する
 						st_model_hit.yukanum++;
+						DrawFormatString(100, 20, GetColor(255, 0, 0), "kabenum %d", st_model_hit.yukanum);
 					}
 				}
 			}
@@ -376,51 +380,53 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 		if (st_model_hit.moveflag == 1)
 		{
 			// 壁ポリゴンの数だけ繰り返し
-			//for (int i = 0; i < st_model_hit.kabenum; i++)
-			//{
-			//	// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-			//	st_model_hit.poly = st_model_hit.kabe[i];
+			for (int i = 0; i < st_model_hit.kabenum; i++)
+			{
+				// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+				st_model_hit.poly = st_model_hit.kabe[i];
 
-			//	// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
-			//	if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
+				// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
+				/*if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;*/
+				if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
+				//HitCheck_Sphere_Triangle(VECTOR   SphereCenterPos, float  SphereR, VECTOR   TrianglePos1, VECTOR   TrianglePos2, VECTOR   TrianglePos3);									// 球と三角形の当たり判定( TRUE:当たっている  FALSE:当たっていない )
+				
+				// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
+				st_model_hit.hitflag = 1;
 
-			//	// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
-			//	st_model_hit.hitflag = 1;
+				//壁に当たったら壁に遮られない移動成分分だけ移動する
+				{
+					VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
 
-			//	//壁に当たったら壁に遮られない移動成分分だけ移動する
-			//	{
-			//		VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
+					// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
+					SlideVec = VCross(MoveVector, st_model_hit.poly->Normal);
 
-			//		// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
-			//		SlideVec = VCross(MoveVector, st_model_hit.poly->Normal);
+					// 算出したベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出、これが
+					// 元の移動成分から壁方向の移動成分を抜いたベクトル
+					SlideVec = VCross(st_model_hit.poly->Normal, SlideVec);
 
-			//		// 算出したベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出、これが
-			//		// 元の移動成分から壁方向の移動成分を抜いたベクトル
-			//		SlideVec = VCross(st_model_hit.poly->Normal, SlideVec);
+					// それを移動前の座標に足したものを新たな座標とする
+					st_model_hit.nowpos = VAdd(st_model_hit.oldpos, SlideVec);
+				}
 
-			//		// それを移動前の座標に足したものを新たな座標とする
-			//		st_model_hit.nowpos = VAdd(st_model_hit.oldpos, SlideVec);
-			//	}
+				int j;
+				// 新たな移動座標で壁ポリゴンと当たっていないかどうかを判定する
+				for (j = 0; j < st_model_hit.kabenum; j++)
+				{
+					// j番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+					st_model_hit.poly = st_model_hit.kabe[j];
 
-			//	int j;
-			//	// 新たな移動座標で壁ポリゴンと当たっていないかどうかを判定する
-			//	for (j = 0; j < st_model_hit.kabenum; j++)
-			//	{
-			//		// j番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
-			//		st_model_hit.poly = st_model_hit.kabe[j];
+					// 当たっていたらループから抜ける
+					if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
+				}
 
-			//		// 当たっていたらループから抜ける
-			//		if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
-			//	}
-
-			//	// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
-			//	// 壁に当たったフラグを倒した上でループから抜ける
-			//	if (j == st_model_hit.kabenum)
-			//	{
-			//		st_model_hit.hitflag = 0;
-			//		break;
-			//	}
-			//}
+				// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
+				// 壁に当たったフラグを倒した上でループから抜ける
+				if (j == st_model_hit.kabenum)
+				{
+					st_model_hit.hitflag = 0;
+					break;
+				}
+			}
 		}
 		else
 		{
@@ -438,6 +444,40 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					st_model_hit.hitflag = 1;
 					break;
 				}
+			}
+		}
+		// 壁に当たっていたら壁から押し出す処理を行う
+		if (st_model_hit.hitflag == 1)
+		{
+			// 壁からの押し出し処理を試みる最大数だけ繰り返し
+			for (int k = 0; k < PLAYER_HIT_TRYNUM; k++)
+			{
+				// 壁ポリゴンの数だけ繰り返し
+				for (st_model_hit.i = 0; st_model_hit.i < st_model_hit.kabenum; st_model_hit.i++)
+				{
+					// i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
+					st_model_hit.poly = st_model_hit.kabe[st_model_hit.i];
+
+					// プレイヤーと当たっているかを判定
+					if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
+
+					// 当たっていたら規定距離分プレイヤーを壁の法線方向に移動させる
+					st_model_hit.nowpos = VAdd(st_model_hit.nowpos, VScale(st_model_hit.poly->Normal, PLAYER_HIT_SLIDE_LENGTH));
+
+					// 移動した上で壁ポリゴンと接触しているかどうかを判定
+					for (st_model_hit.j = 0; st_model_hit.j < st_model_hit.kabenum; st_model_hit.j++)
+					{
+						// 当たっていたらループを抜ける
+						st_model_hit.poly = st_model_hit.kabe[st_model_hit.j];
+						if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
+					}
+
+					// 全てのポリゴンと当たっていなかったらここでループ終了
+					if (st_model_hit.j == st_model_hit.kabenum) break;
+				}
+
+				// i が KabeNum ではない場合は全部のポリゴンで押し出しを試みる前に全ての壁ポリゴンと接触しなくなったということなのでループから抜ける
+				if (st_model_hit.i != st_model_hit.kabenum) break;
 			}
 		}
 	}
@@ -488,8 +528,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-		DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
-		DrawLine3D(st_model_hit.nowpos, VAdd(g_frontVector, VGet(0.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
+		/*DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
+		DrawLine3D(st_model_hit.nowpos, VAdd(g_frontVector, VGet(0.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));*/
 		//DrawLine3D(VAdd(st_model_hit.nowpos, VGet(-300.0f, -110.0f, 0.0f)), VAdd(st_model_hit.nowpos, VGet(300.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
 		//DrawLine3D(VAdd(st_model_hit.nowpos, VGet(0.0f, -110.0f, -300.0f)), VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 300.0f)), GetColor(255, 0, 0));
 		//// 岩の周囲を簡易的に見る線

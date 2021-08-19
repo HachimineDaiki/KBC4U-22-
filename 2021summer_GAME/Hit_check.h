@@ -33,6 +33,8 @@ void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
 void Move_Limits();		//プレイヤーの左右移動を制限する
 void Damege_aria_Decele();//ダメージエリアの減速
+
+//プログラム当たり判定から引用
 struct StageModelHit
 {
 	int i, j, k;						// 汎用カウンタ変数
@@ -44,7 +46,7 @@ struct StageModelHit
 	int yukanum;						// 床ポリゴンと判断されたポリゴンの数
 	MV1_COLL_RESULT_POLY* kabe[PLAYER_MAX_HITCOLL];	// 壁ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
 	MV1_COLL_RESULT_POLY* yuka[PLAYER_MAX_HITCOLL];	// 床ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
-	MV1_COLL_RESULT_POLY* poly;				// ポリゴンの構造体にアクセスするために使用するポインタ( 使わなくても済ませられますがプログラムが長くなるので・・・ )
+	MV1_COLL_RESULT_POLY* poly;			// ポリゴンの構造体にアクセスするために使用するポインタ( 使わなくても済ませられますがプログラムが長くなるので・・・ )
 	HITRESULT_LINE lineres;				// 線分とポリゴンとの当たり判定の結果を代入する構造体
 	VECTOR oldpos;						// 移動前の座標	
 	VECTOR nowpos;						// 移動後の座標
