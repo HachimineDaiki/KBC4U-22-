@@ -26,7 +26,7 @@ void Sph_init() {
 
 //不法投棄初期化
 void Obj_init(){
-	obj.pos = VGet(-3000.0f, -20000.0f, 120000.0f);//不法投棄初期座標
+	obj.pos = VGet(-170.0f, -21160.0f, 132270.0f);//不法投棄初期座標
 	obj.radius = 400.0f;//不法投棄半径
 	obj.color = GetColor(0, 255, 100);//不法投棄カラー
 }
@@ -60,7 +60,7 @@ void Damege_Init() {
 			damege_aria[1].pos = VGet(11232.0f, -4769.0f, 31544.0f);
 			damege_aria[2].pos = VGet(11922.0f, -4577.0f, 29957.0f);
 			damege_aria[3].pos = VGet(20700.0f, -6589.0f, 41609.0f);
-			damege_aria[4].pos = VGet(24099.0f, -5914.0f, 42633.0f);
+			/*damege_aria[4].pos = VGet(24099.0f, -5914.0f, 42633.0f);*/
 
 
 			damege_aria[5].pos = VGet(25916.0f, -9596.0f, 57011.0f);
@@ -69,6 +69,9 @@ void Damege_Init() {
 			damege_aria[7].pos = VGet(27000.0f, -12151.0f, 69486.0f);
 			damege_aria[8].pos = VGet(25555.0f, -13454.0f, 76525.0f);
 			damege_aria[9].pos = VGet(27000.0f, -13454.0f, 76525.0f);
+
+			damege_aria[10].pos = VGet(2630.0f, -20440.0f, 118830.0f);
+			damege_aria[11].pos = VGet(2020.0f, -19610.0f, 76525.0f);
 	}
 }
 
@@ -92,6 +95,9 @@ void Decelearia_init() {
 	decele_aria[9].pos = VGet(-26253.0f, -10815.0f, 66417.0f);
 	decele_aria[10].pos = VGet(-25289.0f, -12677.0f, 76443.0f);
 	decele_aria[11].pos = VGet(-11387.0f, -16461.0f, 98970.0f);
+
+	decele_aria[12].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
+	decele_aria[7].pos = VGet(-170.0f, -20090.0f, 122550.0f);
 }
 
 //モデルの初期化

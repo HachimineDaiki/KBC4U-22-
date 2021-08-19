@@ -294,11 +294,12 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
 
 	VECTOR frontpos = g_frontVector;
-	stg.CollObjNum = 1;//テストおおお
+	stg.CollObjNum = 1;
 
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
 	 //( 検出する範囲は移動距離も考慮する )
 	st_model_hit.hitdim[0] = MV1CollCheck_Sphere(ground.handle, -1, sph[0].pos, PLAYER_ENUM_DEFAULT_SIZE + VSize(MoveVector));
+
 	// プレイヤーの周囲にあるコリジョンオブジェクトのポリゴンも取得する
 	//for (int i = 0; i < stg.CollObjNum; i++)
 	//{
@@ -385,7 +386,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 				// ポリゴンとプレイヤーが当たっていなかったら次のカウントへ
 				/*if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;*/
-				if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
+				if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius + 10, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
 				//HitCheck_Sphere_Triangle(VECTOR   SphereCenterPos, float  SphereR, VECTOR   TrianglePos1, VECTOR   TrianglePos2, VECTOR   TrianglePos3);									// 球と三角形の当たり判定( TRUE:当たっている  FALSE:当たっていない )
 				
 				// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
@@ -414,7 +415,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					st_model_hit.poly = st_model_hit.kabe[j];
 
 					// 当たっていたらループから抜ける
-					if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
+					if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius + 10, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
 				}
 
 				// j が KabeNum だった場合はどのポリゴンとも当たらなかったということなので
@@ -437,7 +438,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 				st_model_hit.poly = st_model_hit.kabe[i];
 
 				// ポリゴンに当たっていたら当たったフラグを立てた上でループから抜ける
-				if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE)
+				if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius + 10, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE)
 				{
 					st_model_hit.hitflag = 1;
 					break;
@@ -457,7 +458,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					st_model_hit.poly = st_model_hit.kabe[st_model_hit.i];
 
 					// プレイヤーと当たっているかを判定
-					if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
+					if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius + 10, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == FALSE) continue;
 
 					// 当たっていたら規定距離分プレイヤーを壁の法線方向に移動させる
 					st_model_hit.nowpos = VAdd(st_model_hit.nowpos, VScale(st_model_hit.poly->Normal, PLAYER_HIT_SLIDE_LENGTH));
@@ -467,7 +468,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					{
 						// 当たっていたらループを抜ける
 						st_model_hit.poly = st_model_hit.kabe[st_model_hit.j];
-						if (HitCheck_Capsule_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), PLAYER_HIT_WIDTH, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
+						if (HitCheck_Sphere_Triangle(st_model_hit.nowpos, sph[0].radius + 10, st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]) == TRUE) break;
 					}
 
 					// 全てのポリゴンと当たっていなかったらここでループ終了

@@ -97,7 +97,7 @@ void Gamemain() {
 
         obj.pos.z += obj.zmove;
         //obj.pos.x += 90 * tan(5);
-        DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
+        /*DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
 
     }
 
@@ -193,7 +193,8 @@ void Gamemain() {
         SetFontSize(50);//文字サイズを変更
         SetFontSize(20);//文字サイズを元のサイズに変更
     }
-    DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);
+    /*DrawFormatString(300, 300, speed_draw_str.color, "Obj座標[ %.0f %.0f %.0f", obj.pos.x, obj.pos.y, obj.pos.z);
+    DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);*/
     //パラメーターを表示させる処理
     DrawParam_Info();
     //ゴールまで行ったら不法投棄物の飛んだ距離を表示

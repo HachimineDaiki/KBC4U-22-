@@ -104,6 +104,41 @@ void Accl() {
  
 }
 void P_move() {    
+    //•s–@“ŠŠüˆÚ“®
+ /*   int speed = 10;
+    if (CheckHitKey(KEY_INPUT_A))
+    {
+        obj.pos.x -= speed;
+    }
+    if (CheckHitKey(KEY_INPUT_D))
+    {
+        obj.pos.x += speed;
+    }
+    if (CheckHitKey(KEY_INPUT_T))
+    {
+        obj.pos.y += speed;
+    }
+    if (CheckHitKey(KEY_INPUT_G))
+    {
+        obj.pos.y -= speed;
+    }
+
+    if (CheckHitKey(KEY_INPUT_S))
+    {
+        obj.pos.z += speed;
+    }
+    if (CheckHitKey(KEY_INPUT_W))
+    {
+        obj.pos.z -= speed;
+    }
+
+    if (CheckHitKey(KEY_INPUT_F))
+    {
+       speed /= speed;
+    }*/
+
+
+
     if (p_zmoveflg == true) {
         switch (Input_PlayerMoveDir())
         {
