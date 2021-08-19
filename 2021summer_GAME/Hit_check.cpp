@@ -151,18 +151,24 @@ bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 
 //Œ¸‘¬‘¬“xˆ—
 void Decel_aria_effect(){
-	sph[0].zmove *= 0.93f;
 
-	if (g_frontmoveflg == 1) {
-		if ((sph[0].zmove >= -15) && (sph[0].zmove <= 0)) {
-			sph[0].zmove = -15;
-		}
+	if (sph[0].zmove > 10) {
+		sph[0].zmove *= 0.93f;
+	}else if (-10 > sph[0].zmove) {
+		sph[0].zmove *= 0.93f;
 	}
-	if (g_frontmoveflg == 0) {
-		if ((sph[0].zmove <= 15) && (sph[0].zmove >= 0)) {
-			sph[0].zmove = 15;
-		}
-	}
+
+
+	//if (g_frontmoveflg == 1) {
+	//	if ((sph[0].zmove >= -15) && (sph[0].zmove <= 0)) {
+	//		sph[0].zmove = -15;
+	//	}
+	//}
+	//if (g_frontmoveflg == 0) {
+	//	if ((sph[0].zmove <= 15) && (sph[0].zmove >= 0)) {
+	//		sph[0].zmove = 15;
+	//	}
+	//}
 
 }
 

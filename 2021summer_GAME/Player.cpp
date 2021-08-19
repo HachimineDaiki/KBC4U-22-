@@ -90,6 +90,17 @@ void Accl() {
         sph[0].zaccl = 0.0f;
     }
 
+    if (g_CollisionReflectionFlag == 1) {
+        if (sph[0].zmove >= 0 && g_frontpos2.HitFlag == FALSE) {
+            g_CollisionReflectionFlag == 0;
+        }
+        if (sph[0].zmove < 0 && g_frontpos2.HitFlag == TRUE) {
+            g_CollisionReflectionFlag == 0;
+        }
+    }
+
+
+
  
 }
 void P_move() {    
