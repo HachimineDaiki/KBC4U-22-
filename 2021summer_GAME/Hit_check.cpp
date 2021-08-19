@@ -266,25 +266,23 @@ void Ground_model_hit() {
 	if (p_zmoveflg == true) {
 
 		st_model_hit.movepos.z = st_model_hit.movepos.z + sph[0].zmove;
-		
-		if (st_model_hit.gmoveflg == false) {
-			// カメラの角度に合わせて移動ベクトルを回転してから加算
-			g_sinParam = (float)sin(g_p_direct / 180.0f * DX_PI_F);
-			g_cosParam = (float)cos(g_p_direct / 180.0f * DX_PI_F);
-			//岩の向いている方向の計算(目の前が坂かどうかを判断するのに使う)
-			TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - sph[0].front * g_sinParam;
-			TempMoveVector.y = 0.0f;
-			TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + sph[0].front * g_cosParam;
 
-			g_frontVector = VAdd(sph[0].pos, TempMoveVector);
-			// 各ベクトルごとに計算yは放置
+		// カメラの角度に合わせて移動ベクトルを回転してから加算
+		g_sinParam = (float)sin(g_p_direct / 180.0f * DX_PI_F);
+		g_cosParam = (float)cos(g_p_direct / 180.0f * DX_PI_F);
+		//岩の向いている方向の計算(目の前が坂かどうかを判断するのに使う)
+		TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - sph[0].front * g_sinParam;
+		TempMoveVector.y = 0.0f;
+		TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + sph[0].front * g_cosParam;
 
-			TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - st_model_hit.movepos.z * g_sinParam;
-			TempMoveVector.y = 0.0f;
-			TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + st_model_hit.movepos.z * g_cosParam;
+		g_frontVector = VAdd(sph[0].pos, TempMoveVector);
+		// 各ベクトルごとに計算yは放置
 
-			st_model_hit.movepos = TempMoveVector;
-		}
+		TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - st_model_hit.movepos.z * g_sinParam;
+		TempMoveVector.y = 0.0f;
+		TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + st_model_hit.movepos.z * g_cosParam;
+
+		st_model_hit.movepos = TempMoveVector;
 	}
 
 	Ground_model_hit_check(st_model_hit.movepos);
@@ -593,35 +591,35 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 //プレイヤーの左右移動範囲を制限する
 void Move_Limits()
 {
-	//球自体のX座標をもとに作る
-	int lhit_magnification = 2;    //Xの移動範囲外にでた場合の戻す力の倍率
-	//プレイヤーが当たった時の座標を格納する
-	static VECTOR player_before_pos = VGet(0.0f, 0.0f, 0.0f);
+	////球自体のX座標をもとに作る
+	//int lhit_magnification = 2;    //Xの移動範囲外にでた場合の戻す力の倍率
+	////プレイヤーが当たった時の座標を格納する
+	//static VECTOR player_before_pos = VGet(0.0f, 0.0f, 0.0f);
 
-	if (sph[0].pos.y < 5470.0f) {
-		//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
-		if ((sph[0].pos.x <= st_model_hit.glimits_verification[branch.branch_position] ||
-			sph[0].pos.x >= st_model_hit.glimits_verification[branch.branch_position+1]) && st_model_hit.gmoveflg != true && branch.move_branch == 0) {
-			st_model_hit.gmoveflg = true;
-			player_before_pos = sph[0].pos;
-		}
+	//if (sph[0].pos.y < 5470.0f) {
+	//	//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
+	//	if ((sph[0].pos.x <= st_model_hit.glimits_verification[branch.branch_position] ||
+	//		sph[0].pos.x >= st_model_hit.glimits_verification[branch.branch_position+1]) && st_model_hit.gmoveflg != true && branch.move_branch == 0) {
+	//		st_model_hit.gmoveflg = true;
+	//		player_before_pos = sph[0].pos;
+	//	}
 
-		if (st_model_hit.gmoveflg == true) {
-			//範囲内に戻す処理(左)
-			if (sph[0].pos.x <= player_before_pos.x + sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 1) {
-				sph[0].pos.x += 10;
-			}
-			//範囲内に戻す処理(右)
-			else if (sph[0].pos.x >= player_before_pos.x - sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 2) {
-				sph[0].pos.x -= 10;
-			}
-			//フラグをもとに戻す
-			else {
-				st_model_hit.gmoveflg = false;
-			}
+	//	if (st_model_hit.gmoveflg == true) {
+	//		//範囲内に戻す処理(左)
+	//		if (sph[0].pos.x <= player_before_pos.x + sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 1) {
+	//			sph[0].pos.x += 10;
+	//		}
+	//		//範囲内に戻す処理(右)
+	//		else if (sph[0].pos.x >= player_before_pos.x - sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 2) {
+	//			sph[0].pos.x -= 10;
+	//		}
+	//		//フラグをもとに戻す
+	//		else {
+	//			st_model_hit.gmoveflg = false;
+	//		}
 
-		}
-	}
-	//コーナーに曲がった時にカウントを1あげる
-	if (sph[0].pos.z >= branch.branch_point[branch.branch_position]) branch.move_branch = 1;
+	//	}
+	//}
+	////コーナーに曲がった時にカウントを1あげる
+	//if (sph[0].pos.z >= branch.branch_point[branch.branch_position]) branch.move_branch = 1;
 }

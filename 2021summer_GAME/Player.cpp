@@ -207,30 +207,16 @@ int Input_PlayerMoveDir() {
         }
     }
 
-    
-    if (p_zmoveflg==false) {
-        if (CheckHitKey(KEY_INPUT_A)&& sph[0].pos.x > st_model_hit.glimits_verification[0]+10)
-        {
-            input_dir = Left;
-        }
-        if (CheckHitKey(KEY_INPUT_D) && sph[0].pos.x < st_model_hit.glimits_verification[1]-10)
-        {
-            input_dir = Right;
-        }
-    }
-    else {
-        if (CheckHitKey(KEY_INPUT_A)&&st_model_hit.gmoveflg == false)
-        {
-            input_dir = Left;
-            st_model_hit.landr_move = 1;
-        }
-        if (CheckHitKey(KEY_INPUT_D) && st_model_hit.gmoveflg == false)
-        {
-            input_dir = Right;
-            st_model_hit.landr_move = 2;
-        }
 
+    if (CheckHitKey(KEY_INPUT_A))
+    {
+        input_dir = Left;
     }
+    if (CheckHitKey(KEY_INPUT_D))
+    {
+        input_dir = Right;
+    }
+
 
     if (CheckHitKey(KEY_INPUT_S))
     {
