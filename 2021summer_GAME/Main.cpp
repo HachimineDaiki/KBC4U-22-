@@ -145,19 +145,8 @@ void Gamemain() {
         Distance_Calculation(); 
 
         if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
-            g = 9.81;
-            p_zmoveflg = true;
-            htdrow.hitflg = false;
-            rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
-            Sph_init();//球の初期化
-            Obj_init();//不法投棄物の初期化
-            Damege_Init();//障害物の初期化
-            Decelearia_init();//減速エリア初期化
-            Model_init();//モデル初期化
-            Camera_set();//カメラセット
-            Model3d_load();//3Dモデル読み込み
-            Model3d_init();//3Dモデル初期化
-            UIinit();//UIの初期化
+            WaitTimer(1000);
+            All_Init();
             gameMode = 0;
 
         }

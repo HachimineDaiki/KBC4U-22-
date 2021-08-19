@@ -6,6 +6,7 @@ int down_num = 0;
 int up_num = 0;
 int input_count = 0;
 
+
 int TitleLoad() {//‰æ‘œ‚Ì“Ç‚İ‚İ	
 	if ((title.g_title = LoadGraph("images/title.png")) == -1)return -1;
 }
@@ -40,7 +41,8 @@ void TitleSlectInit() {
 	title_slect[1].end_y = 680;
 }
 void Titledraw() {//‰æ‘œ‚Ì•`‰æ
-	DrawGraph(0,0,title.g_title,FALSE); 
+	DrawGraph(0,0,title.g_title,FALSE);
+	
 	TitleSlect();
 	//if (CheckHitKey(KEY_INPUT_S)) {
 	////	gameMode = 1;
