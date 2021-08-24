@@ -129,7 +129,7 @@ void All_Init() {
 	g = 9.81;
 	p_zmoveflg = true;
 	htdrow.hitflg = false;
-	rock[0].handle_num = P_rest_hp_handle(sph[0].hp);
+	rock[0].handle_num = 0;
 	Sph_init();//球の初期化
 	Obj_init();//不法投棄物の初期化
 	Damege_Init();//障害物の初期化
@@ -138,5 +138,4 @@ void All_Init() {
 	Camera_set();//カメラセット
 	Model3d_init();//3Dモデル初期化
 	UIinit();//UIの初期化
-
 }

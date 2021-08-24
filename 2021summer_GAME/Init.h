@@ -12,7 +12,6 @@ extern float merikomi;
 
 extern int CheckKey;
 
-
 extern int gameMode;
 
 //extern enum GAMEMODE;//ƒQ[ƒ€ƒ‚[ƒh

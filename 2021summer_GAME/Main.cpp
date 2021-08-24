@@ -79,6 +79,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         // 画面をクリア
         ClearDrawScreen();
 
+        if (sph[0].hp <= 0) {
+            gameMode = GAMEOVER; //ゲームモード
+        }
+
         //ゲーム遷移
         switch (gameMode)
         {

@@ -167,7 +167,6 @@ void P_hp(int obssize) {
     //HP‚ª0‚æ‚è‰º‚ª‚ç‚È‚¢
     if (sph[0].hp <= 0) {
         //WaitTimer(10000);
-        gameMode = 2;
         sph[0].hp = 0;
     }
 }
