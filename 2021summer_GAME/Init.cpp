@@ -130,6 +130,7 @@ void All_Init() {
 	p_zmoveflg = true;
 	htdrow.hitflg = false;
 	rock[0].handle_num = 0;
+	effect_time.count = 0;
 	Sph_init();//‹…‚Ì‰Šú‰»
 	Obj_init();//•s–@“ŠŠü•¨‚Ì‰Šú‰»
 	Damege_Init();//áŠQ•¨‚Ì‰Šú‰»

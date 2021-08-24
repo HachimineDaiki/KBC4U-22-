@@ -1,6 +1,6 @@
 #pragma once
 #include <DxLib.h>
-
+#include "Time.h"
 void Sph_init();
 void Model_init();
 void Obj_init();
