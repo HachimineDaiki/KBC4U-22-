@@ -63,6 +63,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Model3d_init();//3Dモデル初期化
     UIinit();//UIの初期化
     Init_Draw_Display();//画面描画初期化
+    InitTime(); //時間初期化
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -209,7 +210,7 @@ void Gamemain() {
 
     //体力描画
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph[0].hp);
-    
+    DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime());
     DrawDisplay();//画面情報
 
     ////減速エリア描画

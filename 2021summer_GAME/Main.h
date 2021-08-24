@@ -8,7 +8,7 @@
 #include "Param_Info.h"
 #include "Title.h"
 #include "Gameover.h"
-
+#include "Time.h"
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 //構造体
 Sph sph[2];//プレイヤー
@@ -36,6 +36,7 @@ Model e_rock[DAMEGE_ARIA_MAX];
 DrawStr speed_draw_str; //文字描画
 Title_Slect title_slect[2];
 Title_Slect title_slectfream[2];
+Time_  effect_time;
 bool gameexit;
 //列挙体
 

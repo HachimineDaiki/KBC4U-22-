@@ -156,6 +156,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Param_Info.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="User_Interface.cpp" />
   </ItemGroup>
@@ -167,6 +168,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Param_Info.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="User_Interface.h" />
   </ItemGroup>
