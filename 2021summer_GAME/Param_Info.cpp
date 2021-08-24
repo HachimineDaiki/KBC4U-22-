@@ -1,4 +1,5 @@
 #include "Param_Info.h"
+#include "User_Interface.h"
 //初期化画面
 void Init_Draw_Display() {
     speed_draw_str.color = GetColor(255, 255, 255);//文字色
@@ -12,15 +13,24 @@ void DrawDisplay() {
     
     speed_draw_str.speed = sph[0].zmove;
 
-    if (speed_draw_str.speed <= 0) {
-        speed_draw_str.speed = 0;
+    if (speed_draw_str.speed < 0) {
+        speed_draw_str.speed = speed_draw_str.speed * -1;
     }
-    
-    DrawFormatString(speed_draw_str.x, speed_draw_str.y, speed_draw_str.color, "スピード [ %.0f / 150 ]", speed_draw_str.speed);
+        DrawFormatString(speed_draw_str.x, speed_draw_str.y, speed_draw_str.color, "スピード [ %.0f / 150 ]", speed_draw_str.speed);
+
 }
 
 void DrawParam_Info() {
     SetFontSize(20);
+    //SetFontSize(100);
+    //DrawFormatString(341, 40, GetColor(255, 255, 0), " 成功 ");
+    //SetFontSize(50);
+    ////DrawFormatString(341, 140, GetColor(255, 255, 0), " 良い感じに\n  飛んだね ");
+    //DrawFormatString(341, 140, GetColor(255, 255, 0), "   もっと\n  飛べるよ ");
+
+    //DrawFormatString(300, 0, GetColor(255, 255, 255), "[smhx %.0f] [smhy %.0f] [smhz %.0f]", st_model_hit.lineres.Position.x, st_model_hit.lineres.Position.y, st_model_hit.lineres.Position.z);
+    //DrawFormatString(300, 20, GetColor(255, 255, 255), "[g_frox %.0f] [g_froy %.0f] [g_froz %.0f]", g_frontpos2.Position.x, g_frontpos2.Position.y, g_frontpos2.Position.z);
+    //DrawFormatString(300, 40, GetColor(255, 255, 255), "最大スコア　%.0f ", g_GoalFullScore);
     //// Camera.cppで使用している変数の数値など
     // 関数　Camera_move()　で使用
     //DrawFormatString(100, 20, GetColor(255, 255, 255), "カメラ縦角度 %.0f", g_cameraVAngle);

@@ -65,7 +65,7 @@ void Camera_move() {
     g_cameraPosition = VAdd(tempPosition2, cameraLookAtPosition);
 
     // 角度表示
-    DrawFormatString(300, 0, GetColor(255, 255, 255), "カメラ座標 X%.0f Y%.0f Z%.0f", g_cameraPosition.x, g_cameraPosition.y, g_cameraPosition.z);
+    //DrawFormatString(300, 0, GetColor(255, 255, 255), "カメラ座標 X%.0f Y%.0f Z%.0f", g_cameraPosition.x, g_cameraPosition.y, g_cameraPosition.z);
    // DrawFormatString(100, 40, GetColor(255, 255, 255), "カメラ横角度 %.0f", g_cameraHAngle);
     //DrawFormatString(0,0,GetColor(255,255,255), "カメラざ");
     // カメラの設定に反映する

@@ -152,10 +152,21 @@ bool Decel_aria_check(Sph sp[], Sph decele[], int i) {
 //減速速度処理
 void Decel_aria_effect(){
 
-	if (sph[0].zmove > 10) {
-		sph[0].zmove *= 0.93f;
-	}else if (-10 > sph[0].zmove) {
-		sph[0].zmove *= 0.93f;
+	//if (sph[0].zmove > 10) {
+	//	sph[0].zmove *= 0.93f;
+	//}else if (-10 > sph[0].zmove) {
+	//	sph[0].zmove *= 0.93f;
+	//}
+	sph[0].zmove *= 0.93f;
+	if (g_frontflg == 0) {
+		if (sph[0].zmove < 10) {
+			sph[0].zmove = 10;
+		}
+	}
+	else if (g_frontflg == 1) {
+		if (sph[0].zmove > -10) {
+			sph[0].zmove = -10;
+		}
 	}
 
 
@@ -508,8 +519,14 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
 			st_model_hit.lineres = HitCheck_Line_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-			g_frontpos2 = HitCheck_Line_Triangle(st_model_hit.nowpos,VAdd(g_frontVector,VGet(0.0f,-100.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			g_frontpos2 = HitCheck_Line_Triangle(g_frontVector,VAdd(g_frontVector,VGet(0.0f,-200.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
+			if (st_model_hit.lineres.Position.y < g_frontpos2.Position.y) {
+				g_frontflg = 1;//プレイヤーの位置とちょっと前の位置を比較してプレイヤーの位置の方が小さかったら前に坂があるフラグを1にする
+			}
+			else {
+				g_frontflg = 0;//プレイヤーの位置が高かったら前に坂があるフラグを0にする
+			}
 
 			if (st_model_hit.lineres.HitFlag == FALSE) { 
 				
@@ -527,8 +544,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-		/*DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
-		DrawLine3D(st_model_hit.nowpos, VAdd(g_frontVector, VGet(0.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));*/
+		//DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
+		//DrawLine3D(g_frontVector, VAdd(g_frontVector, VGet(0.0f, 600.0f, 0.0f)), GetColor(255, 0, 0));
 		//DrawLine3D(VAdd(st_model_hit.nowpos, VGet(-300.0f, -110.0f, 0.0f)), VAdd(st_model_hit.nowpos, VGet(300.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
 		//DrawLine3D(VAdd(st_model_hit.nowpos, VGet(0.0f, -110.0f, -300.0f)), VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 300.0f)), GetColor(255, 0, 0));
 		//// 岩の周囲を簡易的に見る線

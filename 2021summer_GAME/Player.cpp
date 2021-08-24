@@ -5,6 +5,8 @@
 #include"3Dmodel.h"
 #include"Init.h"
 #include"Camera.h"
+#include"User_Interface.h"
+
 //float g = 9.81f; //地球の重力
 
 int count=0;
@@ -51,35 +53,21 @@ void Accl() {
 
 
     if (p_zmoveflg) {
-        if (g_frontmoveflg == 0) {//前に進んでいると前に加速
+        if (g_frontflg == 0) {//前に坂がないと前に加速
             sph[0].zmove += p_vz2 * sph[0].control;
-        }
-        if (g_frontmoveflg == 1) {//後ろに進んでいると後ろに加速
+            if (sph[0].zmove < 0) {
+                sph[0].zmove += (p_vz2 * 2) * sph[0].control;
+            }
+        }else if (g_frontflg == 1) {//前に坂があると後ろに加速
             sph[0].zmove -= p_vz2 * sph[0].control;
-        }
-
-        if (g_frontpos2.HitFlag == FALSE) {//前に坂がないので前に進む
-            
-            if (sph[0].zmove <= 0) {
-                sph[0].zmove += p_vz2 * (sph[0].control + 0.01f);
+            if (sph[0].zmove > 0) {
+                sph[0].zmove -= (p_vz2 * 2) * sph[0].control;
             }
         }
-        else if (g_frontpos2.HitFlag == TRUE) {//前に坂があるので後ろに進む
-            
-            if (sph[0].zmove >= 0) {
 
-                sph[0].zmove -= p_vz2 * (sph[0].control + 0.01f);
-                
-            }
-        }
+
     }
 
-    if (sph[0].zmove >= 0.0f) {//前に進んでいたらフラグを0にする
-        g_frontmoveflg = 0;
-    }
-    else if (sph[0].zmove < 0.0f) {//後ろに進んでいたらフラグを1にする
-        g_frontmoveflg = 1;
-    }
 
     if (sph[0].zmove >= 150.0f) {
         sph[0].zmove = 150.0f;
@@ -155,7 +143,7 @@ void P_move() {
     }
    Accl();//accelerator処理
    P_rotate();//回転処理
-   P_Direction();
+   //P_Direction();
 }
 
 //ここまで
@@ -221,7 +209,7 @@ void P_input_move() {
     }
 
     //判定処理
-    Move_Limits();
+    //Move_Limits();
 
 }
 //プレイヤーが押している方向を返す関数
@@ -236,16 +224,16 @@ int Input_PlayerMoveDir() {
         }
     }
 
-
-    if (CheckHitKey(KEY_INPUT_A))
-    {
-        input_dir = Left;
+    if (g_goalflag == 0) {
+        if (CheckHitKey(KEY_INPUT_A))
+        {
+            input_dir = Left;
+        }
+        if (CheckHitKey(KEY_INPUT_D))
+        {
+            input_dir = Right;
+        }
     }
-    if (CheckHitKey(KEY_INPUT_D))
-    {
-        input_dir = Right;
-    }
-
 
     if (CheckHitKey(KEY_INPUT_S))
     {
