@@ -136,6 +136,7 @@ void Gamemain() {
 
 
         obj.pos.z += obj.zmove;
+        g_GoalFullScore += g_dist;
         //obj.pos.x += 90 * tan(5);
         /*DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
 
@@ -154,10 +155,16 @@ void Gamemain() {
     //•s–@“ŠŠü”ò‚Î‚·
     if (htdrow.hitflg) {
         if (obj.zmove > 0) {
-            obj.zmove = obj.zmove * 0.89;
+            obj.zmove = obj.zmove * 0.99;
         }
         else if (obj.zmove <= 0) {
             obj.zmove = 0;
+        }
+        if (g_dist > 0) {
+            g_dist = g_dist * 0.99;
+        }
+        else if (g_dist <= 0) {
+            g_dist = 0;
         }
     }
 
@@ -180,8 +187,8 @@ void Gamemain() {
     //ƒS[ƒ‹‚Ü‚ÅŒ¾‚Á‚½‚çˆÚ“®‚ðŽ~‚ß‚é
     if (htdrow.hitflg) {
         if (g_goalflag == 0) {
-            obj.zmove = sph[0].zmove * (sph[0].hp / 3);
-            Judgement();
+            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
+
             g_goalflag = 1;
         }
         p_zmoveflg = false;
@@ -190,7 +197,8 @@ void Gamemain() {
         SetFontSize(50);
         //DrawFormatString(512, 140, GetColor(0, 255, 255), " GOAL ");
         SetFontSize(20);
-        Distance_Calculation(); 
+        Distance_Calculation();
+        Judgement();
 
         if (CheckHitKey(KEY_INPUT_SPACE)) {// ‹ïŽuŒ˜‚ªˆ— d—Í‚ª•·‚©‚È‚­‚È‚é‚Ì‚ÅC³•K—v@—ˆT‚Éinit‚ð‚Ü‚Æ‚ß‚é
             WaitTimer(1000);

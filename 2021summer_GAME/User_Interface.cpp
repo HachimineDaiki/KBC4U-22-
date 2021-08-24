@@ -11,14 +11,22 @@ void UIinit() {
 	g_Ill_dump1 = obj.pos;
 	Ill_dump2 = VGet(0.0f, 0.0f, 0.0f);
 	g_goalflag = 0;//ゴールしたかどうか　0ゴールしてない　1ゴールした
+	g_dist = 150 * (300 * 3.33);//ゴールの最大得点の格納
+	g_GoalFullScore = 0;
 }
 
 void Judgement() {
-	if ((sph[0].zmove >= 130) || (sph[0].zmove <= -130)){
+	if ((0.8 * g_GoalFullScore) <= distance) {//最大の80%以上 80% => 0.8
+		judgement = 1;
+	}
+	else if ((0.6 * g_GoalFullScore) <= distance) {//最大の60%以上 60% => 0.6
 		judgement = 2;
 	}
-	else if ((sph[0].zmove >= 110) || (sph[0].zmove <= -110)) {
-		judgement = 1;
+	else if ((0.5 * g_GoalFullScore) <= distance) {//最大の50%以上 50% => 0.5
+		judgement = 3;
+	}
+	else{//最大の50%よりも小さいとき
+		judgement = 4;
 	}
 }
 
@@ -41,21 +49,32 @@ void UIdraw() {
 	
 	SetFontSize(100);//文字サイズを変更
 //	DrawFormatString(341, 334, GetColor(255, 255, 0), " GOAL "); 
-	if (obj.zmove >= 1) {
-		DrawFormatString(341, 140, GetColor(0, 255, 255), " GOAL ");
+	if (g_dist >= 1) {
+		//DrawFormatString(341, 140, GetColor(0, 255, 255), " GOAL ");
+		DrawFormatString(291, 140, GetColor(0, 255, 255), " ゴール ");
 	}
-	if (obj.zmove < 1) {
+	if (g_dist < 1) {
 		if (judgement == 1) {
-			DrawFormatString(341, 140, GetColor(255, 255, 0), " 成功 ");
+			DrawFormatString(291, 140, GetColor(255, 255, 0), " 大成功 ");
 		}
 		else if (judgement == 2) {
-			DrawFormatString(291, 140, GetColor(255, 255, 0), " 大成功 ");
+			DrawFormatString(341, 140, GetColor(255, 255, 0), " 成功 ");
+		}
+		else if (judgement == 3) {
+			SetFontSize(50);
+			DrawFormatString(341, 140, GetColor(255, 255, 0), " 良い感じに\n  飛んだね ");
+		}
+		else if (judgement == 4) {
+			SetFontSize(50);
+			DrawFormatString(341, 140, GetColor(255, 255, 0), "   もっと\n  飛べるよ ");
+
 		}
 	}
 	//DrawFormatString(341, 20, GetColor(0, 255, 255), " GOAL ");
 	SetFontSize(50);
 	//DrawFormatString(341, 120, GetColor(0, 0, 0), "%.0f", distance);//真ん中
-	DrawFormatString(341, 240, GetColor(0, 0, 0), "   %.0fm", distance);//真ん中
+	DrawFormatString(341, 241, GetColor(0, 0, 0), "   飛距離 ", distance);//真ん中 下の数字が何の意味を示すか
+	DrawFormatString(341, 290, GetColor(0, 0, 0), "  %8.0fm", distance);//真ん中 飛距離
 
 	//DrawFormatString(0, 0, GetColor(0, 0, 0), "%.0f", distance);//左上
 	//DrawFormatString(341, 0, GetColor(0, 0, 0), "%.0f", distance);//上
@@ -66,6 +85,7 @@ void UIdraw() {
 	//DrawFormatString(341, 512, GetColor(0, 0, 0), "%.0f", distance);//下
 	//DrawFormatString(682, 512, GetColor(0, 0, 0), "%.0f", distance);//右下
 
-	DrawFormatString(341, 484, GetColor(0, 0, 0), "%.0f", obj.zmove);
+	//DrawFormatString(341, 484, GetColor(0, 0, 0), "%.5f", obj.zmove);//不法投棄物のzmoveの表示確認用
+	//DrawFormatString(341, 584, GetColor(0, 0, 0), "%.5f", g_dist);//g_distの表示確認用
 	SetFontSize(20);//文字サイズを変更
 }
