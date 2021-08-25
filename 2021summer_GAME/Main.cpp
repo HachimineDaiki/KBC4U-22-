@@ -158,13 +158,15 @@ void Gamemain() {
     //•s–@“ŠŠü”ò‚Î‚·
     if (htdrow.hitflg) {
         if (obj.zmove > 0) {
-            obj.zmove = obj.zmove * 0.99;
+            //obj.zmove = obj.zmove * 0.99;
+            obj.zmove = obj.zmove - 754;
         }
         else if (obj.zmove <= 0) {
             obj.zmove = 0;
         }
         if (g_dist > 0) {
-            g_dist = g_dist * 0.99;
+            //g_dist = g_dist * 0.99;
+            g_dist = g_dist - 754;
         }
         else if (g_dist <= 0) {
             g_dist = 0;
