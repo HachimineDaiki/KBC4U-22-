@@ -81,26 +81,26 @@ void Damege_Init() {
 //減速エリア初期化
 void Decelearia_init() {
 	for (int i = 0; i < DECELE_ARIA_MAX; i++) {
-		decele_aria[i].radius = 400.0f;
+		decele_aria[i].radius = 600.0f;
 		decele_aria[i].color = GetColor(255, 0, 0);
 		decele_aria[i].v = VGet(0.0f, 0.0f, 0.0f);
 	}
 	
 	//初期座標
-	decele_aria[0].pos = VGet(-1000.0f, -200.0f, 5000.0f);
-	decele_aria[1].pos = VGet(1000.0f, -200.0f, 5000.0f);
-	decele_aria[3].pos = VGet(100.0f, -1070.0f, 10000.0f);
-	decele_aria[4].pos = VGet(500.0f, -2000.0f, 15000.0f);
-	decele_aria[5].pos = VGet(-500.0f, -2000.0f, 15000.0f);
-	decele_aria[6].pos = VGet(-6695.0f, -3820.0f, 25958.0f);
+	decele_aria[0].pos = VGet(-1000.0f, -300.0f, 5000.0f);
+	decele_aria[1].pos = VGet(1000.0f, -300.0f, 5000.0f);
+	decele_aria[2].pos = VGet(100.0f, -1170.0f, 10000.0f);
+	decele_aria[3].pos = VGet(500.0f, -2100.0f, 15000.0f);
+	decele_aria[4].pos = VGet(-500.0f, -2100.0f, 15000.0f);
+	decele_aria[5].pos = VGet(-6695.0f, -3920.0f, 25958.0f);
 	/*decelearia[7].pos = VGet(-6695.0f, -3820.0f,26400.0f);*/
-	decele_aria[8].pos = VGet(-20548.0f, -6289.0f, 40640.0f);
-	decele_aria[9].pos = VGet(-26253.0f, -10815.0f, 66417.0f);
-	decele_aria[10].pos = VGet(-25289.0f, -12677.0f, 76443.0f);
-	decele_aria[11].pos = VGet(-11387.0f, -16461.0f, 98970.0f);
+	decele_aria[6].pos = VGet(-20548.0f, -6389.0f, 40640.0f);
+	decele_aria[7].pos = VGet(-26253.0f, -10915.0f, 66417.0f);
+	decele_aria[8].pos = VGet(-25289.0f, -12777.0f, 76443.0f);
+	decele_aria[9].pos = VGet(-11387.0f, -16561.0f, 98970.0f);
 
-	decele_aria[12].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
-	decele_aria[7].pos = VGet(-170.0f, -20090.0f, 122550.0f);
+	decele_aria[10].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
+	decele_aria[11].pos = VGet(-170.0f, -20090.0f, 122550.0f);
 }
 
 //モデルの初期化

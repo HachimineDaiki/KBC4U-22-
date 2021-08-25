@@ -151,6 +151,7 @@
     <ClCompile Include="3Dmodel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Gameover.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Hit_check.cpp" />
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="3Dmodel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Gameover.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Param_Info.h" />
