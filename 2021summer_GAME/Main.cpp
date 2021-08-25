@@ -80,8 +80,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         ClearDrawScreen();
 
         if (sph[0].hp <= 0) {
-            gameMode = GAMEOVER; //ゲームモード
-        }
+            EffectTime();
+            if (effect_time.time >= 2) {
+                gameMode = GAMEOVER; //ゲームモード
+            }
+         }
 
         //ゲーム遷移
         switch (gameMode)
@@ -222,7 +225,7 @@ void Gamemain() {
 
     //体力描画
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph[0].hp);
-    DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime());
+    //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
     ////減速エリア描画
