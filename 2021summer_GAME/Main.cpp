@@ -240,16 +240,13 @@ void Gamemain() {
 
     //ゴールまで言ったら移動を止める
     if (htdrow.hitflg) {
+        playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
+        DrawEffekseer3D();
         if (g_goalflag == 0) {
+            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
+            g_goalflag = 1;
             playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
             DrawEffekseer3D();
-            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
-            if (effect_time.time >= 3) {
-                g_goalflag = 1;
-            }
-            if (g_goalflag == 1) {
-                StopEffekseer3DEffect(playingEffectHandle);
-            }
         }
         p_zmoveflg = false;
         g_p_Rotate = 0;
@@ -267,7 +264,6 @@ void Gamemain() {
 
         }
     }
-    
 
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
     DeleteEffekseerEffect(effectResourceHandle);
