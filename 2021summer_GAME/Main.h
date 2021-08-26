@@ -69,5 +69,11 @@ float g_GoalFullScore;//ゴールの最大得点の格納
 float g_dist;//ゴールの最大得点の計算に使う速度格納
 
 int CheckKey;
+
+
+int g_OldKey;
+int g_NowKey;
+int g_KeyFlg;
+
 int gameMode;//ゲームモード
 

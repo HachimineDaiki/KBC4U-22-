@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Hit_check.h"
+#include"KeyCheck.h"
 
 
 
@@ -76,7 +77,7 @@ void Camera_move() {
 
 void Input_camera_move() {
     // ï˚å¸ÉLÅ[Ç≈ÉJÉÅÉâÇâÒì]
-    if (CheckHitKey(KEY_INPUT_UP) == 1)
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
     {
         g_cameraVAngle -= CAMERA_ANGLE_SPEED / 4;
         if (g_cameraVAngle <= 0.0f)
@@ -84,7 +85,7 @@ void Input_camera_move() {
             g_cameraVAngle = 0.0f;
         }
     }
-    if (CheckHitKey(KEY_INPUT_DOWN) == 1)
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
     {
         g_cameraVAngle += CAMERA_ANGLE_SPEED / 4;
         if (g_cameraVAngle >= 45.0f)
@@ -92,7 +93,7 @@ void Input_camera_move() {
             g_cameraVAngle = 45.0f;
         }
     }
-    if (CheckHitKey(KEY_INPUT_LEFT) == 1)
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
     {
         g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
         if (g_cameraHAngle >= 180.0f)
@@ -100,7 +101,7 @@ void Input_camera_move() {
             g_cameraHAngle -= 360.0f;
         }
     }
-    if (CheckHitKey(KEY_INPUT_RIGHT) == 1)
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_RIGHT) != 0)
     {
         g_cameraHAngle -= CAMERA_ANGLE_SPEED / 4;
         if (g_cameraHAngle <= -180.0f)
@@ -110,7 +111,7 @@ void Input_camera_move() {
     }
     if (p_zmoveflg == true) {
         // if (sph[0].pos.z >= branch.branch_point[branch.branch_position]) {
-        if (CheckHitKey(KEY_INPUT_A) == 1)
+        if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
         {
             g_p_direct += CAMERA_ANGLE_SPEED / 2;
             if (g_p_direct >= 180.0f)
@@ -121,7 +122,7 @@ void Input_camera_move() {
             }
 
         }
-        if (CheckHitKey(KEY_INPUT_D) == 1)
+        if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_RIGHT) != 0)
         {
             g_p_direct -= CAMERA_ANGLE_SPEED / 2;
             if (g_p_direct <= -180.0f) {

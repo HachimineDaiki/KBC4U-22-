@@ -4,6 +4,7 @@
 #include"Player.h"
 #include"3Dmodel.h"
 #include"Camera.h"
+#include"KeyCheck.h"
 
 
 
@@ -20,9 +21,8 @@ void Gameoverdraw() {   //ゲームオーバーの画像を描画する
 	DrawGraph(0, 0, gameover.g_gameover, FALSE);
 
 	
-		if (CheckHitKey(KEY_INPUT_SPACE))
-		{
-			WaitTimer(1000);
+	if (g_KeyFlg & PAD_INPUT_2) {  //Ａキーでスタート
+			//WaitTimer(1000);
 			All_Init();
 			gameMode = 0;
 

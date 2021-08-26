@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "Title.h"
 #include "Init.h"
+#include"KeyCheck.h"
 
 int down_num = 0;
 int up_num = 0;
@@ -52,7 +53,7 @@ void Titledraw() {//画像の描画
 }
 void TitleInput() {
 	
-	if (CheckHitKey(KEY_INPUT_DOWN)) {
+	if (g_KeyFlg&PAD_INPUT_DOWN){  
 		down_num++;
 	}
 	else {
@@ -66,7 +67,7 @@ void TitleInput() {
 		input_count++;
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP)) {
+	if (g_KeyFlg & PAD_INPUT_UP) { 
 		up_num++;
 	}
 	else {
@@ -87,13 +88,13 @@ void TitleInput() {
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
+	if (g_KeyFlg & PAD_INPUT_2) {  //Ａキーで決定
 		for (int i = 0; i < 2; i++){
 			if (title_slect[i].selectflg) {
 				int slectstate = title_slect[i].selectnum;
 				if (slectstate == 0) { //ゲームスタート処理
 					//1000=1秒待つ
-					WaitTimer(1000);
+					//WaitTimer(1000);
 					gameMode = 1;
 				}
 				else {//ゲーム終了

@@ -6,6 +6,7 @@
 #include"Init.h"
 #include"Camera.h"
 #include"User_Interface.h"
+#include"KeyCheck.h"
 
 //float g = 9.81f; //地球の重力
 
@@ -203,7 +204,7 @@ void P_rotate() {
 void P_input_move() {
     //スペースを押したら前進
 
-    if (CheckHitKey(KEY_INPUT_SPACE)) {
+    if (g_KeyFlg & PAD_INPUT_2) {  //Bキーでスタート
         p_zmoveflg = true;
     }
     switch (Input_PlayerMoveDir())
@@ -224,28 +225,28 @@ int Input_PlayerMoveDir() {
     int input_dir = -1;
 
     if (htdrow.hitflg == false) {
-        if (CheckHitKey(KEY_INPUT_R)) {// 具志堅が処理　来週にinitをまとめる
+        if (g_KeyFlg & PAD_INPUT_8) {  //スタートボタンでリスタート
             All_Init();
 
         }
     }
 
     if (g_goalflag == 0) {
-        if (CheckHitKey(KEY_INPUT_A))
+        if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
         {
             input_dir = Left;
         }
-        if (CheckHitKey(KEY_INPUT_D))
+        if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_RIGHT) != 0)
         {
             input_dir = Right;
         }
     }
 
-    if (CheckHitKey(KEY_INPUT_S))
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
     {
         input_dir = Down;
     }
-    if (CheckHitKey(KEY_INPUT_W))
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
     {
         input_dir = Up;
     }
