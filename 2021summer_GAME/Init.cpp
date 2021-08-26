@@ -32,6 +32,7 @@ void Obj_init(){
 	obj.pos = VGet(-170.0f, -21160.0f, 132270.0f);//不法投棄初期座標
 	obj.radius = 400.0f;//不法投棄半径
 	obj.color = GetColor(0, 255, 100);//不法投棄カラー
+	obj.zmove = 1;
 }
 //当たったらダメ―ジを受ける障害物初期化
 void Damege_Init() {
@@ -168,6 +169,7 @@ void All_Init() {
 	htdrow.hitflg = false;
 	rock[0].handle_num = 0;
 	effect_time.count = 0;
+	goal_input_space = false;
 	Sph_init();//球の初期化
 	Obj_init();//不法投棄物の初期化
 	Damege_Init();//障害物の初期化

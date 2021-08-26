@@ -64,6 +64,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     UIinit();//UIの初期化
     Init_Draw_Display();//画面描画初期化
     InitTime(); //時間初期化
+    goal_input_space = false; //ゴールした時のスペース入力
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -163,7 +164,9 @@ void Gamemain() {
         }
         else if (obj.zmove <= 0) {
             obj.zmove = 0;
+            goal_input_space = true;
         }
+
         if (g_dist > 0) {
             //g_dist = g_dist * 0.99;
             g_dist = g_dist - 754;
@@ -208,12 +211,12 @@ void Gamemain() {
     //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
-    ////減速エリア描画
-    //for (int i = 0; i < DECELE_ARIA_MAX; i++) {
-    //    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
-    //    DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
-    //    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
-    //}
+    //減速エリア描画
+    for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+        SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
+        DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
+        SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
+    }
 
     //減速エリアに入っている間に減速ちゅうの文字を描画
     if (decel.hit_flg) {
@@ -231,6 +234,8 @@ void Gamemain() {
     }
     //エフェクトを使う
     if (sph[0].hp <= 0) {
+        g_goalflag = true;
+        p_zmoveflg = false;
         // エフェクトを再生する。
         playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
         //DrawEffect();
@@ -257,15 +262,16 @@ void Gamemain() {
         SetFontSize(20);
         Distance_Calculation();
         Judgement();
+        if (goal_input_space) {
+            if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
+                WaitTimer(1000);
+                All_Init();
+                gameMode = 0;
 
-        if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
-            WaitTimer(1000);
-            All_Init();
-            gameMode = 0;
-
+            }
         }
     }
-
+    DrawFormatString(0, 360, GetColor(0, 255, 255), "[ %.0f]", obj.zmove);
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
     DeleteEffekseerEffect(effectResourceHandle);
 }

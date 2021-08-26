@@ -41,6 +41,7 @@ Time_  effect_time;
 FileData f_damege_aria;//ダメージエリアファイル情報
 DebugObj d_obj[MAXOBJ]; //デバッグオブジェクト
 bool gameexit;
+bool goal_input_space;
 //列挙体
 
 float g=9.81;//重力を代入

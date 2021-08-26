@@ -1,4 +1,4 @@
-//#include "Goal.h"
+#include "Goal.h"
 //
 //void InitMap() {
 //	goal_scene.x = 0;

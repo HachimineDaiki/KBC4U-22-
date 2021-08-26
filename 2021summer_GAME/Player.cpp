@@ -136,8 +136,6 @@ void P_move() {
     //   speed /= speed;
     //}
 
-
-
     if (p_zmoveflg == true) {
         switch (Input_PlayerMoveDir())
         {
