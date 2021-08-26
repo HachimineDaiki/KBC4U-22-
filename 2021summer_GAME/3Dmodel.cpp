@@ -14,7 +14,7 @@ void Model3d_load() {
 
 	//Ç Ç©ÇÈÇ›è∞
 	for (int i = 0; i < DECELE_ARIA_MAX; i++) {
-		gensoku[i].handle = MV1LoadModel("3Dmodel/MudColor_6cm.mv1");
+		gensoku[i].handle = MV1LoadModel("3Dmodel/MudColor_11cm.mv1");
 	}
 	//è·äQï®ä‚
 	for (int i = 0; i < DAMEGE_ARIA_MAX; i++) {
