@@ -9,6 +9,7 @@
 #include "Title.h"
 #include "Gameover.h"
 #include "User_Interface.h"
+#include"KeyCheck.h"
 // EffekseerForDXLib.hをインクルードします。
 #include "EffekseerForDXLib.h"
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -77,6 +78,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
     {
+        KeyChecker();  //キー操作
+
         // 画面をクリア
         ClearDrawScreen();
 
@@ -267,7 +270,7 @@ void Gamemain() {
         Distance_Calculation();
         Judgement();
         if (goal_input_space) {
-            if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
+            if (g_KeyFlg & PAD_INPUT_2) {  //Bキーでスタート
                 WaitTimer(1000);
                 All_Init();
                 gameMode = 0;
