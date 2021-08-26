@@ -40,9 +40,10 @@ void Camera_move() {
     VECTOR cameraLookAtPosition;
     float sinParam;
     float cosParam;
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
     cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+    /*cameraLookAtPosition = VGet(obj.pos.x, obj.pos.y, obj.pos.z);*/
     cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
 
     // カメラの位置はカメラの水平角度と垂直角度から算出

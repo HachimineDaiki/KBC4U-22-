@@ -1,7 +1,7 @@
 #pragma once
 #define VECTOR_SLIDE 0.86602540378
-#define DECELE_ARIA_MAX 12 //減速エリア最大値
-#define DAMEGE_ARIA_MAX 12//ダメージエリア最大値
+#define DECELE_ARIA_MAX 50 //減速エリア最大値
+#define DAMEGE_ARIA_MAX 50//ダメージエリア最大値
 struct Sph
 {
 	float radius;

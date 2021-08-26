@@ -9,6 +9,7 @@
 #include "Title.h"
 #include "Gameover.h"
 #include "Time.h"
+#include "DebugMode.h"
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 //構造体
 Sph sph[2];//プレイヤー
@@ -37,6 +38,8 @@ DrawStr speed_draw_str; //文字描画
 Title_Slect title_slect[2];
 Title_Slect title_slectfream[2];
 Time_  effect_time;
+FileData f_damege_aria;//ダメージエリアファイル情報
+DebugObj d_obj[MAXOBJ]; //デバッグオブジェクト
 bool gameexit;
 //列挙体
 

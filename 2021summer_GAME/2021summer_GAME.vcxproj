@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="3Dmodel.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DebugMode.cpp" />
     <ClCompile Include="Gameover.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Hit_check.cpp" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="3Dmodel.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DebugMode.h" />
     <ClInclude Include="Gameover.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Init.h" />
