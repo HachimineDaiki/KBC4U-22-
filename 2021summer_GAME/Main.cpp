@@ -189,29 +189,7 @@ void Gamemain() {
         }
     }
     
-    //ゴールまで言ったら移動を止める
-    if (htdrow.hitflg) {
-        if (g_goalflag == 0) {
-            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
-
-            g_goalflag = 1;
-        }
-        p_zmoveflg = false;
-        g_p_Rotate = 0;
-        sph[0].zmove = 0.0f;
-        SetFontSize(50);
-        //DrawFormatString(512, 140, GetColor(0, 255, 255), " GOAL ");
-        SetFontSize(20);
-        Distance_Calculation();
-        Judgement();
-
-        if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
-            WaitTimer(1000);
-            All_Init();
-            gameMode = 0;
-
-        }
-    }
+   
 
     //------------------------------描画関数
     Model3d_draw();//3Dモデル描画
@@ -256,11 +234,40 @@ void Gamemain() {
         // エフェクトを再生する。
         playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
         //DrawEffect();
-            // Effekseerにより再生中のエフェクトを描画する。
+        // Effekseerにより再生中のエフェクトを描画する。
         DrawEffekseer3D();
     }
 
+    //ゴールまで言ったら移動を止める
+    if (htdrow.hitflg) {
+        if (g_goalflag == 0) {
+            playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
+            DrawEffekseer3D();
+            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
+            if (effect_time.time >= 3) {
+                g_goalflag = 1;
+            }
+            if (g_goalflag == 1) {
+                StopEffekseer3DEffect(playingEffectHandle);
+            }
+        }
+        p_zmoveflg = false;
+        g_p_Rotate = 0;
+        sph[0].zmove = 0.0f;
+        SetFontSize(50);
+        //DrawFormatString(512, 140, GetColor(0, 255, 255), " GOAL ");
+        SetFontSize(20);
+        Distance_Calculation();
+        Judgement();
 
+        if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
+            WaitTimer(1000);
+            All_Init();
+            gameMode = 0;
+
+        }
+    }
+    
 
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
     DeleteEffekseerEffect(effectResourceHandle);
