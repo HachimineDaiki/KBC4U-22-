@@ -203,6 +203,10 @@ void Gamemain() {
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
         if (damege_aria[i].obj_flag) {
             MV1DrawModel(e_rock[i].handle);
+
+            //SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
+            //DrawSphere3D(damege_aria[i].pos, damege_aria[i].radius, 32, damege_aria[i].color, GetColor(255, 255, 255), TRUE);
+            //SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
         }
     }
 
@@ -212,11 +216,11 @@ void Gamemain() {
     DrawDisplay();//画面情報
 
     //減速エリア描画
-    for (int i = 0; i < DECELE_ARIA_MAX; i++) {
-        SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
-        DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
-        SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
-    }
+    //for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+    //    //SetDrawBlendMode(DX_BLENDMODE_ALPHA, 127);		//ブレンドモードをα(128/255)に設定
+    //    //DrawSphere3D(decele_aria[i].pos, decele_aria[i].radius, 32, decele_aria[i].color, GetColor(255, 255, 255), TRUE);
+    //    //SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
+    //}
 
     //減速エリアに入っている間に減速ちゅうの文字を描画
     if (decel.hit_flg) {
@@ -271,7 +275,10 @@ void Gamemain() {
             }
         }
     }
-    DrawFormatString(0, 360, GetColor(0, 255, 255), "[ %.0f]", obj.zmove);
+    DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
+    for (int i = 0; i<MAXOBJ; i++) {
+        DrawFormatString(500, 200 + (i + 1) * 20, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);
+    }
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
     DeleteEffekseerEffect(effectResourceHandle);
 }

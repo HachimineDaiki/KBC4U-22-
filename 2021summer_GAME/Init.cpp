@@ -44,20 +44,26 @@ void Damege_Init() {
 		//	damege_aria[i].hp = 10;//test用の体力
 		//	damege_aria[i].obj_flag = true;
 		//}
-		if (i >= 0 && i <= 5) {
-			damege_aria[i].radius = 200.0f;
-			damege_aria[i].color = GetColor(255, 255, 0);
-			damege_aria[i].name = L;//障害物の大きさM
-			damege_aria[i].hp = 50;//test用の体力
-			damege_aria[i].obj_flag = true;
-		}
-		else {
-			damege_aria[i].radius = 400.0f;
-			damege_aria[i].color = GetColor(0, 255, 0);
-			damege_aria[i].name = L;//障害物の大きさL
-			damege_aria[i].hp = 100;//test用の体力
-			damege_aria[i].obj_flag = true;
-		}
+		//if (i >= 0 && i <= 5) {
+		//	damege_aria[i].radius = 200.0f;
+		//	damege_aria[i].color = GetColor(255, 255, 0);
+		//	damege_aria[i].name = L;//障害物の大きさM
+		//	damege_aria[i].hp = 50;//test用の体力
+		//	damege_aria[i].obj_flag = true;
+		//}
+		//else {
+		//	damege_aria[i].radius = 400.0f;
+		//	damege_aria[i].color = GetColor(0, 255, 0);
+		//	damege_aria[i].name = L;//障害物の大きさL
+		//	damege_aria[i].hp = 100;//test用の体力
+		//	damege_aria[i].obj_flag = true;
+		//}
+
+		damege_aria[i].radius = 600.0f;
+		damege_aria[i].color = GetColor(0, 255, 0);
+		damege_aria[i].name = L;//障害物の大きさL
+		damege_aria[i].hp = 100;//test用の体力
+		damege_aria[i].obj_flag = true;
 
 			//ダメージエリア初期座標
 			damege_aria[0].pos = VGet(4230.0f, -3260.0f, 21370.0f);
@@ -126,8 +132,8 @@ void Decelearia_init() {
 	decele_aria[10].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
 	decele_aria[11].pos = VGet(-170.0f, -20000.0f, 122550.0f);
 	decele_aria[12].pos = VGet(-16130.0f, -4810.0f, 30470.0f);
-	decele_aria[13].pos = VGet(22380.0f, -8060.0f, 51620.0f);
-	decele_aria[14].pos = VGet(24430.0f, -8060.0f, 51620.0f);
+	decele_aria[13].pos = VGet(22380.0f, -8160.0f, 51620.0f);
+	decele_aria[14].pos = VGet(24430.0f, -8260.0f, 51620.0f);
 	decele_aria[15].pos = VGet(22430.0f, -14760.0f, 86670.0f);
 	decele_aria[16].pos = VGet(15030.0f, -15310.0f, 88720.0f);
 	decele_aria[17].pos = VGet(14830.0f, -16310.0f, 95920.0f);
