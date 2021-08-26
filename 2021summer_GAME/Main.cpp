@@ -34,8 +34,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         DxLib_End();
         return -1;
     }
-
-    /*Fail_Read_Init();*/
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
     // Effekseerを使用するには必ず設定する。
     SetUseDirect3DVersion(DX_DIRECT3D_11);
@@ -49,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // ただし、DirectX11を使用する場合は実行する必要はない。
     Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
-    /*Fail_Read_Init();*/
+
     SetDrawScreen(DX_SCREEN_BACK);
     //--------------初期化関数
     Titleinit();
@@ -66,7 +64,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     UIinit();//UIの初期化
     Init_Draw_Display();//画面描画初期化
     InitTime(); //時間初期化
-    InitObj();
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -128,10 +125,6 @@ void Gamemain() {
     Camera_move();//カメラ動かす
     Ground_model_hit();
 
-    //デバッグ計算
-    GameObj();
-
-
    //不法投棄物とプレイヤーの当たり判定
     if (Sph_hit_check(sph, obj)) {
         Sph_hit(s_dis);
@@ -165,13 +158,15 @@ void Gamemain() {
     //不法投棄飛ばす
     if (htdrow.hitflg) {
         if (obj.zmove > 0) {
-            obj.zmove = obj.zmove * 0.99;
+            //obj.zmove = obj.zmove * 0.99;
+            obj.zmove = obj.zmove - 754;
         }
         else if (obj.zmove <= 0) {
             obj.zmove = 0;
         }
         if (g_dist > 0) {
-            g_dist = g_dist * 0.99;
+            //g_dist = g_dist * 0.99;
+            g_dist = g_dist - 754;
         }
         else if (g_dist <= 0) {
             g_dist = 0;
@@ -194,35 +189,13 @@ void Gamemain() {
         }
     }
     
-    //ゴールまで言ったら移動を止める
-    if (htdrow.hitflg) {
-        if (g_goalflag == 0) {
-            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
-
-            g_goalflag = 1;
-        }
-        p_zmoveflg = false;
-        g_p_Rotate = 0;
-        sph[0].zmove = 0.0f;
-        SetFontSize(50);
-        //DrawFormatString(512, 140, GetColor(0, 255, 255), " GOAL ");
-        SetFontSize(20);
-        Distance_Calculation();
-        Judgement();
-
-        if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
-            WaitTimer(1000);
-            All_Init();
-            gameMode = 0;
-
-        }
-    }
+   
 
     //------------------------------描画関数
     Model3d_draw();//3Dモデル描画
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-    DrawObj();//デバッグオブジェクト描画
+
     //障害物描画
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
         if (damege_aria[i].obj_flag) {
@@ -232,7 +205,6 @@ void Gamemain() {
 
     //体力描画
     DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph[0].hp);
-    DrawFormatString(0, 340, GetColor(0, 255, 255), "[X %.0f] [Y %.0f] [Z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
     //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
@@ -262,13 +234,36 @@ void Gamemain() {
         // エフェクトを再生する。
         playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
         //DrawEffect();
-            // Effekseerにより再生中のエフェクトを描画する。
+        // Effekseerにより再生中のエフェクトを描画する。
         DrawEffekseer3D();
     }
 
-    //for(int i = 0; i < MAXOBJ; i++) {
-    //    DrawFormatString(600, 100 + (i + 1) * 20, GetColor(255, 0, 0), " X %.0f, Y %.0f, Z %.0f ", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);
-    //}
+    //ゴールまで言ったら移動を止める
+    if (htdrow.hitflg) {
+        playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
+        DrawEffekseer3D();
+        if (g_goalflag == 0) {
+            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
+            g_goalflag = 1;
+            playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
+            DrawEffekseer3D();
+        }
+        p_zmoveflg = false;
+        g_p_Rotate = 0;
+        sph[0].zmove = 0.0f;
+        SetFontSize(50);
+        //DrawFormatString(512, 140, GetColor(0, 255, 255), " GOAL ");
+        SetFontSize(20);
+        Distance_Calculation();
+        Judgement();
+
+        if (CheckHitKey(KEY_INPUT_SPACE)) {// 具志堅が処理 重力が聞かなくなるので修正必要　来週にinitをまとめる
+            WaitTimer(1000);
+            All_Init();
+            gameMode = 0;
+
+        }
+    }
 
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
     DeleteEffekseerEffect(effectResourceHandle);
