@@ -248,6 +248,7 @@ void Gamemain() {
             playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
             DrawEffekseer3D();
         }
+        StopEffekseer3DEffect(playingEffectHandle);
         p_zmoveflg = false;
         g_p_Rotate = 0;
         sph[0].zmove = 0.0f;
