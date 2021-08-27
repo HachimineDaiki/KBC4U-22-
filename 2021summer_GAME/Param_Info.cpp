@@ -16,7 +16,6 @@ void DrawDisplay() {
     if (speed_draw_str.speed < 0) {
         speed_draw_str.speed = speed_draw_str.speed * -1;
     }
-        DrawFormatString(speed_draw_str.x, speed_draw_str.y, speed_draw_str.color, "スピード [ %.0f / 150 ]", speed_draw_str.speed);
 
 }
 

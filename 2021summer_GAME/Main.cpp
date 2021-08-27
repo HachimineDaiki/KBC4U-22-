@@ -213,8 +213,7 @@ void Gamemain() {
         }
     }
 
-    //体力描画
-    DrawFormatString(0, 300, GetColor(0, 255, 255), "[HP: %d]", sph[0].hp);
+    
     //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
@@ -278,7 +277,12 @@ void Gamemain() {
             }
         }
     }
-    //DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
+
+    DrawBox(50, 20, 390, 50, GetColor(255, 255, 255), TRUE);
+    //体力描画
+    DrawFormatString(55, 25, GetColor(0, 0, 0), "[HP: %d]", sph[0].hp);
+    DrawFormatString(155, 25, GetColor(0,0,0), "スピード [ %.0f / 150 ]", speed_draw_str.speed);
+    /*DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
     //for (int i = 0; i<MAXOBJ; i++) {
     //    DrawFormatString(500, 200 + (i + 1) * 20, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);
     //}

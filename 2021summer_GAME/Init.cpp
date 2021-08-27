@@ -7,15 +7,15 @@
 void Sph_init() {
 	//プレイヤーの初期化
 	for (int i = 0; i < 2; i++) {
-		sph[i].speed = 10.0f; //プレイヤー速度
-		sph[i].radius = 200.0f;//プレイヤー半径
-		sph[i].v0y = 0.0f; //プレイヤーY軸初速度
-		sph[i].pos = VGet(100.0f, 468.0f, 1300.0f);//プレイヤー初期座標
-		sph[i].color = GetColor(255, 255, 255);//プレイヤーカラー
-		sph[i].zaccl = 2.0f;//プレイヤーz方向accelerator
-		sph[i].zmove = 0.0f;//プレイヤーZ方向移動
-		sph[i].control = 0.02f;//プレイヤー速度調整変数
-		sph[i].hp = 300;//プレイヤー体力
+		sph[0].speed = 10.0f; //プレイヤー速度
+		sph[0].radius = 200.0f;//プレイヤー半径
+		sph[0].v0y = 0.0f; //プレイヤーY軸初速度
+		sph[0].pos = VGet(100.0f, 468.0f, 1300.0f);//プレイヤー初期座標
+		sph[0].color = GetColor(255, 255, 255);//プレイヤーカラー
+		sph[0].zaccl = 2.0f;//プレイヤーz方向accelerator
+		sph[0].zmove = 0.0f;//プレイヤーZ方向移動
+		sph[0].control = 0.02f;//プレイヤー速度調整変数
+		sph[0].hp = 300;//プレイヤー体力
 		sph[0].front = 200;//プレイヤーの前方500
 	}
 	
@@ -74,39 +74,36 @@ void Damege_Init() {
 			damege_aria[5].pos = VGet(13830.0f, -5460.0f, 35120.0f);
 			damege_aria[6].pos = VGet(14580.0f, -5460.0f, 34170.0f);
 			damege_aria[7].pos = VGet(22830.0f, -10360.0f, 61170.0f);
-			damege_aria[8].pos = VGet(24330.0f, -10360.0f, 61170.0f);
-			damege_aria[9].pos = VGet(25830.0f, -10360.0f, 61170.0f);
-			damege_aria[10].pos = VGet(2630.0f, -20440.0f, 118830.0f);
-			damege_aria[11].pos = VGet(12130.0f, -5660.0f, 36470.0f);
-			damege_aria[12].pos = VGet(21330.0f, -6960.0f, 42570.0f);
-			damege_aria[13].pos = VGet(20530.0f, -6860.0f, 42970.0f);
-			damege_aria[14].pos = VGet(29330.0f, -11260.0f, 64470.0f);
-			damege_aria[15].pos = VGet(28030.0f, -11260.0f, 64770.0f);
-			damege_aria[16].pos = VGet(30730.0f, -13460.0f, 76670.0f);
-			damege_aria[17].pos = VGet(29580.0f, -13460.0f, 76670.0f);
-			damege_aria[18].pos = VGet(28230.0f, -13460.0f, 76670.0f);
-			damege_aria[19].pos = VGet(27130.0f, -13460.0f, 76670.0f);
-			damege_aria[20].pos = VGet(25830.0f, -13460.0f, 76670.0f);
-			damege_aria[21].pos = VGet(21530.0f, -14860.0f, 84270.0f);
-			damege_aria[22].pos = VGet(20730.0f, -14860.0f, 85270.0f);
-			/*damege_aria[23].pos = VGet(6930.0f, -17460.0f, 102270.0f);*/
-			damege_aria[24].pos = VGet(8830.0f, -16960.0f, 99670.0f);
-			/*damege_aria[25].pos = VGet(10430.0f, -16760.0f, 97470.0f);*/
-			/*damege_aria[26].pos = VGet(11830.0f, -16160.0f, 95770.0f);*/
-			damege_aria[27].pos = VGet(16830.0f, -15460.0f, 89070.0f);
-			damege_aria[28].pos = VGet(6630.0f, -18010.0f, 108020.0f);
-			damege_aria[29].pos = VGet(2230.0f, -19610.0f, 118920.0f);
-			damege_aria[30].pos = VGet(-1420.0f, -19610.0f, 118920.0f);
-			damege_aria[31].pos = VGet(-4120.0f, 19560.0f, 119420.0f);
-			damege_aria[32].pos = VGet(22130.0f, -14560.0f, 83570.0f);
-			damege_aria[33].pos = VGet(17580.0f, -15310.0f, 87920.0f);
-			damege_aria[34].pos = VGet(15980.0f, -15660.0f, 89970.0f);
-			damege_aria[35].pos = VGet(12580.0f, -16210.0f, 94420.0f);
+			damege_aria[8].pos = VGet(24330.0f, -10460.0f, 61170.0f);
+			damege_aria[9].pos = VGet(25830.0f, -10560.0f, 61170.0f);
+			damege_aria[10].pos = VGet(12130.0f, -5660.0f, 36470.0f);
+			damege_aria[11].pos = VGet(21330.0f, -6960.0f, 42570.0f);
+			damege_aria[12].pos = VGet(20530.0f, -6860.0f, 42970.0f);
+			damege_aria[13].pos = VGet(29330.0f, -11260.0f, 64470.0f);
+			damege_aria[14].pos = VGet(28030.0f, -11260.0f, 64770.0f);
+			damege_aria[15].pos = VGet(30730.0f, -13460.0f, 76670.0f);
+			damege_aria[16].pos = VGet(29580.0f, -13460.0f, 76670.0f);
+			damege_aria[17].pos = VGet(28230.0f, -13460.0f, 76670.0f);
+			damege_aria[18].pos = VGet(27130.0f, -13460.0f, 76670.0f);
+			damege_aria[19].pos = VGet(25830.0f, -13460.0f, 76670.0f);
+			damege_aria[20].pos = VGet(21530.0f, -14860.0f, 84270.0f);
+			damege_aria[21].pos = VGet(20730.0f, -14860.0f, 85270.0f);
+			damege_aria[22].pos = VGet(8830.0f, -16960.0f, 99670.0f);
+			damege_aria[23].pos = VGet(16830.0f, -15460.0f, 89070.0f);
+			damege_aria[24].pos = VGet(6630.0f, -18010.0f, 108020.0f);
+			damege_aria[25].pos = VGet(2230.0f, -19610.0f, 118920.0f);
+			damege_aria[26].pos = VGet(-1420.0f, -19610.0f, 118920.0f);
+			damege_aria[27].pos = VGet(-4120.0f, -19660.0f, 119420.0f);
+			damege_aria[28].pos = VGet(22130.0f, -14560.0f, 83570.0f);
+			damege_aria[29].pos = VGet(17580.0f, -15310.0f, 87920.0f);
+			damege_aria[30].pos = VGet(15980.0f, -15660.0f, 89970.0f);
+			damege_aria[31].pos = VGet(12580.0f, -16210.0f, 94420.0f);
 			//未入力
-			/*damege_aria[42].pos = VGet(25830.0f, -13460.0f, 76670.0f);*/
-			damege_aria[36].pos = VGet(12180.0f, -16160.0f, 95270.0f);
-			damege_aria[37].pos = VGet(9480.0f, -16810.0f, 98620.0f);
-			damege_aria[38].pos = VGet(8230.0f, -17110.0f, 100420.0f);
+			damege_aria[32].pos = VGet(12180.0f, -16160.0f, 95270.0f);
+			damege_aria[33].pos = VGet(9480.0f, -16810.0f, 98620.0f);
+			damege_aria[34].pos = VGet(8230.0f, -17110.0f, 100420.0f);
+
+			MV1SetRotationXYZ(e_rock[i].handle, VGet(5 * DX_PI_F / 180.0f, 0.0f, 0.0));
 	}
 }
 
@@ -116,6 +113,8 @@ void Decelearia_init() {
 		decele_aria[i].radius = 1100.0f;
 		decele_aria[i].color = GetColor(255, 0, 0);
 		decele_aria[i].v = VGet(0.0f, 0.0f, 0.0f);
+
+		MV1SetRotationXYZ(gensoku[i].handle, VGet(5 * DX_PI_F / 180.0f, 0.0f, 0.0));
 	}
 	
 	//初期座標
@@ -130,15 +129,16 @@ void Decelearia_init() {
 	decele_aria[8].pos = VGet(-25289.0f, -12677.0f, 76443.0f);
 	decele_aria[9].pos = VGet(-11387.0f, -16461.0f, 98970.0f);
 	decele_aria[10].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
-	decele_aria[11].pos = VGet(-170.0f, -20000.0f, 122550.0f);
+	decele_aria[11].pos = VGet(-170.0f, -20100.0f, 122550.0f);
 	decele_aria[12].pos = VGet(-16130.0f, -4810.0f, 30470.0f);
 	decele_aria[13].pos = VGet(22380.0f, -8160.0f, 51620.0f);
-	decele_aria[14].pos = VGet(24430.0f, -8260.0f, 51620.0f);
-	decele_aria[15].pos = VGet(22430.0f, -14760.0f, 86670.0f);
+	decele_aria[14].pos = VGet(24430.0f, -8360.0f, 51620.0f);
+	decele_aria[15].pos = VGet(22430.0f, -14860.0f, 86670.0f);
 	decele_aria[16].pos = VGet(15030.0f, -15310.0f, 88720.0f);
 	decele_aria[17].pos = VGet(14830.0f, -16310.0f, 95920.0f);
 	decele_aria[18].pos = VGet(8080.0f, -16510.0f, 96670.0f);
 
+	
 	//未入力
 	//decele_aria[19].pos = VGet(6630.0f, 18010.0f, 108020.0f);
 	//decele_aria[20].pos = VGet(-25289.0f, -12777.0f, 76443.0f);
