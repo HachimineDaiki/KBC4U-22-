@@ -30,6 +30,7 @@ struct Damege {
 	const int _25 = 25;
 	const int _30 = 30;
 	const int _50 = 50;
+	const int _75 = 75;
 	const int _100 = 100;
 };
 

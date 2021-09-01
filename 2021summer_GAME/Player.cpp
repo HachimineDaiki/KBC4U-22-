@@ -23,9 +23,27 @@ void Sph_Gravity() {
 }
 //反射
 float P_CollisionVelocity() {
-    float e = 0.5f;
-    float v_collision;//衝突後の速度
-    v_collision = -e * sph[0].zmove;
+   // float e = 0.5f;
+    float e = 1.0f;
+    float v_collision = 0.0f;//衝突後の速度	
+
+    if (fabsf(sph[0].zmove) <= 75) {
+        if (g_frontflg == 0) {//前方に坂がない
+            v_collision = -40;
+        }
+        else if (g_frontflg == 1) {//前方に坂がある
+            v_collision = 40;
+        }
+    }
+    else if (fabsf(sph[0].zmove) >= 76) {
+        if (g_frontflg == 0) {//前方に坂がない
+            v_collision = -50;
+        }
+        else if (g_frontflg == 1) {//前方に坂がある
+            v_collision = 50;
+        }
+    }
+    //v_collision = -e * sph[0].zmove;
 
     return v_collision;
 }
@@ -56,17 +74,21 @@ void Accl() {
     if (p_zmoveflg) {
         if (g_frontflg == 0) {//前に坂がないと前に加速
             sph[0].zmove += p_vz2 * sph[0].control;
-            if (sph[0].zmove < 0) {
+            if (sph[0].zmove < 0) {//zmoveが負の数の時の処理
                 sph[0].zmove += (p_vz2 * 2) * sph[0].control;
+            }
+            if (g_CollisionReflectionFlag == 1 && sph[0].zmove >= 0) {//障害物と当たった後の処理
+                g_CollisionReflectionFlag == 0;
             }
         }else if (g_frontflg == 1) {//前に坂があると後ろに加速
             sph[0].zmove -= p_vz2 * sph[0].control;
-            if (sph[0].zmove > 0) {
+            if (sph[0].zmove >= 0) {//zmoveが正の数の時の処理
                 sph[0].zmove -= (p_vz2 * 2) * sph[0].control;
             }
+            if (g_CollisionReflectionFlag == 1 && sph[0].zmove < 0) {//障害物と当たった後の処理
+                g_CollisionReflectionFlag == 0;
+            }
         }
-
-
     }
 
 
@@ -81,14 +103,14 @@ void Accl() {
         sph[0].zaccl = 0.0f;
     }
 
-    if (g_CollisionReflectionFlag == 1) {
-        if (sph[0].zmove >= 0 && g_frontpos2.HitFlag == FALSE) {
-            g_CollisionReflectionFlag == 0;
-        }
-        if (sph[0].zmove < 0 && g_frontpos2.HitFlag == TRUE) {
-            g_CollisionReflectionFlag == 0;
-        }
-    }
+    //if (g_CollisionReflectionFlag == 1) {
+    //    if (sph[0].zmove >= 0 && g_frontpos2.HitFlag == FALSE) {
+    //        g_CollisionReflectionFlag == 0;
+    //    }
+    //    if (sph[0].zmove < 0 && g_frontpos2.HitFlag == TRUE) {
+    //        g_CollisionReflectionFlag == 0;
+    //    }
+    //}
 
 
 

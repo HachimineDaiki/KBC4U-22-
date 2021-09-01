@@ -254,7 +254,7 @@ void Gamemain() {
         playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
         DrawEffekseer3D();
         if (g_goalflag == 0) {
-            obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);
+            obj.zmove = fabsf(sph[0].zmove * 499.5) + (sph[0].hp * 249.75);
             g_goalflag = 1;
             playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
             DrawEffekseer3D();
