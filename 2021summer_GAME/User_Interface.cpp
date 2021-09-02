@@ -3,7 +3,7 @@
 #include "player.h"
 
 VECTOR Ill_dump2;//移動している不法投棄物の位置を入れる
-float distance;//不法投棄物の移動距離をいれる
+
 int judgement = 0;//1成功　2大成功　のフラグ
 
 //UIに使用する情報の初期化
@@ -55,18 +55,24 @@ void UIdraw() {
 	}
 	if (g_dist < 1) {
 		if (judgement == 1) {
-			DrawFormatString(291, 140, GetColor(255, 255, 0), " 大成功 ");
+			SetFontSize(50);
+			DrawFormatString(300, 170, GetColor(255, 255, 0), " 太陽まで飛んだよ！ ");
+			SetFontSize(10);
 		}
 		else if (judgement == 2) {
-			DrawFormatString(341, 140, GetColor(255, 255, 0), " 成功 ");
+			SetFontSize(50);
+			DrawFormatString(300, 170, GetColor(255, 255, 0), " 水星まで飛んだよ！ ");
+			SetFontSize(10);
 		}
 		else if (judgement == 3) {
 			SetFontSize(50);
-			DrawFormatString(341, 140, GetColor(255, 255, 0), " 良い感じに\n  飛んだね ");
+			DrawFormatString(300, 170, GetColor(255, 255, 0), " 金星まで飛んだよ！ ");
+			SetFontSize(10);
 		}
 		else if (judgement == 4) {
 			SetFontSize(50);
-			DrawFormatString(341, 140, GetColor(255, 255, 0), "   もっと\n  飛べるよ ");
+			DrawFormatString(300, 170, GetColor(255, 255, 0), " 月まで飛んだよ！ ");
+			SetFontSize(10);
 
 		}
 	}

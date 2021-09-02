@@ -1,6 +1,8 @@
 #pragma once
-#include <DxLib.h>
+#include<DxLib.h>
+#include"User_Interface.h"
 extern bool goal_input_space;
+
 //
 //int MapLoad();
 //void InitMap();
