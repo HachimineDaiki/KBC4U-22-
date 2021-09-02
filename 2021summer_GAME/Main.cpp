@@ -12,6 +12,14 @@
 #include"KeyCheck.h"
 // EffekseerForDXLib.hをインクルードします。
 #include "EffekseerForDXLib.h"
+
+#define PI 3.14
+bool g_flg;
+float _cos;
+float _sin;
+
+float deg;
+float rad;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
     SetMainWindowText("この不法投棄物に粛清を！");
@@ -65,7 +73,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     UIinit();//UIの初期化
     Init_Draw_Display();//画面描画初期化
     InitTime(); //時間初期化
+    PlanetInit();
     goal_input_space = false; //ゴールした時のスペース入力
+
+    deg = 45.0f;
+    g_flg = false;
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -131,7 +143,7 @@ void Gamemain() {
 
    //不法投棄物とプレイヤーの当たり判定
     if (Sph_hit_check(sph, obj)) {
-        Sph_hit(s_dis);
+        /*Sph_hit(s_dis);*/
         htdrow.hitflg = true;
     }
 
@@ -141,12 +153,26 @@ void Gamemain() {
         //obj.pos.y += 30 * cos(10) * 10;
         //obj.pos.z += 200 * tan(10) * 10;
 
+        //obj.pos.z += obj.zmove;
+        //g_GoalFullScore += g_dist;
+        rad = deg * PI / 180.0f;
 
-        obj.pos.z += obj.zmove;
-        g_GoalFullScore += g_dist;
+        if (g_flg) {
+            rad = -rad;
+        }
+
+        _cos = cos(rad) * 100;
+        _sin = sin(rad) * 100;
+
+        obj.pos.z += _cos;
+        obj.pos.y += _sin;
+
+        if (obj.pos.y >= 0.0f) {
+            g_flg = true;
+        }
+        SetBackgroundColor(0, 0, 0);
         //obj.pos.x += 90 * tan(5);
         /*DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
-
     }
 
     //障害物エリアの当たり判定
@@ -182,10 +208,8 @@ void Gamemain() {
     // 再生中のエフェクトを移動する。
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
 
-
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
-
 
     //減速エリアに入っているかチェック
     decel.hit_flg = false;//減速フラグ
@@ -201,7 +225,7 @@ void Gamemain() {
     Model3d_draw();//3Dモデル描画
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-
+    DrawPlanet();
     //障害物描画
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
         if (damege_aria[i].obj_flag) {

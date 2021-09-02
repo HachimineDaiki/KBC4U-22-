@@ -43,6 +43,7 @@ DebugObj d_obj[MAXOBJ]; //デバッグオブジェクト
 Camera camera;//カメラ
 VECTOR obj_cameraPosition;//オブジェクトカメラ
 Sph planet[4];
+
 bool gameexit;//ゲーム終了フラグ
 bool goal_input_space;//ゴールした時にスペースを押せるかフラグ
 //列挙体

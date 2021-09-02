@@ -46,8 +46,6 @@ float  CosParam;
 VECTOR InitPos;
 
 void Camera_set() {
-
-
 	// カメラの向きを初期化
 	g_cameraHAngle = 0.0f;
 	g_cameraVAngle = 25.0f;
@@ -64,7 +62,7 @@ void Obj_Camera_move() {
     
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
     
-    CameraLookAtPosition = InitPos;
+    CameraLookAtPosition = obj.pos;
     CameraLookAtPosition.y += OBJ_CAMERA_LOOK_AT_HEIGHT;
 
     // カメラの位置はカメラの水平角度と垂直角度から算出

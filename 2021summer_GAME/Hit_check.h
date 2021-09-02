@@ -25,7 +25,7 @@ void Decel_aria_effect();//エリアに入った時の効果
 int IsObs_check(Sph obs[], int i);//どの障害物に当たったか
 int Hit_player_speed(Sph player[], int obs_info);//当たった時のプレイヤー速度
 void Hit_badobject_helth(Sph player[], int obs_info,int i);//当たった時の障害物の判定
-void Sph_hit(float dis);
+//void Sph_hit(float dis);
 void Sph_ehit(float dis, int i);//障害物当たり判定
 //void Model_hit_check();
 //void Model_hit();

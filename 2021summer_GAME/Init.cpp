@@ -206,7 +206,19 @@ void All_Init() {
 	Model3d_init();//3Dモデル初期化
 	UIinit();//UIの初期化
 }
+void PlanetInit() {
+	planet[0].radius = 1000;
+	planet[1].radius = 1000;
+	planet[2].radius = 1000;
+	planet[3].radius = 1000;
+	
 
+	planet[0].pos = VGet(100, 413, 1300);
+	planet[1].pos = VGet(100, 413, 1300);
+	planet[2].pos = VGet(100, 413, 1300);
+	planet[3].pos = VGet(100, 413, 1300);
+	
+}
 //ファイル読み込み
 //int Fail_Read_Init() {
 	//f_damege_aria.filehandle = FileRead_open("Text/test.txt");
