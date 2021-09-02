@@ -31,7 +31,6 @@ void Sph_ehit(float dis, int i);//障害物当たり判定
 //void Model_hit();
 void Ground_model_hit();
 void Ground_model_hit_check(VECTOR MoveVector);
-void Move_Limits();		//プレイヤーの左右移動を制限する
 void Damege_aria_Decele();//ダメージエリアの減速
 
 //プログラム当たり判定から引用
@@ -61,7 +60,7 @@ struct StageModelHit
 
 	bool groundflg = false;
 
-	
+	bool kabeHitflg = false;		//壁に当たり続けているのか
 	
 };
 
@@ -76,20 +75,8 @@ struct Decel {
 	bool  hit_flg;
 };
 
-//分岐構造体
-struct Branch
-{
-	//int glimits_verification[2] = { -1500,1800 }; //端の数値　0: 左の端 900 : 右の端
-	//int landr_move = 0;			//0:なし　1:左 2:右		左右のボタンどちらを押しているか
-	//bool gmoveflg = false;    //false:制限範囲内　true:制限範囲外
-	//int move_branch = 0;		//0:直線　1:左 2:右 それ以外:なし	道の分岐
-	//int branch_point[1] = { 20000 };	//分岐地点の座標
-	//int branch_position = 0;		//プレイヤーがどのコーナーにいるかのカウント
-};
-
 extern Decel decel;
 extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
-extern Branch branch;
 extern VECTOR g_frontVector;
 extern HITRESULT_LINE g_frontpos2;//岩の手前に坂があるかどうかを調べるためのもの

@@ -27,7 +27,6 @@ VECTOR g_Ill_dump1;//不法投棄物の初期値を入れる
 Decel decel;//減速
 Title title;//タイトル
 Gameover gameover;//ゲームオーバー
-Branch branch;
 Damege obs_damege;//障害物のダメージ量
 Model wall[WALL_MAX];
 HITRESULT_LINE g_frontpos2;
