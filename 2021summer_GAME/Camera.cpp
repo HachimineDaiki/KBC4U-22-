@@ -77,22 +77,22 @@ void Camera_move() {
 
 void Input_camera_move() {
     // ï˚å¸ÉLÅ[Ç≈ÉJÉÅÉâÇâÒì]
-    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
-    {
-        g_cameraVAngle -= CAMERA_ANGLE_SPEED / 4;
-        if (g_cameraVAngle <= 0.0f)
-        {
-            g_cameraVAngle = 0.0f;
-        }
-    }
-    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
-    {
-        g_cameraVAngle += CAMERA_ANGLE_SPEED / 4;
-        if (g_cameraVAngle >= 45.0f)
-        {
-            g_cameraVAngle = 45.0f;
-        }
-    }
+    //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
+    //{
+    //    g_cameraVAngle -= CAMERA_ANGLE_SPEED / 4;
+    //    if (g_cameraVAngle <= 0.0f)
+    //    {
+    //        g_cameraVAngle = 0.0f;
+    //    }
+    //}
+    //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
+    //{
+    //    g_cameraVAngle += CAMERA_ANGLE_SPEED / 4;
+    //    if (g_cameraVAngle >= 45.0f)
+    //    {
+    //        g_cameraVAngle = 45.0f;
+    //    }
+    //}
     if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
     {
         g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
