@@ -236,10 +236,6 @@ void P_input_move() {
     case Right:st_model_hit.movepos = st_model_hit.rightvec; st_model_hit.moveflag = 1;
         break;
     }
-
-    //”»’èˆ—
-    //Move_Limits();
-
 }
 //ƒvƒŒƒCƒ„[‚ª‰Ÿ‚µ‚Ä‚¢‚é•ûŒü‚ğ•Ô‚·ŠÖ”
 int Input_PlayerMoveDir() {

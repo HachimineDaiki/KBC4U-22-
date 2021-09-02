@@ -434,16 +434,18 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					// 元の移動成分から壁方向の移動成分を抜いたベクトル
 					SlideVec = VCross(st_model_hit.poly->Normal, SlideVec);
 
-					//跳ね返り
+					//跳ね返りの判定
 					if (((g_cameraHAngle > 15 && g_cameraHAngle < 135 && g_cameraHAngle != 90) ||
-						(g_cameraHAngle < -15 && g_cameraHAngle > -135 && g_cameraHAngle != -90)) && st_model_hit.kabeHitflg == false) {
+						(g_cameraHAngle < -15 && g_cameraHAngle > -135 && g_cameraHAngle != -90)) 
+						&& st_model_hit.kabeHitflg == false && g_frontflg != 1 && sph[0].zmove > 70) {
 
+						//スピードを半分にする
 						if (sph[0].zmove > 15) {
 							sph[0].zmove /= 2;
 						}
 
-						g_p_direct *= -1;
-
+						//角度を逆にしてそれを半分にする
+						g_p_direct = g_p_direct * -1 / 2;
 					}
 
 					// それを移動前の座標に足したものを新たな座標とする
@@ -643,39 +645,3 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 //		MV1CollResultPolyDimTerminate(HitPolyDim[i]);
 //	}
 //}
-
-//プレイヤーの左右移動範囲を制限する
-void Move_Limits()
-{
-	////球自体のX座標をもとに作る
-	//int lhit_magnification = 2;    //Xの移動範囲外にでた場合の戻す力の倍率
-	////プレイヤーが当たった時の座標を格納する
-	//static VECTOR player_before_pos = VGet(0.0f, 0.0f, 0.0f);
-
-	//if (sph[0].pos.y < 5470.0f) {
-	//	//左右のどちらかの範囲外に移動しようとしたらフラグをtrueにする
-	//	if ((sph[0].pos.x <= st_model_hit.glimits_verification[branch.branch_position] ||
-	//		sph[0].pos.x >= st_model_hit.glimits_verification[branch.branch_position+1]) && st_model_hit.gmoveflg != true && branch.move_branch == 0) {
-	//		st_model_hit.gmoveflg = true;
-	//		player_before_pos = sph[0].pos;
-	//	}
-
-	//	if (st_model_hit.gmoveflg == true) {
-	//		//範囲内に戻す処理(左)
-	//		if (sph[0].pos.x <= player_before_pos.x + sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 1) {
-	//			sph[0].pos.x += 10;
-	//		}
-	//		//範囲内に戻す処理(右)
-	//		else if (sph[0].pos.x >= player_before_pos.x - sph[0].zmove * lhit_magnification && st_model_hit.landr_move == 2) {
-	//			sph[0].pos.x -= 10;
-	//		}
-	//		//フラグをもとに戻す
-	//		else {
-	//			st_model_hit.gmoveflg = false;
-	//		}
-
-	//	}
-	//}
-	////コーナーに曲がった時にカウントを1あげる
-	//if (sph[0].pos.z >= branch.branch_point[branch.branch_position]) branch.move_branch = 1;
-}
