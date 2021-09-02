@@ -195,8 +195,9 @@ void Input_camera_move() {
 
         }
 
-        if ((sph[0].zmove >= 0)||(g_CollisionReflectionFlag == 1 && sph[0].zmove < 0)) {// 岩が前に進んでいるときの岩の処理
-            if (g_p_direct >= g_cameraHAngle - 10 || g_p_direct <= g_cameraHAngle + 10) {//岩の前方の範囲
+        //if ((sph[0].zmove >= 0) || (g_CollisionReflectionFlag == 1 && sph[0].zmove < 0)) {// 岩が前に進んでいるときの岩の処理
+        if (g_frontflg == 0 && ((sph[0].zmove >= 0) || (sph[0].zmove < 0))) {// 岩が前に進んでいるときの岩の処理
+                if (g_p_direct >= g_cameraHAngle - 10 || g_p_direct <= g_cameraHAngle + 10) {//岩の前方の範囲
                 if (g_p_direct >= g_cameraHAngle) {
                     g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
                     if (g_cameraHAngle >= g_p_direct) {
@@ -217,7 +218,8 @@ void Input_camera_move() {
                 }
             }
         }
-        else if ((sph[0].zmove < 0) || (g_CollisionReflectionFlag == 1 && sph[0].zmove >= 0)) {//後ろに進んでいるときのカメラの動き
+        //else if ((sph[0].zmove < 0) || (g_CollisionReflectionFlag == 1 && sph[0].zmove >= 0)) {//後ろに進んでいるときのカメラの動き
+        else if (g_frontflg == 1 && ((sph[0].zmove < 0) || (sph[0].zmove >= 0))) {//後ろに進んでいるときのカメラの動き
             if (g_p_direct >= 0) {//岩の向きが整数なら
                 if ((g_p_direct - 180) >= g_cameraHAngle - 10 || (g_p_direct - 180) <= g_cameraHAngle + 10) {
                     if ((g_p_direct - 180) >= g_cameraHAngle) {

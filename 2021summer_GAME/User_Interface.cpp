@@ -74,7 +74,7 @@ void UIdraw() {
 	SetFontSize(50);
 	//DrawFormatString(341, 120, GetColor(0, 0, 0), "%.0f", distance);//真ん中
 	DrawFormatString(341, 241, GetColor(0, 0, 0), "   飛距離 ", distance);//真ん中 下の数字が何の意味を示すか
-	DrawFormatString(341, 290, GetColor(0, 0, 0), "  %8.0fm", distance);//真ん中 飛距離
+	DrawFormatString(341, 290, GetColor(0, 0, 0), "  %8.0fkm", distance);//真ん中 飛距離
 
 	//DrawFormatString(0, 0, GetColor(0, 0, 0), "%.0f", distance);//左上
 	//DrawFormatString(341, 0, GetColor(0, 0, 0), "%.0f", distance);//上

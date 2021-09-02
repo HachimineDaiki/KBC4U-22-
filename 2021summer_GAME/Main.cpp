@@ -1,5 +1,4 @@
 #include <Dxlib.h>
-#include <math.h>
 #include "Main.h"
 #include "Init.h"
 #include "Hit_check.h"
@@ -13,18 +12,6 @@
 #include"KeyCheck.h"
 // EffekseerForDXLib.hをインクルードします。
 #include "EffekseerForDXLib.h"
-
-#define PI 3.14
-
-float up_amount;//上に上がる量
-bool g_flg;//頂点フラグ
-
-float _cos;
-float _sin;
-
-float deg;
-float rad;
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
     SetMainWindowText("この不法投棄物に粛清を！");
@@ -78,12 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     UIinit();//UIの初期化
     Init_Draw_Display();//画面描画初期化
     InitTime(); //時間初期化
-    InitObj();
-    PlanetInit();
     goal_input_space = false; //ゴールした時のスペース入力
-    up_amount = 1000.0f;
-    g_flg = false;
-    deg = 45.0f;
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -149,11 +131,9 @@ void Gamemain() {
 
    //不法投棄物とプレイヤーの当たり判定
     if (Sph_hit_check(sph, obj)) {
-        /*Sph_hit(s_dis);*/
+        Sph_hit(s_dis);
         htdrow.hitflg = true;
     }
-
-    GameObj();
 
     //不法投棄物を飛ばす処理
     if (htdrow.hitflg) {
@@ -161,43 +141,11 @@ void Gamemain() {
         //obj.pos.y += 30 * cos(10) * 10;
         //obj.pos.z += 200 * tan(10) * 10;
 
-        //ここなんの処理?
-        /*obj.pos.z += obj.zmove;
-        g_GoalFullScore += g_dist;*/
 
-        
-        //if (!cyouflg) { //頂点
-        //    obj.pos.y += up_amount;
-        //    obj.pos.z += 5;
-        //    up_amount--;
-
-        //    if (obj.pos.z >= 160000.0f) {
-        //        cyouflg = true;
-        //    }
-        //}
-
-        rad = deg * PI / 180.0f;
-       
-        if (g_flg) {
-            rad = -rad;
-        }
-
-        _cos = cos(rad) * 100;
-        _sin = sin(rad) * 100;
-
-        obj.pos.z += _cos;
-        obj.pos.y += _sin;
-
-        if (obj.pos.y >= -15000.0f) {
-            g_flg = true;
-        }
-
-        
-
-        DrawLine3D(sph[0].pos, obj.pos, GetColor(255, 0, 0));
+        obj.pos.z += obj.zmove;
+        g_GoalFullScore += g_dist;
         //obj.pos.x += 90 * tan(5);
-       /* DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
-       
+        /*DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
 
     }
 
@@ -233,6 +181,8 @@ void Gamemain() {
 
     // 再生中のエフェクトを移動する。
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
+
+
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
 
@@ -251,7 +201,7 @@ void Gamemain() {
     Model3d_draw();//3Dモデル描画
     //不法投棄物描画
     DrawSphere3D(obj.pos, obj.radius, 32, obj.color, GetColor(255, 255, 255), TRUE);
-    DrawPlanet();
+
     //障害物描画
     for (int i = 0; i < DAMEGE_ARIA_MAX;i++) {
         if (damege_aria[i].obj_flag) {
@@ -262,7 +212,9 @@ void Gamemain() {
             //SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
         }
     }
-    DrawObj();
+
+    
+    //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
     //減速エリア描画
@@ -302,7 +254,6 @@ void Gamemain() {
         playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
         DrawEffekseer3D();
         if (g_goalflag == 0) {
-            /*obj.zmove = fabsf(sph[0].zmove) * (sph[0].hp * 3.33);*/
             obj.zmove = fabsf(sph[0].zmove * 499.5) + (sph[0].hp * 249.75);
             g_goalflag = 1;
             playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
@@ -317,9 +268,6 @@ void Gamemain() {
         SetFontSize(20);
         Distance_Calculation();
         Judgement();
-
-        camera.switching = true;//カメラ切り替え
-
         if (goal_input_space) {
             if (g_KeyFlg & PAD_INPUT_2) {  //Bキーでスタート
                 WaitTimer(1000);
@@ -334,8 +282,7 @@ void Gamemain() {
     //体力描画
     DrawFormatString(55, 25, GetColor(0, 0, 0), "[HP: %d]", sph[0].hp);
     DrawFormatString(155, 25, GetColor(0,0,0), "スピード [ %.0f / 150 ]", speed_draw_str.speed);
-    DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
-    DrawFormatString(20, 300, GetColor(0, 255, 255), "[g_flg %d]", g_flg);
+    /*DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
     //for (int i = 0; i<MAXOBJ; i++) {
     //    DrawFormatString(500, 200 + (i + 1) * 20, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);
     //}

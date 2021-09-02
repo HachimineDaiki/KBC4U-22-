@@ -22,18 +22,38 @@ int Hit_player_speed(Sph player[], int obs_info) {
 	int hp = 0;
 	
 	if (obs_info == L) {//‘å‚«‚¢áŠQ•¨
-		if (player[0].zmove >= 0 && player[0].zmove <= 60) {
-			hp = obs_damege._30;
-		}
-		else if (player[0].zmove >= 61 && player[0].zmove <= 100) {
-			hp = obs_damege._50;
-		}
-		else if (player[0].zmove >= 101) {
-			hp = obs_damege._100;
-		}
-		else {
+		//if (player[0].zmove >= 0 && player[0].zmove <= 60) {
+		//	hp = obs_damege._30;
+		//}
+		//else if (player[0].zmove >= 61 && player[0].zmove <= 100) {
+		//	hp = obs_damege._50;
+		//}
+		//else if (player[0].zmove >= 101) {
+		//	hp = obs_damege._100;
+		//}
+		//else {
+		//	hp = obs_damege._0;
+		//}
+		if (fabsf(player[0].zmove) >= 0 && fabsf(player[0].zmove) <= 30) {
 			hp = obs_damege._0;
 		}
+		else if (fabsf(player[0].zmove) >= 31 && fabsf(player[0].zmove) <= 50) {
+			hp = obs_damege._15;
+		}
+		else if (fabsf(player[0].zmove) >= 51 && fabsf(player[0].zmove) <= 70) {
+			hp = obs_damege._30;
+		}
+		else if (fabsf(player[0].zmove) >= 71 && fabsf(player[0].zmove) <= 100) {
+			hp = obs_damege._50;
+		}
+		else if (fabsf(player[0].zmove) >= 101 && fabsf(player[0].zmove) <= 120) {
+			hp = obs_damege._75;
+		}
+		else if (fabsf(player[0].zmove) >= 121) {
+			hp = obs_damege._100;
+		}
+
+
 	}
 	else if(obs_info == M){//’†áŠQ•¨
 		if (player[0].zmove >= 0 && player[0].zmove <= 60) {

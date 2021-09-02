@@ -103,6 +103,23 @@ void Damege_Init() {
 			damege_aria[33].pos = VGet(9480.0f, -16810.0f, 98620.0f);
 			damege_aria[34].pos = VGet(8230.0f, -17110.0f, 100420.0f);
 
+			damege_aria[35].pos = VGet(-14190.0f, -4433.0f, 28859.0f);
+			damege_aria[36].pos = VGet(-3937.0f, -4289.0f, 29849.0f);
+			damege_aria[37].pos = VGet(-4598.0f, -4199.0f, 28829.0f);
+
+			
+			damege_aria[38].pos = VGet(-10004.0f, -4982.0f, 32989.0f);
+			damege_aria[39].pos = VGet(-27877.0f, -7122.0f, 43730.0f);
+			
+			damege_aria[40].pos = VGet(-17661.0f, -14017.0f, 83622.0f);
+			damege_aria[41].pos = VGet(-18472.0f, -5326.0f, 34370.0f);
+
+			damege_aria[42].pos = VGet(-26595.0f, -9633.0f, 59294.0f);
+			damege_aria[43].pos = VGet(-29484.0f, -12506.0f, 75512.0f);
+
+			damege_aria[44].pos = VGet(-18972.0f, -14799.0f, 88910.0f);
+			damege_aria[45].pos = VGet(-10160.0f, -16186.0f, 96576.0f);
+
 			MV1SetRotationXYZ(e_rock[i].handle, VGet(5 * DX_PI_F / 180.0f, 0.0f, 0.0));
 	}
 }
@@ -118,27 +135,31 @@ void Decelearia_init() {
 	}
 	
 	//初期座標
-	decele_aria[0].pos = VGet(-1000.0f, -300.0f, 5000.0f);
-	decele_aria[1].pos = VGet(1000.0f, -300.0f, 5000.0f);
+	//decele_aria[0].pos = VGet(-1000.0f, -300.0f, 5000.0f);
+	//decele_aria[1].pos = VGet(1000.0f, -300.0f, 5000.0f);
+
 	decele_aria[2].pos = VGet(100.0f, -1170.0f, 10000.0f);
 	decele_aria[3].pos = VGet(500.0f, -2100.0f, 15000.0f);
-	decele_aria[4].pos = VGet(-500.0f, -2100.0f, 15000.0f);
-	decele_aria[5].pos = VGet(-6695.0f, -3820.0f, 25958.0f);
-	decele_aria[6].pos = VGet(-20548.0f, -6289.0f, 40640.0f);
-	decele_aria[7].pos = VGet(-26253.0f, -10815.0f, 66417.0f);
-	decele_aria[8].pos = VGet(-25289.0f, -12677.0f, 76443.0f);
-	decele_aria[9].pos = VGet(-11387.0f, -16461.0f, 98970.0f);
-	decele_aria[10].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
-	decele_aria[11].pos = VGet(-170.0f, -20100.0f, 122550.0f);
-	decele_aria[12].pos = VGet(-16130.0f, -4810.0f, 30470.0f);
+
+	
 	decele_aria[13].pos = VGet(22380.0f, -8160.0f, 51620.0f);
 	decele_aria[14].pos = VGet(24430.0f, -8360.0f, 51620.0f);
 	decele_aria[15].pos = VGet(22430.0f, -14860.0f, 86670.0f);
 	decele_aria[16].pos = VGet(15030.0f, -15310.0f, 88720.0f);
 	decele_aria[17].pos = VGet(14830.0f, -16310.0f, 95920.0f);
 	decele_aria[18].pos = VGet(8080.0f, -16510.0f, 96670.0f);
+	//左
+	decele_aria[4].pos = VGet(-500.0f, -2100.0f, 15000.0f);
+	decele_aria[5].pos = VGet(-6695.0f, -3820.0f, 25958.0f);
+	decele_aria[6].pos = VGet(-20548.0f, -6289.0f, 40640.0f);
+	decele_aria[7].pos = VGet(-26253.0f, -10815.0f, 66417.0f);
+	decele_aria[8].pos = VGet(-25289.0f, -12677.0f, 76443.0f);
 
-	
+	decele_aria[9].pos = VGet(-11387.0f, -16461.0f, 98970.0f);
+	decele_aria[10].pos = VGet(-2710.0f, -19610.0f, 118830.0f);
+	decele_aria[11].pos = VGet(-170.0f, -20100.0f, 122550.0f);
+	decele_aria[12].pos = VGet(-16130.0f, -4810.0f, 30470.0f);
+
 	//未入力
 	//decele_aria[19].pos = VGet(6630.0f, 18010.0f, 108020.0f);
 	//decele_aria[20].pos = VGet(-25289.0f, -12777.0f, 76443.0f);
@@ -187,7 +208,7 @@ void All_Init() {
 }
 
 //ファイル読み込み
-int Fail_Read_Init() {
+//int Fail_Read_Init() {
 	//f_damege_aria.filehandle = FileRead_open("Text/test.txt");
 	//FileRead_gets(f_damege_aria.str, 256, f_damege_aria.filehandle);
 	//DrawString(0, 100, f_damege_aria.str, GetColor(0, 255, 0));
@@ -210,18 +231,4 @@ int Fail_Read_Init() {
 	//	fprintf(fp, "666676658565656585");
 	//	fclose(fp);
 	//}
-}
-
-void PlanetInit() {
-	for (int i = 0; i < 4;i++) {
-		planet[0].radius = 3000.0f;
-		planet[1].radius = 50000.0f;
-		planet[2].radius = 12000.0f;
-		planet[3].radius = 1400000.0f;
-	}
-
-	planet[0].pos = VGet(0, 0, -10000);
-	planet[1].pos = VGet(0, 0, -20000);
-	planet[2].pos = VGet(0, 0, -30000);
-	planet[3].pos = VGet(0, 0, -40000);
-}
+//}
