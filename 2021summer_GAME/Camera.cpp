@@ -38,8 +38,8 @@ int    MoveAnimFrameIndex;
 VECTOR Position;
 int    MoveFlag;
 float  Angle;
-float  CameraHAngle;
-float  CameraVAngle;
+extern float  CameraHAngle;
+extern float  CameraVAngle;
 VECTOR MoveVector;
 float  SinParam;
 float  CosParam;
@@ -68,15 +68,15 @@ void Obj_Camera_move() {
     // カメラの位置はカメラの水平角度と垂直角度から算出
 
     // 最初に垂直角度を反映した位置を算出
-    SinParam = sin(CameraVAngle / 180.0f * DX_PI_F);
-    CosParam = cos(CameraVAngle / 180.0f * DX_PI_F);
+    SinParam = sinf(CameraVAngle / 180.0f * DX_PI_F);
+    CosParam = cosf(CameraVAngle / 180.0f * DX_PI_F);
     TempPosition1.x = 0.0f;
     TempPosition1.y = SinParam * CAMERA_LOOK_AT_DISTANCE;
     TempPosition1.z = -CosParam * CAMERA_LOOK_AT_DISTANCE;
 
     // 次に水平角度を反映した位置を算出
-    SinParam = sin(CameraHAngle / 180.0f * DX_PI_F);
-    CosParam = cos(CameraHAngle / 180.0f * DX_PI_F);
+    SinParam = sinf(CameraHAngle / 180.0f * DX_PI_F);
+    CosParam = cosf(CameraHAngle / 180.0f * DX_PI_F);
     TempPosition2.x = CosParam * TempPosition1.x - SinParam * TempPosition1.z;
     TempPosition2.y = TempPosition1.y;
     TempPosition2.z = SinParam * TempPosition1.x + CosParam * TempPosition1.z;

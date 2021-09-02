@@ -47,7 +47,7 @@ void DrawParam_Info() {
     //DrawFormatString(300, 40, GetColor(255, 255, 255), "前に坂があるか %d  ", g_frontpos2.HitFlag);
     //DrawFormatString(300, 60, GetColor(255, 255, 255), "ステージの上か %d", st_model_hit.lineres.HitFlag);
     
-    DrawFormatString(100, 100, GetColor(255, 255, 255), "[sphx %.0f] [sphy %.0f] [sphz %.0f]", sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+    DrawFormatString(100, 100, GetColor(255, 255, 255), "[obj %.0f] [obj %.0f] [obj %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);
     ////Player.cppで使用している変数の数値など
     //DrawFormatString(100, 250, GetColor(255, 255, 255), "%f", sph[0].zaccl);
     /*if(st_model_hit.gmoveflg==true)DrawFormatString(100, 200, GetColor(255, 255, 255), "true");

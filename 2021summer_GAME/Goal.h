@@ -1,8 +1,11 @@
 #pragma once
 #include<DxLib.h>
 #include"User_Interface.h"
+#include "Player.h"
 extern bool goal_input_space;
 
+void DrawPlanet();
+extern bool haikeiflg;
 //
 //int MapLoad();
 //void InitMap();

@@ -10,6 +10,7 @@
 #include "Gameover.h"
 #include "Time.h"
 #include "DebugMode.h"
+#include <math.h>
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 //構造体
 Sph sph[2];//プレイヤー
@@ -80,6 +81,11 @@ int g_NowKey;
 int g_KeyFlg;
 
 int gameMode;//ゲームモード
+
+bool haikeiflg;
+
+float  CameraVAngle;
+float  CameraHAngle;
 
 
 

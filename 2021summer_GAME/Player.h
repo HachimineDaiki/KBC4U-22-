@@ -22,6 +22,7 @@ struct Sph
 	float front;//プレイヤーの前方
 	bool obj_flag;//敵が存在するかフラグ。
 	VECTOR direction; //向いている方向
+	bool draw_flg;//描画するか
 };
 
 struct Damege {

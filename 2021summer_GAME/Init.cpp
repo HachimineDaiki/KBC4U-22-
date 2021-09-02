@@ -205,18 +205,31 @@ void All_Init() {
 	Camera_set();//カメラセット
 	Model3d_init();//3Dモデル初期化
 	UIinit();//UIの初期化
+	PlanetInit();
+	haikeiflg = false;
 }
 void PlanetInit() {
-	planet[0].radius = 1000;
-	planet[1].radius = 1000;
-	planet[2].radius = 1000;
-	planet[3].radius = 1000;
+	planet[0].radius = 10000;
+	planet[1].radius = 40000;
+	planet[2].radius = 25000;
+	planet[3].radius = 100000;
 	
+	planet[0].color = GetColor(204, 204, 204);
+	planet[1].color = GetColor(218, 179, 0);
+	planet[2].color = GetColor(188, 226, 232);
+	planet[3].color = GetColor(238, 120, 0);
 
-	planet[0].pos = VGet(100, 413, 1300);
-	planet[1].pos = VGet(100, 413, 1300);
-	planet[2].pos = VGet(100, 413, 1300);
-	planet[3].pos = VGet(100, 413, 1300);
+	planet[0].pos = VGet(-150, 5000, 200000);
+	planet[1].pos = VGet(-150, 5000, 250000);
+	planet[2].pos = VGet(-150, 5000, 350000);
+	planet[3].pos = VGet(-150, 5000, 500000);
+
+	for (int i = 0; i < 4; i++) {
+		planet[i].draw_flg = false;
+	}
+	//planet[1].pos = VGet(100, 413, 1300);
+	//planet[2].pos = VGet(100, 413, 1300);
+	//planet[3].pos = VGet(100, 413, 1300);
 	
 }
 //ファイル読み込み
