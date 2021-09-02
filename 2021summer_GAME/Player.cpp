@@ -47,11 +47,11 @@ void P_Direction() {
 }
 void Accl() {
     //”«—äˆ—
-    float p_vz2 = -5 * tan(5);
+    /*float p_vz2 = -5 * tan(5);*/
     //float p_vx = 30 * cos(5);
     //float p_vy = 30 * sin(5);
     //p_vz2 / 30; //‚Ç‚ñ‚Ç‚ñ‘¬‚³‚ğ•Ï‚¦‚é
-
+    float p_vz2 = 10;
 
     if (p_zmoveflg) {
         if (g_frontflg == 0) {//‘O‚Éâ‚ª‚È‚¢‚Æ‘O‚É‰Á‘¬

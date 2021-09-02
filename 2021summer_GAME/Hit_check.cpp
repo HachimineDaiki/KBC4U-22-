@@ -189,28 +189,28 @@ void Damege_aria_Decele() {
 }
 
 //ãÖÇ∆ãÖÇÃìñÇΩÇËîªíËÇåüímÇµÇΩå„ÇÃèàóù
-void Sph_hit(float dis) {
-	float len = sqrtf(dis);
-	float radius_sum = sph[0].radius + obj.radius;
-	float merikomi = radius_sum - len;
-
-	if (len > 0) len = 1 / len;
-
-	sph[0].v.x *= len;
-	sph[0].v.y *= len;
-	sph[0].v.z *= len;
-
-	merikomi /= 2.0f;
-
-	//ÇﬂÇËçûÇ›èCê≥
-	sph[0].pos.x -= sph[0].v.x * merikomi; 
-	sph[0].pos.y -= sph[0].v.y * merikomi;
-	sph[0].pos.z -= sph[0].v.z * merikomi;
-
-	//obj.pos.x += sph[0].v.x * merikomi;
-	//obj.pos.y += sph[0].v.y * merikomi;
-	//obj.pos.z += sph[0].v.z * merikomi;
-}
+//void Sph_hit(float dis) {
+//	float len = sqrtf(dis);
+//	float radius_sum = sph[0].radius + obj.radius;
+//	float merikomi = radius_sum - len;
+//
+//	if (len > 0) len = 1 / len;
+//
+//	sph[0].v.x *= len;
+//	sph[0].v.y *= len;
+//	sph[0].v.z *= len;
+//
+//	merikomi /= 2.0f;
+//
+//	//ÇﬂÇËçûÇ›èCê≥
+//	sph[0].pos.x -= sph[0].v.x * merikomi; 
+//	sph[0].pos.y -= sph[0].v.y * merikomi;
+//	sph[0].pos.z -= sph[0].v.z * merikomi;
+//
+//	//obj.pos.x += sph[0].v.x * merikomi;
+//	//obj.pos.y += sph[0].v.y * merikomi;
+//	//obj.pos.z += sph[0].v.z * merikomi;
+//}
 
 void Sph_ehit(float dis , int i) {
 	float len = sqrtf(dis);

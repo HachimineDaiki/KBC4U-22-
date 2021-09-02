@@ -211,3 +211,17 @@ int Fail_Read_Init() {
 	//	fclose(fp);
 	//}
 }
+
+void PlanetInit() {
+	for (int i = 0; i < 4;i++) {
+		planet[0].radius = 3000.0f;
+		planet[1].radius = 50000.0f;
+		planet[2].radius = 12000.0f;
+		planet[3].radius = 1400000.0f;
+	}
+
+	planet[0].pos = VGet(0, 0, -10000);
+	planet[1].pos = VGet(0, 0, -20000);
+	planet[2].pos = VGet(0, 0, -30000);
+	planet[3].pos = VGet(0, 0, -40000);
+}

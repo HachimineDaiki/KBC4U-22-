@@ -10,7 +10,7 @@ void Decelearia_init();
 void Damege_Init();
 void All_Init();
 int Fail_Read_Init();//ファイル読み込み　初期化
-
+void PlanetInit();
 struct FileData
 {
 	char str[256];

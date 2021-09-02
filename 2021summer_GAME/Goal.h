@@ -1,7 +1,9 @@
 #pragma once
 #include <DxLib.h>
+#include "Player.h"
 extern bool goal_input_space;
-//
+
+void DrawPlanet();
 //int MapLoad();
 //void InitMap();
 //void MoveMap();

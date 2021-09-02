@@ -10,3 +10,9 @@
 //}
 //void MoveMap() {
 //}
+
+void DrawPlanet() {
+	for (int i = 0; i < 4; i++) {
+		DrawSphere3D(planet[i].pos, planet[i].radius, 32, GetColor(255, 255, 255), GetColor(255, 255, 255),FALSE);
+	}
+}

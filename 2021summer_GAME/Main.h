@@ -31,8 +31,8 @@ Branch branch;
 Damege obs_damege;//障害物のダメージ量
 Model wall[WALL_MAX];
 HITRESULT_LINE g_frontpos2;
-Model gensoku[DECELE_ARIA_MAX];
-Model e_rock[DAMEGE_ARIA_MAX];
+Model gensoku[DECELE_ARIA_MAX];//減速エリア(ぬかるみ)モデル
+Model e_rock[DAMEGE_ARIA_MAX]; //障害物(岩)モデル
 
 DrawStr speed_draw_str; //文字描画
 Title_Slect title_slect[2];
@@ -40,8 +40,11 @@ Title_Slect title_slectfream[2];
 Time_  effect_time;
 FileData f_damege_aria;//ダメージエリアファイル情報
 DebugObj d_obj[MAXOBJ]; //デバッグオブジェクト
-bool gameexit;
-bool goal_input_space;
+Camera camera;//カメラ
+VECTOR obj_cameraPosition;//オブジェクトカメラ
+Sph planet[4];
+bool gameexit;//ゲーム終了フラグ
+bool goal_input_space;//ゴールした時にスペースを押せるかフラグ
 //列挙体
 
 float g=9.81;//重力を代入
@@ -76,4 +79,6 @@ int g_NowKey;
 int g_KeyFlg;
 
 int gameMode;//ゲームモード
+
+
 
