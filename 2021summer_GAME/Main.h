@@ -27,7 +27,6 @@ VECTOR g_Ill_dump1;//不法投棄物の初期値を入れる
 Decel decel;//減速
 Title title;//タイトル
 Gameover gameover;//ゲームオーバー
-Branch branch;
 Damege obs_damege;//障害物のダメージ量
 Model wall[WALL_MAX];
 HITRESULT_LINE g_frontpos2;
@@ -71,6 +70,7 @@ int g_CollisionReflectionFlag;//0 衝突して反射していない 1 衝突して反射している
 int g_goalflag;//ゴールしたかどうか　0ゴールしてない　1ゴールした
 float g_GoalFullScore;//ゴールの最大得点の格納
 float g_dist;//ゴールの最大得点の計算に使う速度格納
+float distance;
 
 int CheckKey;
 

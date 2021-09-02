@@ -434,8 +434,22 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					// 元の移動成分から壁方向の移動成分を抜いたベクトル
 					SlideVec = VCross(st_model_hit.poly->Normal, SlideVec);
 
+					//跳ね返り
+					if (((g_cameraHAngle > 15 && g_cameraHAngle < 135 && g_cameraHAngle != 90) ||
+						(g_cameraHAngle < -15 && g_cameraHAngle > -135 && g_cameraHAngle != -90)) && st_model_hit.kabeHitflg == false) {
+
+						if (sph[0].zmove > 15) {
+							sph[0].zmove /= 2;
+						}
+
+						g_p_direct *= -1;
+
+					}
+
 					// それを移動前の座標に足したものを新たな座標とする
 					st_model_hit.nowpos = VAdd(st_model_hit.oldpos, SlideVec);
+
+					st_model_hit.kabeHitflg = true;
 				}
 
 				int j;
@@ -510,6 +524,10 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 				if (st_model_hit.i != st_model_hit.kabenum) break;
 			}
 		}
+	}
+	else
+	{
+		st_model_hit.kabeHitflg = false;
 	}
 
 
