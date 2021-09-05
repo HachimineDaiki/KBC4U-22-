@@ -211,51 +211,17 @@ void Gamemain() {
         obj.pos.z += _cos;
         obj.pos.y += _sin;
 
-        //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
-        //{
-        //    CameraVAngle -= 5;
-        //    if (CameraVAngle <= 0.0f)
-        //    {
-        //        CameraVAngle = 0.0f;
-        //    }
-        //}
-        //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
-        //{
-        //    CameraVAngle += 5;
-        //    if (CameraVAngle >= 45.0f)
-        //    {
-        //        CameraVAngle = 45.0f;
-        //    }
-        //}
-
         if (obj.pos.z >= planet[2].pos.z) {
             g_flg = true;
-
-                //CameraVAngle += 5;
-                //if (CameraVAngle >= 45.0f)
-                //{
-                //    CameraVAngle = 45.0f;
-                //}
         }
 
-        //disposx = planet[0].pos.x - obj.pos.x;
-        //disposy = planet[0].pos.y - obj.pos.y;
-        //disposz = planet[0].pos.z - obj.pos.z;
-
-        //dis_angle = atan2(disposy, disposz);
-        //dis_cos = cosf(dis_angle) * 10;
-        //dis_sin = sinf(dis_angle) * 10;
-        //
         obj.pos.z += _cos;
         obj.pos.y += _sin;
-        //obj.pos.z += dis_cos;
-        //obj.pos.y += dis_sin;
 
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
         //・弾の移動量Ｘ＝cos(弾の発射角度)×弾のスピード
         //・弾の移動量Ｙ＝sin(弾の発射角度)×弾のスピード
-        //obj.pos.x += 90 * tan(5);
-        /*DrawFormatString(341, 0, GetColor(0, 255, 255), "[x %.0f][y %.0f][z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
+
     }
 
     //障害物エリアの当たり判定
