@@ -9,17 +9,15 @@ D:\C_Team2021\2021summer_GAME\DebugMode.cpp(14,39): warning C4244: '引数': 'in
 D:\C_Team2021\2021summer_GAME\Init.cpp(194,10): warning C4305: '=': 'double' から 'float' へ切り詰めます。
   KeyCheck.cpp
   Main.cpp
-D:\C_Team2021\2021summer_GAME\Main.h(51,13): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+D:\C_Team2021\2021summer_GAME\Main.h(52,13): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
 D:\C_Team2021\2021summer_GAME\Main.cpp(170,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
 D:\C_Team2021\2021summer_GAME\Main.cpp(170,27): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
 D:\C_Team2021\2021summer_GAME\Main.cpp(170,24): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
 D:\C_Team2021\2021summer_GAME\Main.cpp(202,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\C_Team2021\2021summer_GAME\Main.cpp(364,44): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-D:\C_Team2021\2021summer_GAME\Main.cpp(364,53): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\C_Team2021\2021summer_GAME\Main.cpp(334,44): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+D:\C_Team2021\2021summer_GAME\Main.cpp(334,53): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
   Param_Info.cpp
   Player.cpp
-D:\C_Team2021\2021summer_GAME\Player.cpp(81,43): warning C4553: '==': 式の結果が使用されていません。'=' を意図していますか?
-D:\C_Team2021\2021summer_GAME\Player.cpp(89,43): warning C4553: '==': 式の結果が使用されていません。'=' を意図していますか?
   Time.cpp
   Title.cpp
   User_Interface.cpp
