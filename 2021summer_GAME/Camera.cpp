@@ -99,14 +99,19 @@ void Camera_move() {
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
     //カメラが切り替える処理
     if (camera.switching) {
-        Obj_Camera_move();
+        /*Obj_Camera_move();*/
+        g_cameraVAngle -= 1.0f;
+        if (g_cameraVAngle <= 0.0f)
+        {
+            g_cameraVAngle = 0.0f;
+        }
+        cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+        cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
     }
     else {
         cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
-
         cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
-
-
+    }
         // カメラの位置はカメラの水平角度と垂直角度から算出
 
         // 最初に垂直角度を反映した位置を算出
@@ -132,7 +137,7 @@ void Camera_move() {
         //DrawFormatString(0,0,GetColor(255,255,255), "カメラざ");
         // カメラの設定に反映する
         SetCameraPositionAndTarget_UpVecY(g_cameraPosition, cameraLookAtPosition);
-    }
+    
 
 }
 
@@ -157,10 +162,10 @@ void Input_camera_move() {
     //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
     //{
     //    g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
-    //    if (g_cameraHAngle >= 180.0f)
-    //    {
-    //        g_cameraHAngle -= 360.0f;
-    //    }
+        //if (g_cameraHAngle >= 180.0f)
+        //{
+        //    g_cameraHAngle -= 360.0f;
+        //}
     //}
     //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_RIGHT) != 0)
     //{
