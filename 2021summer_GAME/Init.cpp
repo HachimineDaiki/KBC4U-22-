@@ -213,23 +213,27 @@ void PlanetInit() {
 	planet[1].radius = 12104;//‹à¯
 	planet[2].radius = 4879;//…¯
 	planet[3].radius = 696350;//‘¾—z
+	planet[4].radius = 50000;//’n‹…
 	
 	planet[0].color = GetColor(204, 204, 204);
 	planet[1].color = GetColor(218, 179, 0);
 	planet[2].color = GetColor(188, 226, 232);
 	planet[3].color = GetColor(238, 120, 0);
+	planet[4].color = GetColor(0, 0, 200);
 
 	float sun_radius = 696350;//‘¾—z”¼Œa
 	float sun_pos_z = obj.pos.z + sun_radius + 149600;
 	
 	planet[0].pos = VGet(-170, 45, 183465);
+	/*planet[4].pos = VGet(-170, -10000, 100000);*/
 	//planet[1].pos = VGet(-150, 45, 250000);//‹à¯
 	//planet[2].pos = VGet(-150, 45, 300000);//…¯
-	//planet[3].pos = VGet(-150, 45, 350000+sun_radius);//‘¾—z
+	planet[3].pos = VGet(-150, 45, 350000+sun_radius);//‘¾—z
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 1; i < 5; i++) {
 		planet[i].draw_flg = false;
 	}
+	planet[0].draw_flg = true;
 	//planet[1].pos = VGet(100, 413, 1300);
 	//planet[2].pos = VGet(100, 413, 1300);
 	//planet[3].pos = VGet(100, 413, 1300);

@@ -197,7 +197,7 @@ void Gamemain() {
         for (int i = 0; i < 4; i++) {
             planet[i].draw_flg = true;
         }
-        haikeiflg = true;
+
         camera.switching = true;
         rad = deg * PI / 180.0f;
 
@@ -211,13 +211,15 @@ void Gamemain() {
         obj.pos.z += _cos;
         obj.pos.y += _sin;
 
-        //if (obj.pos.z >= planet[2].pos.z) {
-        //    g_flg = true;
-        //}
-
+        if (obj.pos.y >= -15000.0f) {
+            /*haikeiflg = true;*/
+            obj_switchflg = true;
+        }
+        
         obj.pos.z += _cos;
         obj.pos.y += _sin;
 
+        /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
         //・弾の移動量Ｘ＝cos(弾の発射角度)×弾のスピード
         //・弾の移動量Ｙ＝sin(弾の発射角度)×弾のスピード

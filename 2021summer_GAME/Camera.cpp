@@ -29,6 +29,8 @@
 #define OBJ_CAMERA_LOOK_AT_DISTANCE    2100.0f
 
 
+float AT_Distance = 2100.0f;
+extern bool obj_switchflg;
 int    ModelHandle;
 float  AnimTotalTime;
 float  AnimNowTime;
@@ -52,6 +54,7 @@ void Camera_set() {
     g_p_direct = 0.0f;
    // g_cameraPosition;
     camera.switching = false;//カメラ切り替え追加
+    obj_switchflg = false; //オブジェクト視点切り替え
     InitPos = obj.pos;
 }
 void Obj_Camera_move() {
@@ -71,8 +74,8 @@ void Obj_Camera_move() {
     SinParam = sinf(CameraVAngle / 180.0f * DX_PI_F);
     CosParam = cosf(CameraVAngle / 180.0f * DX_PI_F);
     TempPosition1.x = 0.0f;
-    TempPosition1.y = SinParam * OBJ_CAMERA_LOOK_AT_DISTANCE;
-    TempPosition1.z = -CosParam * OBJ_CAMERA_LOOK_AT_DISTANCE;
+    TempPosition1.y = SinParam * AT_Distance;
+    TempPosition1.z = -CosParam * AT_Distance;
 
     // 次に水平角度を反映した位置を算出
     SinParam = sinf(CameraHAngle / 180.0f * DX_PI_F);
@@ -97,20 +100,26 @@ void Camera_move() {
     float cosParam;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
-    //カメラが切り替える処理
-    if (camera.switching) {
-        /*Obj_Camera_move();*/
-        g_cameraVAngle -= 1.0f;
-        if (g_cameraVAngle <= 0.0f)
-        {
-            g_cameraVAngle = 0.0f;
-        }
-        cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
-        cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
+    if (obj_switchflg) {
+        Obj_Camera_move();
     }
     else {
-        cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
-        cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
+        //カメラが切り替える処理
+        if (camera.switching) {
+            /*Obj_Camera_move();*/
+            g_cameraVAngle -= 1.0f;
+            if (g_cameraVAngle <= 0.0f)
+            {
+                g_cameraVAngle = 0.0f;
+            }
+
+            cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+            cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
+        }
+        else {
+            cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+            cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
+        }
     }
         // カメラの位置はカメラの水平角度と垂直角度から算出
 
