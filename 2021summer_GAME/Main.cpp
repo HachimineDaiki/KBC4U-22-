@@ -261,10 +261,12 @@ void Gamemain() {
     UpdateEffekseer3D();
 
     //減速エリアに入っているかチェック
-    decel.hit_flg = false;//減速フラグ
-    for (int i = 0; i < DECELE_ARIA_MAX; i++) {
-        if (Decel_aria_check(sph, decele_aria, i)) {
-            decel.hit_flg = true;//当たったら減速のフラグをON
+    if (g_CollisionReflectionFlag == 0) {
+        decel.hit_flg = false;//減速フラグ
+        for (int i = 0; i < DECELE_ARIA_MAX; i++) {
+            if (Decel_aria_check(sph, decele_aria, i)) {
+                decel.hit_flg = true;//当たったら減速のフラグをON
+            }
         }
     }
     
