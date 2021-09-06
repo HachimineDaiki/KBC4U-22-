@@ -88,7 +88,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     PlanetInit();
     goal_input_space = false; //ゴールした時のスペース入力
 
-    deg = 45.0f;
+    deg = 22.5f;//飛ばす角度
     g_flg = false;
 
     haikeiflg = false;
@@ -211,9 +211,9 @@ void Gamemain() {
         obj.pos.z += _cos;
         obj.pos.y += _sin;
 
-        if (obj.pos.z >= planet[2].pos.z) {
-            g_flg = true;
-        }
+        //if (obj.pos.z >= planet[2].pos.z) {
+        //    g_flg = true;
+        //}
 
         obj.pos.z += _cos;
         obj.pos.y += _sin;

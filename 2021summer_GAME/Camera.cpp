@@ -99,11 +99,16 @@ void Camera_move() {
     // 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
     //カメラが切り替える処理
     if (camera.switching) {
-        Obj_Camera_move();
+        /*Obj_Camera_move();*/
+        g_cameraVAngle -= 1.0f;
+        if (g_cameraVAngle <= 0.0f) {
+            g_cameraVAngle = 0.0f;
+        }
+        cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+        cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
     }
     else {
         cameraLookAtPosition = VGet(sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
-
         cameraLookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
     }
 
@@ -137,22 +142,22 @@ void Camera_move() {
 
 void Input_camera_move() {
     // 方向キーでカメラを回転
-    //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
-    //{
-    //    g_cameraVAngle -= CAMERA_ANGLE_SPEED / 4;
-    //    if (g_cameraVAngle <= 0.0f)
-    //    {
-    //        g_cameraVAngle = 0.0f;
-    //    }
-    //}
-    //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
-    //{
-    //    g_cameraVAngle += CAMERA_ANGLE_SPEED / 4;
-    //    if (g_cameraVAngle >= 45.0f)
-    //    {
-    //        g_cameraVAngle = 45.0f;
-    //    }
-    //}
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
+    {
+        g_cameraVAngle -= CAMERA_ANGLE_SPEED / 4;
+        if (g_cameraVAngle <= 0.0f)
+        {
+            g_cameraVAngle = 0.0f;
+        }
+    }
+    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
+    {
+        g_cameraVAngle += CAMERA_ANGLE_SPEED / 4;
+        if (g_cameraVAngle >= 45.0f)
+        {
+            g_cameraVAngle = 45.0f;
+        }
+    }
     if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
     {
         g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;
