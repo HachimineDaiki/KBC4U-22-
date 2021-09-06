@@ -43,8 +43,8 @@ float P_CollisionVelocity() {
             v_collision = 50;
         }
     }
+    g_CollisionReflectionFlag = 0;
     //v_collision = -e * sph[0].zmove;
-
     return v_collision;
 }
 void P_Direction() {
@@ -77,17 +77,18 @@ void Accl() {
             if (sph[0].zmove < 0) {//zmove‚ª•‰‚Ì”‚Ì‚Ìˆ—
                 sph[0].zmove += (p_vz2 * 2) * sph[0].control;
             }
-            if (g_CollisionReflectionFlag == 1 && sph[0].zmove >= 0) {//áŠQ•¨‚Æ“–‚½‚Á‚½Œã‚Ìˆ—
-                g_CollisionReflectionFlag == 0;
-            }
-        }else if (g_frontflg == 1) {//‘O‚Éâ‚ª‚ ‚é‚ÆŒã‚ë‚É‰Á‘¬
+            //if (g_CollisionReflectionFlag == 1 && sph[0].zmove >= -10) {//áŠQ•¨‚Æ“–‚½‚Á‚½Œã‚Ìˆ—
+            //    g_CollisionReflectionFlag = 0;
+            //}
+        }
+        else if (g_frontflg == 1) {//‘O‚Éâ‚ª‚ ‚é‚ÆŒã‚ë‚É‰Á‘¬
             sph[0].zmove -= p_vz2 * sph[0].control;
             if (sph[0].zmove >= 0) {//zmove‚ª³‚Ì”‚Ì‚Ìˆ—
                 sph[0].zmove -= (p_vz2 * 2) * sph[0].control;
             }
-            if (g_CollisionReflectionFlag == 1 && sph[0].zmove < 0) {//áŠQ•¨‚Æ“–‚½‚Á‚½Œã‚Ìˆ—
-                g_CollisionReflectionFlag == 0;
-            }
+            //if (g_CollisionReflectionFlag == 1 && sph[0].zmove < 10) {//áŠQ•¨‚Æ“–‚½‚Á‚½Œã‚Ìˆ—
+            //    g_CollisionReflectionFlag = 0;
+            //}
         }
     }
 
