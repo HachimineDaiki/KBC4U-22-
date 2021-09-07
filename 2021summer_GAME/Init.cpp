@@ -224,11 +224,11 @@ void PlanetInit() {
 	float sun_radius = 696350;//‘¾—z”¼Œa
 	float sun_pos_z = obj.pos.z + sun_radius + 149600;
 	
-	planet[0].pos = VGet(-170, 45, 183465);
-	/*planet[4].pos = VGet(-170, -10000, 100000);*/
-	//planet[1].pos = VGet(-150, 45, 250000);//‹à¯
-	//planet[2].pos = VGet(-150, 45, 300000);//…¯
+	planet[0].pos = VGet(-170, 45, 183465);//Œ
+	planet[1].pos = VGet(-150, 45, 250000);//‹à¯
+	planet[2].pos = VGet(-150, 45, 300000);//…¯
 	planet[3].pos = VGet(-150, 45, 350000+sun_radius);//‘¾—z
+	planet[4].pos = VGet(-170, -10000, 100000);//’n‹…
 
 	for (int i = 1; i < 5; i++) {
 		planet[i].draw_flg = false;
