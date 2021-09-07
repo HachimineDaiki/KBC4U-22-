@@ -207,6 +207,7 @@ void All_Init() {
 	UIinit();//UI‚Ì‰Šú‰»
 	PlanetInit();
 	haikeiflg = false;
+	g_WallHitFlag = 0;
 }
 void PlanetInit() {
 	planet[0].radius = 3474;//Œ

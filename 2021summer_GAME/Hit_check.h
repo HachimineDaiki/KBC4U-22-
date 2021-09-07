@@ -80,3 +80,4 @@ extern HitDrow htdrow;
 extern StageModelHit st_model_hit;
 extern VECTOR g_frontVector;
 extern HITRESULT_LINE g_frontpos2;//Šâ‚Ìè‘O‚Éâ‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚é‚½‚ß‚Ì‚à‚Ì
+extern int g_WallHitFlag;//•Ç‚É“–‚½‚Á‚½ON 1“–‚½‚Á‚½@0“–‚½‚Á‚Ä‚È‚¢
