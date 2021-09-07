@@ -30,7 +30,7 @@ void Sph_init() {
 //不法投棄初期化
 void Obj_init(){
 	obj.pos = VGet(-170.0f, -21160.0f, 132270.0f);//不法投棄初期座標
-	obj.radius = 400.0f;//不法投棄半径
+	obj.radius = 900.0f;//不法投棄半径
 	obj.color = GetColor(0, 255, 100);//不法投棄カラー
 	obj.zmove = 1;
 }
@@ -99,26 +99,27 @@ void Damege_Init() {
 			damege_aria[30].pos = VGet(15980.0f, -15660.0f, 89970.0f);
 			damege_aria[31].pos = VGet(12580.0f, -16210.0f, 94420.0f);
 			//未入力
+
 			damege_aria[32].pos = VGet(12180.0f, -16160.0f, 95270.0f);
 			damege_aria[33].pos = VGet(9480.0f, -16810.0f, 98620.0f);
 			damege_aria[34].pos = VGet(8230.0f, -17110.0f, 100420.0f);
 
-			damege_aria[35].pos = VGet(-14190.0f, -4433.0f, 28859.0f);
-			damege_aria[36].pos = VGet(-3937.0f, -4289.0f, 29849.0f);
-			damege_aria[37].pos = VGet(-4598.0f, -4199.0f, 28829.0f);
+			damege_aria[35].pos = VGet(-14190.0f, -4633.0f, 28859.0f);
+			damege_aria[36].pos = VGet(-3937.0f, -4389.0f, 29849.0f);
+			damege_aria[37].pos = VGet(-4598.0f, -4299.0f, 28829.0f);
 
 			
 			damege_aria[38].pos = VGet(-10004.0f, -4982.0f, 32989.0f);
 			damege_aria[39].pos = VGet(-27877.0f, -7122.0f, 43730.0f);
 			
-			damege_aria[40].pos = VGet(-17661.0f, -14017.0f, 83622.0f);
-			damege_aria[41].pos = VGet(-18472.0f, -5326.0f, 34370.0f);
+			damege_aria[40].pos = VGet(-21661.0f, -14017.0f, 83622.0f);
+			damege_aria[41].pos = VGet(-20472.0f, -5526.0f, 34370.0f);
 
 			damege_aria[42].pos = VGet(-26595.0f, -9633.0f, 59294.0f);
 			damege_aria[43].pos = VGet(-29484.0f, -12506.0f, 75512.0f);
 
-			damege_aria[44].pos = VGet(-18972.0f, -14799.0f, 88910.0f);
-			damege_aria[45].pos = VGet(-10160.0f, -16186.0f, 96576.0f);
+			damege_aria[44].pos = VGet(-20972.0f, -14799.0f, 88910.0f);
+			damege_aria[45].pos = VGet(-10160.0f, -16386.0f, 96576.0f);
 
 			MV1SetRotationXYZ(e_rock[i].handle, VGet(5 * DX_PI_F / 180.0f, 0.0f, 0.0));
 	}
@@ -207,6 +208,7 @@ void All_Init() {
 	UIinit();//UIの初期化
 	PlanetInit();
 	haikeiflg = false;
+	g_WallHitFlag = 0;
 }
 void PlanetInit() {
 	planet[0].radius = 3474;//月

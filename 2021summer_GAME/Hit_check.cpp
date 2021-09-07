@@ -446,6 +446,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 						//角度を逆にしてそれを半分にする
 						g_p_direct = g_p_direct * -1 / 2;
+						g_WallHitFlag = 1;
 					}
 
 					// それを移動前の座標に足したものを新たな座標とする

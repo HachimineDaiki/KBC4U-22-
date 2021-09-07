@@ -210,13 +210,17 @@ void Input_camera_move() {
 
         //if ((sph[0].zmove >= 0) || (g_CollisionReflectionFlag == 1 && sph[0].zmove < 0)) {// 岩が前に進んでいるときの岩の処理
         //if (g_frontflg == 0 && ((sph[0].zmove > 0) || (sph[0].zmove < 0))) {// 岩が前に進んでいるときの岩の処理
+        //////////////////
+        ///左右４５°の設定
+        //////////////////
+        if (g_WallHitFlag == 0) {
             if (g_p_direct >= g_cameraHAngle - 45 || g_p_direct <= g_cameraHAngle + 45) {//岩の前方の範囲
                 if (g_p_direct > g_cameraHAngle) {
                     g_cameraHAngle += CAMERA_ANGLE_SPEED / 3;
                     if (g_cameraHAngle >= g_p_direct) {
                         g_cameraHAngle = g_p_direct;
                     }
-                    if (g_cameraHAngle <= g_p_direct - 45) {
+                    if (g_WallHitFlag == 0 && (g_cameraHAngle <= g_p_direct - 45)) {
                         g_cameraHAngle = g_p_direct - 45;
                     }
                 }
@@ -225,11 +229,39 @@ void Input_camera_move() {
                     if (g_cameraHAngle <= g_p_direct) {
                         g_cameraHAngle = g_p_direct;
                     }
-                    if (g_cameraHAngle >= g_p_direct + 45) {
+                    if (g_WallHitFlag == 0 && (g_cameraHAngle >= g_p_direct + 45)) {
                         g_cameraHAngle = g_p_direct + 45;
                     }
                 }
             }
+        }
+        ///////////////
+        ///左右90°の設定
+        ///////////////       
+        if (g_WallHitFlag == 1) {
+            if (g_p_direct >= g_cameraHAngle - 180 || g_p_direct <= g_cameraHAngle + 180) {//岩の前方の範囲
+                if (g_p_direct > g_cameraHAngle) {
+                    g_cameraHAngle += CAMERA_ANGLE_SPEED / 3;
+                    if (g_cameraHAngle >= g_p_direct) {
+                        g_cameraHAngle = g_p_direct;
+                        g_WallHitFlag = 0;
+                    }
+                    if (g_cameraHAngle <= g_p_direct - 180) {
+                        g_cameraHAngle = g_p_direct - 180;
+                    }
+                }
+                if (g_p_direct < g_cameraHAngle) {
+                    g_cameraHAngle -= CAMERA_ANGLE_SPEED / 3;
+                    if (g_cameraHAngle <= g_p_direct) {
+                        g_cameraHAngle = g_p_direct;
+                        g_WallHitFlag = 0;
+                    }
+                    if (g_cameraHAngle >= g_p_direct + 180) {
+                        g_cameraHAngle = g_p_direct + 180;
+                    }
+                }
+            }
+        }
         //}
         //else if ((sph[0].zmove < 0) || (g_CollisionReflectionFlag == 1 && sph[0].zmove >= 0)) {//後ろに進んでいるときのカメラの動き
         //else if (g_frontflg == 1 && ((sph[0].zmove < 0) || (sph[0].zmove >= 0))) {//後ろに進んでいるときのカメラの動き
