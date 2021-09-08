@@ -205,8 +205,8 @@ void Gamemain() {
             rad = -rad;
         }
 
-        _cos = cos(rad)*1000;
-        _sin = sin(rad)*1000;
+        _cos = cos(rad)*100;
+        _sin = sin(rad)*100;
 
         obj.pos.z += _cos;
         obj.pos.y += _sin;
@@ -362,6 +362,9 @@ void Gamemain() {
 
     DrawFormatString(55, 25, GetColor(0, 0, 0), "[HP: %d]", sph[0].hp);
     DrawFormatString(155, 25, GetColor(0,0,0), "スピード [ %.0f / 150 ]", speed_draw_str.speed);
+    
+    DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
+    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/08/ 16:20");
     /*DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
     //for (int i = 0; i<MAXOBJ; i++) {
     //    DrawFormatString(500, 200 + (i + 1) * 20, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);

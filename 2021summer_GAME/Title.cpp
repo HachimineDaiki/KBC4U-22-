@@ -48,7 +48,8 @@ void Titledraw() {//‰æ‘œ‚Ì•`‰æ
 	//if (CheckHitKey(KEY_INPUT_S)) {
 	////	gameMode = 1;
 	//}
-
+	DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
+	DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/08/ 16:20");//ƒrƒ‹ƒhŽžŠÔ•\Ž¦
 	TitleInput();
 }
 void TitleInput() {
