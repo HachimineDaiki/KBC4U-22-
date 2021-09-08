@@ -205,8 +205,8 @@ void Gamemain() {
             rad = -rad;
         }
 
-        _cos = cos(rad)*100;
-        _sin = sin(rad)*100;
+        _cos = cos(rad)*1000;
+        _sin = sin(rad)*1000;
 
         obj.pos.z += _cos;
         obj.pos.y += _sin;
@@ -307,8 +307,8 @@ void Gamemain() {
         SetFontSize(50);//文字サイズを変更
         SetFontSize(20);//文字サイズを元のサイズに変更
     }
-    /*DrawFormatString(300, 300, speed_draw_str.color, "Obj座標[ %.0f %.0f %.0f", obj.pos.x, obj.pos.y, obj.pos.z);
-    DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);*/
+    DrawFormatString(300, 300, GetColor(255, 255, 0), "obj座標[ %.0f %.0f %.0f ]", obj.pos.x, obj.pos.y, obj.pos.z);
+   /* DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);*/
     //パラメーターを表示させる処理
     DrawParam_Info();
     //ゴールまで行ったら不法投棄物の飛んだ距離を表示

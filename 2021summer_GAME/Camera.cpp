@@ -29,7 +29,7 @@
 #define OBJ_CAMERA_LOOK_AT_DISTANCE    2100.0f
 
 
-float AT_Distance = 2100.0f;
+float AT_Distance = 5000.0f;
 extern bool obj_switchflg;
 int    ModelHandle;
 float  AnimTotalTime;

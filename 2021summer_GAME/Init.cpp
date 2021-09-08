@@ -211,11 +211,12 @@ void All_Init() {
 	g_WallHitFlag = 0;
 }
 void PlanetInit() {
-	planet[0].radius = 3474;//Œ
-	planet[1].radius = 12104;//‹à¯
-	planet[2].radius = 4879;//…¯
+	planet[0].radius = 34740;//Œ
+	planet[1].radius = 121040;//‹à¯
+	planet[2].radius = 48790;//…¯
 	planet[3].radius = 696350;//‘¾—z
-	planet[4].radius = 50000;//’n‹…
+
+	planet[4].radius = 127420;//’n‹…‚Ì”¼Œa
 	
 	planet[0].color = GetColor(204, 204, 204);
 	planet[1].color = GetColor(218, 179, 0);
@@ -226,16 +227,17 @@ void PlanetInit() {
 	float sun_radius = 696350;//‘¾—z”¼Œa
 	float sun_pos_z = obj.pos.z + sun_radius + 149600;
 	
-	planet[0].pos = VGet(-170, 45, 183465);//Œ
-	planet[1].pos = VGet(-150, 45, 250000);//‹à¯
-	planet[2].pos = VGet(-150, 45, 300000);//…¯
-	planet[3].pos = VGet(-150, 45, 350000+sun_radius);//‘¾—z
-	planet[4].pos = VGet(-170, -10000, 100000);//’n‹…
+	planet[0].pos = VGet(-170, 0, 50000+384400);//Œ
+	planet[1].pos = VGet(-150, 0, 149600000-108200000);//‹à¯
+	planet[2].pos = VGet(-150, 0, 149600000-57910000);//…¯
+	planet[3].pos = VGet(-150, 0, 50000+149600000);//‘¾—z
+	planet[4].pos = VGet(0, -10000, 50000);//’n‹…
 
-	for (int i = 1; i < 5; i++) {
+	for (int i = 0; i < 5; i++) {
 		planet[i].draw_flg = false;
 	}
 	planet[0].draw_flg = true;
+	planet[4].draw_flg = true;
 	//planet[1].pos = VGet(100, 413, 1300);
 	//planet[2].pos = VGet(100, 413, 1300);
 	//planet[3].pos = VGet(100, 413, 1300);
