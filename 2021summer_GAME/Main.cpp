@@ -263,8 +263,8 @@ void Gamemain() {
     UpdateEffekseer3D();
 
     //減速エリアに入っているかチェック
+    decel.hit_flg = false;//減速フラグ
     if (g_CollisionReflectionFlag == 0) {
-        decel.hit_flg = false;//減速フラグ
         for (int i = 0; i < DECELE_ARIA_MAX; i++) {
             if (Decel_aria_check(sph, decele_aria, i)) {
                 decel.hit_flg = true;//当たったら減速のフラグをON
@@ -335,6 +335,7 @@ void Gamemain() {
             g_goalflag = 1;
             playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
             DrawEffekseer3D();
+            g_cameraHAngle = 0;
         }
         StopEffekseer3DEffect(playingEffectHandle);
         p_zmoveflg = false;

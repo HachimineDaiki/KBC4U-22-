@@ -26,7 +26,7 @@
 #define OBJ_CAMERA_LOOK_AT_HEIGHT         250.0f
 
 // ƒJƒƒ‰‚Æ’‹“_‚Ì‹——£ 1100.0f
-#define OBJ_CAMERA_LOOK_AT_DISTANCE    2100.0f
+#define OBJ_CAMERA_LOOK_AT_DISTANCE    5000.0f
 
 
 float AT_Distance = 5000.0f;
