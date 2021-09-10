@@ -23,12 +23,12 @@
 
 //ZAHA追加
 // カメラの注視点の高さ
-#define OBJ_CAMERA_LOOK_AT_HEIGHT         250.0f
+#define OBJ_CAMERA_LOOK_AT_HEIGHT         300.0f
 
 // カメラと注視点の距離 1100.0f
 #define OBJ_CAMERA_LOOK_AT_DISTANCE    5000.0f
 
-
+float AT_HEIGHT = 300.0f;
 float AT_Distance = 5000.0f;
 extern bool obj_switchflg;
 int    ModelHandle;
@@ -162,12 +162,13 @@ void Input_camera_move() {
     }
     if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
     {
-        CameraVAngle += CAMERA_ANGLE_SPEED / 4;
+       /* CameraVAngle += CAMERA_ANGLE_SPEED / 4;*/
         if (CameraVAngle >= 89.0f)
         {
             CameraVAngle = 89.0f;
         }
     }
+
     //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
     //{
     //    g_cameraHAngle += CAMERA_ANGLE_SPEED / 4;

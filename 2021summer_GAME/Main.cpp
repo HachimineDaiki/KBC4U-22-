@@ -33,7 +33,6 @@ float dis_cos;
 float dis_sin;
 
 float R, G, B;
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
     SetMainWindowText("この不法投棄物に粛清を！");
@@ -90,10 +89,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     deg = 22.5f;//飛ばす角度
     g_flg = false;
-
+    obj_move = false;;
     haikeiflg = false;
     R = 70, G = 130, B = 180;//背景の色初期化
-
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
@@ -205,25 +203,34 @@ void Gamemain() {
             rad = -rad;
         }
 
-        _cos = cos(rad)*100;
-        _sin = sin(rad)*100;
+        _cos = cos(rad)*350;
+        _sin = sin(rad)*350;
 
-        obj.pos.z += _cos;
-        obj.pos.y += _sin;
-
-        if (obj.pos.y >= -15000.0f) {
-            /*haikeiflg = true;*/
-            obj_switchflg = true;
-        }
+        //if (obj.pos.y >= -15000.0f) {
+        //    /*haikeiflg = true;*/
+        //    obj_switchflg = true;
+        //}
         
-        obj.pos.z += _cos;
-        obj.pos.y += _sin;
+        if (obj.pos.z + obj.radius >= planet[3].pos.z - planet[3].radius) {
+            obj_move = true;
+        }
+        if (!obj_move) {
+            obj.pos.z += _cos;
+            obj.pos.y += _sin;
+        }
 
+        if (EffectExitTime() >= 3) {
+           obj_switchflg = true;
+           haikeiflg = true;
+           obj.radius = 50.0f;
+        };
+
+
+        
         /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
         //・弾の移動量Ｘ＝cos(弾の発射角度)×弾のスピード
         //・弾の移動量Ｙ＝sin(弾の発射角度)×弾のスピード
-
     }
 
     //障害物エリアの当たり判定
@@ -307,7 +314,7 @@ void Gamemain() {
         SetFontSize(50);//文字サイズを変更
         SetFontSize(20);//文字サイズを元のサイズに変更
     }
-    DrawFormatString(300, 300, GetColor(255, 255, 0), "obj座標[ %.0f %.0f %.0f ]", obj.pos.x, obj.pos.y, obj.pos.z);
+    
    /* DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);*/
     //パラメーターを表示させる処理
     DrawParam_Info();
@@ -358,13 +365,16 @@ void Gamemain() {
 
     DrawBox(50, 20, 390, 50, GetColor(255, 255, 255), TRUE);
     //体力描画
-    DrawFormatString(100, 300, GetColor(255, 255, 255), "[camera V: %.4f]", CameraVAngle);
-
+    
     DrawFormatString(55, 25, GetColor(0, 0, 0), "[HP: %d]", sph[0].hp);
     DrawFormatString(155, 25, GetColor(0,0,0), "スピード [ %.0f / 150 ]", speed_draw_str.speed);
     
     DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
-    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/08/ 16:20");
+    if (obj_move) {
+        DrawFormatString(300, 400, GetColor(255, 255, 255), "太陽に当たった。（テスト表示）");
+    }
+
+    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/09/ 15:35");
     /*DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
     //for (int i = 0; i<MAXOBJ; i++) {
     //    DrawFormatString(500, 200 + (i + 1) * 20, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);

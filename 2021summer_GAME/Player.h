@@ -63,6 +63,7 @@ extern Sph damege_aria[DAMEGE_ARIA_MAX]; //当たるとダメージをうけるオブジェクト
 extern Sph decele_aria[DECELE_ARIA_MAX]; //減速エリア
 
 extern Sph planet[5];//惑星数
+extern bool obj_move;
 
 extern float s_dis;
 extern float es_dis;//障害物用
