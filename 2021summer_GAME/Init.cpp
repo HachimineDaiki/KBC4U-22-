@@ -122,7 +122,7 @@ void Damege_Init() {
 		damege_aria[44].pos = VGet(-20972.0f, -14799.0f, 88910.0f);
 		damege_aria[45].pos = VGet(-10160.0f, -16386.0f, 96576.0f);
 
-			MV1SetRotationXYZ(e_rock[i].handle, VGet(5 * DX_PI_F / 180.0f, 0.0f, 0.0));
+		MV1SetRotationXYZ(e_rock[i].handle, VGet(5 * DX_PI_F / 180.0f, 0.0f, 0.0));
 	}
 }
 
@@ -208,11 +208,14 @@ void All_Init() {
 	UIinit();//UI‚Ì‰Šú‰»
 	PlanetInit();
 	InitTime();
+	Init_Draw_Display();
 	haikeiflg = false;
 	obj_move = false;
 	g_WallHitFlag = 0;
 }
 void PlanetInit() {
+	earth_pos_z = 100000 + obj.pos.z;
+
 	planet[0].radius = 3474;//Œ
 	planet[1].radius = 12104;//‹à¯
 	planet[2].radius = 4879;//…¯
@@ -223,17 +226,18 @@ void PlanetInit() {
 	planet[1].color = GetColor(218, 179, 0);
 	planet[2].color = GetColor(188, 226, 232);
 	planet[3].color = GetColor(238, 120, 0);
-	planet[4].color = GetColor(0, 0, 200);
+	/*planet[4].color = GetColor(0, 0, 200);*/
 
 	//float sun_radius = 696350;//‘¾—z”¼Œa
-	float earth_pos_z = 100000 + obj.pos.z;
 	
 	//1000–œˆÈ“à‚Éû‚ß‚é
+
 	planet[0].pos = VGet(0, 36597 - (planet[0].radius * 2), earth_pos_z + 38000);//Œ
 	planet[1].pos = VGet(0, 192466 - (planet[1].radius * 2), earth_pos_z + 400000);//‹à¯
 	planet[2].pos = VGet(0, 339155 - (planet[2].radius * 2), earth_pos_z + 770000);//…¯
-	//planet[3].pos = VGet(0, 622587 /*- (planet[3].radius * 2)*/, earth_pos_z + 1500000);//‘¾—z
 	planet[3].pos = VGet(0, 525050, 1451646);//‘¾—z
+
+	//planet[3].pos = VGet(0, 622587 /*- (planet[3].radius * 2)*/, earth_pos_z + 1500000);//‘¾—z
 	//planet[4].pos = VGet(0, -10000, 50000);//’n‹…
 
 	for (int i = 0; i < 5; i++) {

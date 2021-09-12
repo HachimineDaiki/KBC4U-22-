@@ -3,6 +3,7 @@
 #include "Time.h"
 #include <stdio.h>
 #include"Goal.h"
+#include "Param_Info.h"
 void Sph_init();
 void Model_init();
 void Obj_init();
@@ -21,5 +22,5 @@ extern FileData f_damege_aria;
 extern float merikomi;
 extern int CheckKey;
 extern int gameMode;
-
+extern float earth_pos_z;
 //extern enum GAMEMODE;//ÉQÅ[ÉÄÉÇÅ[Éh

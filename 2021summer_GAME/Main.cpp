@@ -33,6 +33,15 @@ float dis_cos;
 float dis_sin;
 
 float R, G, B;
+
+
+int effectResourceHandle;
+int effectOrbitHandle;
+int grBackgroundHandle;
+int playingEffectOrbitHandle;
+int playingEffectHandle;
+
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
     SetMainWindowText("この不法投棄物に粛清を！");
@@ -85,6 +94,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Init_Draw_Display();//画面描画初期化
     InitTime(); //時間初期化
     PlanetInit();
+
+    //読み込む時に大きさを指定する。
+    effectResourceHandle = LoadEffekseerEffect("3Dmodel/exploadSample03.efk", 50.0f);
+
+    effectOrbitHandle = LoadEffekseerEffect("effect/Orbit.efkefc", 10.0f);
+    // 何でもいいので画像を読み込む。
+
+    grBackgroundHandle = LoadGraph(_T("images/Star.png"));
+    // 再生中のエフェクトのハンドルを初期化する。
+    playingEffectOrbitHandle = -1;
+    playingEffectHandle = -1;
+
+
     goal_input_space = false; //ゴールした時のスペース入力
 
     deg = 22.5f;//飛ばす角度
@@ -166,12 +188,6 @@ void Gamemain() {
     }
 
     SetBackgroundColor(R, G, B);
-    //読み込む時に大きさを指定する。
-    int effectResourceHandle = LoadEffekseerEffect("3Dmodel/exploadSample03.efk", 50.0f);
-    // 何でもいいので画像を読み込む。
-    int grBackgroundHandle = LoadGraph(_T("images/Star.png"));
-    // 再生中のエフェクトのハンドルを初期化する。
-    int playingEffectHandle = -1;
     //------------------------------入力関数
     Input_camera_move();//カメラ入力
     //------------------------------計算関数
@@ -192,6 +208,15 @@ void Gamemain() {
 
         //obj.pos.z += obj.zmove;
         //g_GoalFullScore += g_dist;
+
+        //最後のスピード保存する。
+        if (speed_draw_str.last_speed_flg) {
+            speed_draw_str.last_speed = sph[0].zmove;
+            speed_draw_str.last_speed_flg = false;
+        }
+
+        PlanetMove();//惑星移動処理
+
         for (int i = 0; i < 4; i++) {
             planet[i].draw_flg = true;
         }
@@ -203,30 +228,37 @@ void Gamemain() {
             rad = -rad;
         }
 
-        _cos = cos(rad)*350;
-        _sin = sin(rad)*350;
+        //不法投棄移動スピード
+        _cos = cos(rad) * goal_obj.speed;
+        _sin = sin(rad) * goal_obj.speed;
 
         //if (obj.pos.y >= -15000.0f) {
         //    /*haikeiflg = true;*/
         //    obj_switchflg = true;
         //}
-        
-        if (obj.pos.z + obj.radius >= planet[3].pos.z - planet[3].radius) {
+
+        //不法投棄の移動をとめる
+        if (obj.pos.z + obj.radius >= planet[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)].pos.z - planet[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)].radius) {
             obj_move = true;
         }
+
         if (!obj_move) {
             obj.pos.z += _cos;
             obj.pos.y += _sin;
         }
 
+        //爆発effect時間が3秒経過したら
         if (EffectExitTime() >= 3) {
-           obj_switchflg = true;
-           haikeiflg = true;
-           obj.radius = 50.0f;
+           obj_switchflg = true;//カメラswitch切り替える
+           haikeiflg = true;//空を暗くする
+           obj.radius = 50.0f;//不法投棄の大きさを小さくする。
         };
 
-
-        
+        //effect描画　軌道 大きさ読み込み
+        playingEffectOrbitHandle = PlayEffekseer3DEffect(effectOrbitHandle);
+        SetPosPlayingEffekseer3DEffect(playingEffectOrbitHandle, obj.pos.x, obj.pos.y, obj.pos.z);
+        // Effekseerにより再生中のエフェクトを更新する。
+        DrawEffekseer3D();
         /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
         //・弾の移動量Ｘ＝cos(弾の発射角度)×弾のスピード
@@ -264,7 +296,7 @@ void Gamemain() {
     }
 
     // 再生中のエフェクトを移動する。
-    SetPosPlayingEffekseer3DEffect(playingEffectHandle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
+    //SetPosPlayingEffekseer3DEffect(playingEffectHandle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
 
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
@@ -297,7 +329,7 @@ void Gamemain() {
         }
     }
 
-    
+    //DrawFormatString(300, 250, GetColor(255, 255, 0), "%d", playingEffectOrbitHandle);//右下
     //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
@@ -367,11 +399,19 @@ void Gamemain() {
     //体力描画
     
     DrawFormatString(55, 25, GetColor(0, 0, 0), "[HP: %d]", sph[0].hp);
-    DrawFormatString(155, 25, GetColor(0,0,0), "スピード [ %.0f / 150 ]", speed_draw_str.speed);
-    
+
+    if (!htdrow.hitflg) {
+        DrawFormatString(155, 25, GetColor(0, 0, 0), "スピード [ %.0f / 150 ]", speed_draw_str.speed);
+    }
+    else {
+        DrawFormatString(155, 25, GetColor(0, 0, 0), "スピード [ %.0f / 150 ]", speed_draw_str.last_speed);
+    }
+
+    char str0[4][20] = { "月に衝突" ,"金星に衝突","水星に衝突","太陽に衝突" };
+
     DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
     if (obj_move) {
-        DrawFormatString(300, 400, GetColor(255, 255, 255), "太陽に当たった。（テスト表示）");
+        DrawFormatString(350, 300, GetColor(255, 255, 255), "%s", str0[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)]);
     }
 
     DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/09/ 15:35");

@@ -6,11 +6,12 @@ void Init_Draw_Display() {
     speed_draw_str.x = 100;
     speed_draw_str.y = 300;
     speed_draw_str.speed = 0.0f;
+    speed_draw_str.last_speed = 0.0f;
+    speed_draw_str.last_speed_flg = true;
 }
 
 //‰æ–Ê•`‰æ•\Ž¦
 void DrawDisplay() {
-    
     speed_draw_str.speed = sph[0].zmove;
 
     if (speed_draw_str.speed < 0) {
@@ -19,6 +20,9 @@ void DrawDisplay() {
 
 }
 
+float LastSpeed(float lastspeed) {
+    return lastspeed;
+}
 void DrawParam_Info() {
     SetFontSize(20);
     //SetFontSize(100);

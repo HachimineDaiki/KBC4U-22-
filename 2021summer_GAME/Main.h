@@ -45,6 +45,7 @@ VECTOR obj_cameraPosition;//オブジェクトカメラ
 bool obj_switchflg;
 Sph planet[5];
 Time_ effect_exit_time;
+GoolObj goal_obj;
 
 bool gameexit;//ゲーム終了フラグ
 bool goal_input_space;//ゴールした時にスペースを押せるかフラグ
@@ -91,6 +92,8 @@ float  CameraVAngle;
 float  CameraHAngle;
 
 bool obj_move;//オブジェクト動き
+float earth_pos_z;
+
 
 
 
