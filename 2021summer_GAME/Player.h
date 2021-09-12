@@ -20,6 +20,8 @@ struct Sph
 	int hit_name;//当たったname情報
 	float hit_speed;//当たったスピード保存
 	float front;//プレイヤーの前方
+	float right;//プレイヤーの右
+	float left;//プレイヤーの左
 	bool obj_flag;//敵が存在するかフラグ。
 	VECTOR direction; //向いている方向
 	bool draw_flg;//描画するか
@@ -75,4 +77,6 @@ extern VECTOR TempMoveVector;
 extern Input input;
 extern Damege obs_damege;//障害物のダメージ量
 extern int g_frontflg;//0　前に坂ナシ　1　前に坂アリ
+extern int g_rightflg;//0　右に坂ナシ　1　右に坂アリ
+extern int g_leftflg;//0　左に坂ナシ　1　左に坂アリ
 extern int g_CollisionReflectionFlag;//0 衝突して反射していない 1 衝突して反射している

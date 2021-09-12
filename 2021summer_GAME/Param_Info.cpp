@@ -12,7 +12,7 @@ void Init_Draw_Display() {
 
 //‰æ–Ê•`‰æ•\Ž¦
 void DrawDisplay() {
-    speed_draw_str.speed = sph[0].zmove;
+    speed_draw_str.speed = fabsf(sph[0].zmove);
 
     if (speed_draw_str.speed < 0) {
         speed_draw_str.speed = speed_draw_str.speed * -1;

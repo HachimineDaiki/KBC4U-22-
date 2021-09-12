@@ -23,6 +23,8 @@ StageModelHit st_model_hit;//モデルヒット
 HitDrow htdrow;//ヒット描画
 VECTOR TempMoveVector;
 VECTOR g_frontVector;//プレイヤーの前方を取る
+VECTOR g_rightVector;
+VECTOR g_leftVector;
 VECTOR g_cameraPosition;//カメラの座標
 VECTOR g_Ill_dump1;//不法投棄物の初期値を入れる
 Decel decel;//減速
@@ -70,6 +72,8 @@ float g_p_rotate_amount;//回転量
 float merikomi;//めり込む量
 
 int g_frontflg;//0　前に進んでいる　1　後ろに進んでいる
+int g_rightflg;//0　右斜め前に坂ナシ　1　右斜め前に坂アリ
+int g_leftflg;//0　左斜め前に坂ナシ　1　左斜め前に坂アリ
 int g_CollisionReflectionFlag;//0 衝突して反射していない 1 衝突して反射している
 int g_goalflag;//ゴールしたかどうか　0ゴールしてない　1ゴールした
 float g_GoalFullScore;//ゴールの最大得点の格納

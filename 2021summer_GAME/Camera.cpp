@@ -263,6 +263,7 @@ void Input_camera_move() {
                 }
             }
         }
+
         //}
         //else if ((sph[0].zmove < 0) || (g_CollisionReflectionFlag == 1 && sph[0].zmove >= 0)) {//後ろに進んでいるときのカメラの動き
         //else if (g_frontflg == 1 && ((sph[0].zmove < 0) || (sph[0].zmove >= 0))) {//後ろに進んでいるときのカメラの動き
@@ -312,6 +313,30 @@ void Input_camera_move() {
 
         //    }
         //}
+    }
+    else if (p_zmoveflg == false) {
+        if (g_goalflag == 1) {
+            if (0 >= g_cameraHAngle - 180 || 0 <= g_cameraHAngle + 180) {//岩の前方の範囲
+                if (0 > g_cameraHAngle) {
+                    g_cameraHAngle += CAMERA_ANGLE_SPEED + 4;
+                    if (g_cameraHAngle >= 0) {
+                        g_cameraHAngle = 0;
+                    }
+                    if (g_cameraHAngle <= 0 - 180) {
+                        g_cameraHAngle = 0 - 180;
+                    }
+                }
+                if (0 < g_cameraHAngle) {
+                    g_cameraHAngle -= CAMERA_ANGLE_SPEED + 4;
+                    if (g_cameraHAngle <= 0) {
+                        g_cameraHAngle = 0;
+                    }
+                    if (g_cameraHAngle >= 0 + 180) {
+                        g_cameraHAngle = 0 + 180;
+                    }
+                }
+            }
+        }
     }
 }
 

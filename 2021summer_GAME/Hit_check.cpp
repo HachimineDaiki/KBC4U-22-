@@ -7,6 +7,9 @@
 #include "Init.h"
 
 float p_vz = 0;
+VECTOR frontpos = VGet(0.0,0.0,0.0);
+VECTOR rightpos = VGet(0.0, 0.0, 0.0);
+VECTOR leftpos = VGet(0.0, 0.0, 0.0);
 struct STAGE
 {
 	int		ModelHandle;				// ステージのモデルハンドル
@@ -177,17 +180,18 @@ void Decel_aria_effect(){
 	//}else if (-10 > sph[0].zmove) {
 	//	sph[0].zmove *= 0.93f;
 	//}
-	sph[0].zmove *= 0.93f;
-	if (g_frontflg == 0) {
-		if (sph[0].zmove < 10) {
-			sph[0].zmove = 10;
-		}
-	}
-	else if (g_frontflg == 1) {
-		if (sph[0].zmove > -10) {
-			sph[0].zmove = -10;
-		}
-	}
+
+	sph[0].zmove *= 0.97f;
+	//if (g_frontflg == 0) {
+	//	if (sph[0].zmove < 10) {
+	//		sph[0].zmove = 10;
+	//	}
+	//}
+	//if (g_frontflg == 1) {
+	//	if (sph[0].zmove > -10) {
+	//		sph[0].zmove = -10;
+	//	}
+	//}
 
 
 	//if (g_frontmoveflg == 1) {
@@ -294,7 +298,7 @@ void Ground_model_hit() {
 		// プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
 		st_model_hit.movepos = VScale(st_model_hit.targetmovedirection, sph[0].speed);
 	}
-	if (p_zmoveflg == true) {
+	//if (p_zmoveflg == true) {
 
 		st_model_hit.movepos.z = st_model_hit.movepos.z + sph[0].zmove;
 
@@ -306,7 +310,19 @@ void Ground_model_hit() {
 		TempMoveVector.y = 0.0f;
 		TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + sph[0].front * g_cosParam;
 
-		g_frontVector = VAdd(sph[0].pos, TempMoveVector);
+		g_frontVector = TempMoveVector;
+
+		TempMoveVector.x = (st_model_hit.movepos.x + sph[0].right) * g_cosParam - st_model_hit.movepos.z * g_sinParam;
+		TempMoveVector.y = 0.0f;
+		TempMoveVector.z = (st_model_hit.movepos.x + sph[0].right) * g_sinParam + st_model_hit.movepos.z * g_cosParam;
+
+		g_rightVector =  TempMoveVector;
+
+		TempMoveVector.x = (st_model_hit.movepos.x + sph[0].left) * g_cosParam - st_model_hit.movepos.z * g_sinParam;
+		TempMoveVector.y = 0.0f;
+		TempMoveVector.z = (st_model_hit.movepos.x + sph[0].left) * g_sinParam + st_model_hit.movepos.z * g_cosParam;
+
+		g_leftVector = TempMoveVector;
 		// 各ベクトルごとに計算yは放置
 
 		TempMoveVector.x = st_model_hit.movepos.x * g_cosParam - st_model_hit.movepos.z * g_sinParam;
@@ -314,7 +330,7 @@ void Ground_model_hit() {
 		TempMoveVector.z = st_model_hit.movepos.x * g_sinParam + st_model_hit.movepos.z * g_cosParam;
 
 		st_model_hit.movepos = TempMoveVector;
-	}
+	//}
 
 	Ground_model_hit_check(st_model_hit.movepos);
 }
@@ -323,8 +339,11 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	st_model_hit.oldpos = sph[0].pos;
 	// 移動後の座標を算出
 	st_model_hit.nowpos = VAdd(sph[0].pos, MoveVector);
-
-	VECTOR frontpos = g_frontVector;
+	frontpos = VAdd(sph[0].pos, g_frontVector);
+	rightpos = VAdd(sph[0].pos, g_rightVector);
+	leftpos = VAdd(sph[0].pos, g_leftVector);
+	HITRESULT_LINE rightposhit;
+	HITRESULT_LINE leftposhit;
 	stg.CollObjNum = 1;
 
 	 //プレイヤーの周囲にあるステージポリゴンを取得する
@@ -445,7 +464,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 						}
 
 						//角度を逆にしてそれを半分にする
-						g_p_direct = g_p_direct * -1 / 2;
+						g_p_direct = (g_p_direct * -1) / 2;
 						g_WallHitFlag = 1;
 					}
 
@@ -560,14 +579,34 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*st_model_hit.LineRes = HitCheck_Line_Triangle(VAdd(st_model_hit.NowPos, VGet(0.0f, 0.0f, 0.0f)), VAdd(st_model_hit.NowPos, VGet(0.0f, PLAYER_HIT_HEIGHT, 0.0f)), st_model_hit.Poly->Position[0], st_model_hit.Poly->Position[1], st_model_hit.Poly->Position[2]);*/
 			st_model_hit.lineres = HitCheck_Line_Triangle(st_model_hit.nowpos, VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-			g_frontpos2 = HitCheck_Line_Triangle(g_frontVector,VAdd(g_frontVector,VGet(0.0f,-200.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			g_frontpos2 = HitCheck_Line_Triangle(frontpos,VAdd(frontpos,VGet(0.0f,-200.0f,0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			rightposhit = HitCheck_Line_Triangle(rightpos, VAdd(rightpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
+			leftposhit = HitCheck_Line_Triangle(leftpos, VAdd(leftpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-			if (st_model_hit.lineres.Position.y < g_frontpos2.Position.y) {
-				g_frontflg = 1;//プレイヤーの位置とちょっと前の位置を比較してプレイヤーの位置の方が小さかったら前に坂があるフラグを1にする
-			}
-			else {
+
+			
+			if (st_model_hit.lineres.Position.y > g_frontpos2.Position.y) {
 				g_frontflg = 0;//プレイヤーの位置が高かったら前に坂があるフラグを0にする
 			}
+			else if (st_model_hit.lineres.Position.y < g_frontpos2.Position.y) {
+				g_frontflg = 1;//プレイヤーの位置とちょっと前の位置を比較してプレイヤーの位置の方が小さかったら前に坂があるフラグを1にする
+			}
+			if (g_frontpos2.Position.y > rightposhit.Position.y) {
+				g_rightflg = 0;
+			}
+			else if (g_frontpos2.Position.y < rightposhit.Position.y) {
+				g_rightflg = 1;
+				g_p_direct += 0.25f;
+			}
+			if (g_frontpos2.Position.y > leftposhit.Position.y) {
+				g_leftflg = 0;
+			}
+			else if (g_frontpos2.Position.y < leftposhit.Position.y) {
+				g_leftflg = 1;
+				g_p_direct -= 0.25f;
+			}
+
+
 
 			if (st_model_hit.lineres.HitFlag == FALSE) { 
 				
@@ -585,8 +624,14 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-		//DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,-200.f,0.0f)), GetColor(255, 0, 0));
-		//DrawLine3D(g_frontVector, VAdd(g_frontVector, VGet(0.0f, 600.0f, 0.0f)), GetColor(255, 0, 0));
+		///DrawFormatString(450, 40, GetColor(255, 255, 255), "[smhx %.0f] [smhy %.0f] [smhz %.0f]", rightposhit.Position.x, rightposhit.Position.y, rightposhit.Position.z);
+		///DrawFormatString(450, 60, GetColor(255, 255, 255), "[g_frox %.0f] [g_froy %.0f] [g_froz %.0f]", leftposhit.Position.x, leftposhit.Position.y, leftposhit.Position.z);
+
+		///DrawLine3D(rightposhit.Position, VAdd(rightposhit.Position, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));
+		///DrawLine3D(leftposhit.Position, VAdd(leftposhit.Position, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));
+		////DrawLine3D(st_model_hit.nowpos, VAdd(st_model_hit.nowpos,VGet(0.0f,600.f,0.0f)), GetColor(255, 0, 0));
+		////DrawLine3D(frontpos, VAdd(frontpos, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));
+		////DrawLine3D(g_frontVector, VAdd(g_frontVector, VGet(0.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
 		//DrawLine3D(VAdd(st_model_hit.nowpos, VGet(-300.0f, -110.0f, 0.0f)), VAdd(st_model_hit.nowpos, VGet(300.0f, -200.0f, 0.0f)), GetColor(255, 0, 0));
 		//DrawLine3D(VAdd(st_model_hit.nowpos, VGet(0.0f, -110.0f, -300.0f)), VAdd(st_model_hit.nowpos, VGet(0.0f, -200.0f, 300.0f)), GetColor(255, 0, 0));
 		//// 岩の周囲を簡易的に見る線

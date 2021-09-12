@@ -211,7 +211,7 @@ void Gamemain() {
 
         //最後のスピード保存する。
         if (speed_draw_str.last_speed_flg) {
-            speed_draw_str.last_speed = sph[0].zmove;
+            speed_draw_str.last_speed = fabsf(sph[0].zmove);
             speed_draw_str.last_speed_flg = false;
         }
 
@@ -373,8 +373,7 @@ void Gamemain() {
             obj.zmove = fabsf(sph[0].zmove * 499.5) + (sph[0].hp * 249.75);
             g_goalflag = 1;
             playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
-            DrawEffekseer3D();
-            g_cameraHAngle = 0;
+            DrawEffekseer3D(); 
         }
         StopEffekseer3DEffect(playingEffectHandle);
         p_zmoveflg = false;
