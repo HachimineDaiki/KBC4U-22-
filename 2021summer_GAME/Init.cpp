@@ -23,6 +23,8 @@ void Sph_init() {
 	
 	sph[0].v = VGet(0.0f, 0.0f, 0.0f);//プレイヤーベクトル
 	g_frontflg = 0;//前に坂があるかどうかの初期化
+	g_rightflg = 0;
+	g_leftflg = 0;
 	g_CollisionReflectionFlag = 0;//0 衝突して反射していない 1 衝突して反射している
 	p_zmoveflg = false;
 

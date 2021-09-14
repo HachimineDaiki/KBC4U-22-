@@ -583,7 +583,12 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			rightposhit = HitCheck_Line_Triangle(rightpos, VAdd(rightpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 			leftposhit = HitCheck_Line_Triangle(leftpos, VAdd(leftpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-
+			if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 1))&&(g_frontpos2.Position.y > rightposhit.Position.y)) {
+				g_p_direct -= 0.85f;
+			}
+			else if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 1)) && (g_frontpos2.Position.y > leftposhit.Position.y)) {
+				g_p_direct += 0.85f;
+			}
 			
 			if (st_model_hit.lineres.Position.y > g_frontpos2.Position.y) {
 				g_frontflg = 0;//プレイヤーの位置が高かったら前に坂があるフラグを0にする
@@ -591,19 +596,36 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			else if (st_model_hit.lineres.Position.y < g_frontpos2.Position.y) {
 				g_frontflg = 1;//プレイヤーの位置とちょっと前の位置を比較してプレイヤーの位置の方が小さかったら前に坂があるフラグを1にする
 			}
-			if (g_frontpos2.Position.y > rightposhit.Position.y) {
-				g_rightflg = 0;
+			else {
+				if (g_frontpos2.Position.y > rightposhit.Position.y) {
+					g_rightflg = 0;
+				}
+				else if (g_frontpos2.Position.y < rightposhit.Position.y) {
+					g_rightflg = 1;
+				}
+				if (g_frontpos2.Position.y > leftposhit.Position.y) {
+					g_leftflg = 0;
+				}
+				else if (g_frontpos2.Position.y < leftposhit.Position.y) {
+					g_leftflg = 1;
+				}
 			}
-			else if (g_frontpos2.Position.y < rightposhit.Position.y) {
-				g_rightflg = 1;
-				g_p_direct += 0.25f;
-			}
-			if (g_frontpos2.Position.y > leftposhit.Position.y) {
-				g_leftflg = 0;
-			}
-			else if (g_frontpos2.Position.y < leftposhit.Position.y) {
-				g_leftflg = 1;
-				g_p_direct -= 0.25f;
+
+			if(g_CollisionReflectionFlag == 1 || decel.hit_flg == true){
+				if (g_frontpos2.Position.y > rightposhit.Position.y) {
+					g_rightflg = 0;
+				}
+				else if (g_frontpos2.Position.y < rightposhit.Position.y) {
+					g_rightflg = 1;
+					g_p_direct += 0.25f;
+				}
+				if (g_frontpos2.Position.y > leftposhit.Position.y) {
+					g_leftflg = 0;
+				}
+				else if (g_frontpos2.Position.y < leftposhit.Position.y) {
+					g_leftflg = 1;
+					g_p_direct -= 0.25f;
+				}
 			}
 
 
@@ -624,8 +646,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-		///DrawFormatString(450, 40, GetColor(255, 255, 255), "[smhx %.0f] [smhy %.0f] [smhz %.0f]", rightposhit.Position.x, rightposhit.Position.y, rightposhit.Position.z);
-		///DrawFormatString(450, 60, GetColor(255, 255, 255), "[g_frox %.0f] [g_froy %.0f] [g_froz %.0f]", leftposhit.Position.x, leftposhit.Position.y, leftposhit.Position.z);
+		DrawFormatString(450, 40, GetColor(255, 255, 255), "[smhx %.0f] [smhy %.0f] [smhz %.0f]", rightposhit.Position.x, rightposhit.Position.y, rightposhit.Position.z);
+		DrawFormatString(450, 60, GetColor(255, 255, 255), "[g_frox %.0f] [g_froy %.0f] [g_froz %.0f]", leftposhit.Position.x, leftposhit.Position.y, leftposhit.Position.z);
 
 		///DrawLine3D(rightposhit.Position, VAdd(rightposhit.Position, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));
 		///DrawLine3D(leftposhit.Position, VAdd(leftposhit.Position, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));
