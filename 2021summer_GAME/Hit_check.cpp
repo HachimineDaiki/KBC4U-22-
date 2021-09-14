@@ -412,7 +412,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 				//		 床ポリゴンの数を加算する
 						st_model_hit.yukanum++;
-						DrawFormatString(100, 20, GetColor(255, 0, 0), "kabenum %d", st_model_hit.yukanum);
+						/*DrawFormatString(100, 20, GetColor(255, 0, 0), "kabenum %d", st_model_hit.yukanum);*/
 					}
 				}
 			}
@@ -646,8 +646,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			/*DrawFormatString(100, 240, GetColor(255, 0, 0), " Line.Y %d", st_model_hit.LineRes.Position.y);*/
 			st_model_hit.groundflg = true; //地面についたフラグを立てる
 		}
-		DrawFormatString(450, 40, GetColor(255, 255, 255), "[smhx %.0f] [smhy %.0f] [smhz %.0f]", rightposhit.Position.x, rightposhit.Position.y, rightposhit.Position.z);
-		DrawFormatString(450, 60, GetColor(255, 255, 255), "[g_frox %.0f] [g_froy %.0f] [g_froz %.0f]", leftposhit.Position.x, leftposhit.Position.y, leftposhit.Position.z);
+		/*DrawFormatString(450, 40, GetColor(255, 255, 255), "[smhx %.0f] [smhy %.0f] [smhz %.0f]", rightposhit.Position.x, rightposhit.Position.y, rightposhit.Position.z);
+		DrawFormatString(450, 60, GetColor(255, 255, 255), "[g_frox %.0f] [g_froy %.0f] [g_froz %.0f]", leftposhit.Position.x, leftposhit.Position.y, leftposhit.Position.z);*/
 
 		///DrawLine3D(rightposhit.Position, VAdd(rightposhit.Position, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));
 		///DrawLine3D(leftposhit.Position, VAdd(leftposhit.Position, VGet(0.0f, -300.0f, 0.0f)), GetColor(255, 255, 0));

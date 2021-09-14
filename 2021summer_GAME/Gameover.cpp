@@ -27,6 +27,6 @@ void Gameoverdraw() {   //ゲームオーバーの画像を描画する
 	}
 
 	DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
-	DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/2021/09/13/ 12:15");//ビルド時間表示
+	DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/2021/09/14/ 13:05");//ビルド時間表示
 
 }

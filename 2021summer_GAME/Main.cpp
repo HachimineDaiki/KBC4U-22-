@@ -233,12 +233,6 @@ void Gamemain() {
            obj.radius = 50.0f;//不法投棄の大きさを小さくする。
         };
 
-        if (e_count % 60 == 0) {
-            SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, obj.pos.x, obj.pos.y, obj.pos.z);
-            //effect描画　軌道
-            e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
-        }
-
         e_count++;
         /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
@@ -368,6 +362,10 @@ void Gamemain() {
         }
     }
 
+    SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+    //effect描画　軌道
+    e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
+
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
     // Effekseerにより再生中のエフェクトを描画する。
@@ -395,5 +393,5 @@ void Gamemain() {
         DrawFormatString(350, 300, GetColor(255, 255, 255), "%s", str0[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)]);
     }
 
-    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/13/ 12:15");
+    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/14/ 13:05");
 }
