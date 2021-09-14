@@ -112,6 +112,31 @@ void Accl() {
             }
         }
 
+        //ŒX‚¢‚½Žž‚Ì‰ñ“]ˆ—
+        if (g_leftflg == 1) {
+            if (g_CollisionReflectionFlag == 1) {
+                g_p_direct -= 0.95f;
+                g_leftflg = 0;
+            }
+            if (decel.hit_flg == true) {
+                g_p_direct -= 0.05f;
+                g_leftflg = 0;
+            }
+        }
+        if (g_rightflg == 1) {
+            if (g_CollisionReflectionFlag == 1) {
+                g_p_direct += 0.95f;
+                g_rightflg = 0;
+            }
+            if (decel.hit_flg == true) {
+                g_p_direct += 0.05f;
+                g_rightflg = 0;
+            }
+        }
+
+
+
+        //áŠQ•¨‚É“–‚½‚Á‚½Žž
         if (g_CollisionReflectionFlag == 1) {
             if (sph[0].zmove >= 0 && sph[0].zmove <= 10) {
                 g_CollisionReflectionFlag = 0;
@@ -281,14 +306,14 @@ int Input_PlayerMoveDir() {
     }
 
     if (g_goalflag == 0) {
-        if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
-        {
-            input_dir = Left;
-        }
-        if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_RIGHT) != 0)
-        {
-            input_dir = Right;
-        }
+        //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
+        //{
+        //    input_dir = Left;
+        //}
+        //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_RIGHT) != 0)
+        //{
+        //    input_dir = Right;
+        //}
     }
 
     if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
