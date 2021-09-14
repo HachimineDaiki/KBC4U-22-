@@ -10,8 +10,6 @@
 #include "Gameover.h"
 #include "User_Interface.h"
 #include"KeyCheck.h"
-// EffekseerForDXLib.hをインクルードします。
-#include "EffekseerForDXLib.h"
 
 #define PI 3.14
 
@@ -33,15 +31,7 @@ float dis_cos;
 float dis_sin;
 
 float R, G, B;
-
-
-int effectResourceHandle;
-int effectOrbitHandle;
-int grBackgroundHandle;
-int playingEffectOrbitHandle;
-int playingEffectHandle;
-
-
+int e_count;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
     SetMainWindowText("この不法投棄物に粛清を！");
@@ -61,6 +51,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     if (Effekseer_Init(8000) == -1)
     {
         DxLib_End();
+        return -1;
+    }
+
+    //effect読み込み
+    if (LoadEffect() == -1) {
         return -1;
     }
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
@@ -94,18 +89,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Init_Draw_Display();//画面描画初期化
     InitTime(); //時間初期化
     PlanetInit();
-
-    //読み込む時に大きさを指定する。
-    effectResourceHandle = LoadEffekseerEffect("3Dmodel/exploadSample03.efk", 50.0f);
-
-    effectOrbitHandle = LoadEffekseerEffect("effect/Orbit.efkefc", 10.0f);
-    // 何でもいいので画像を読み込む。
-
-    grBackgroundHandle = LoadGraph(_T("images/Star.png"));
-    // 再生中のエフェクトのハンドルを初期化する。
-    playingEffectOrbitHandle = -1;
-    playingEffectHandle = -1;
-
+    Init_Effect();
+    /*grBackgroundHandle = LoadGraph(_T("images/Star.png"));*/
 
     goal_input_space = false; //ゴールした時のスペース入力
 
@@ -114,15 +99,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     obj_move = false;;
     haikeiflg = false;
     R = 70, G = 130, B = 180;//背景の色初期化
+    e_count = 0;
+    
     // Ｚバッファを有効にする
     SetUseZBuffer3D(TRUE);
     // Ｚバッファへの書き込みを有効にする
     SetWriteZBuffer3D(TRUE);
-
-
-    // DXライブラリのカメラとEffekseerのカメラを同期する。
-    Effekseer_Sync3DSetting();
-
 
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
     {
@@ -131,6 +113,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         // 画面をクリア
         ClearDrawScreen();
 
+        //HPが0だったらゲームオーバーに遷移
         if (sph[0].hp <= 0) {
             EffectTime();
             if (effect_time.time >= 2) {
@@ -155,6 +138,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
         ScreenFlip();//裏画面の内容を表画面に反映する
     }
+    // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
+    DeleteEffekseerEffect(e_bom.effect_handle);
+    DeleteEffekseerEffect(e_orbit.effect_handle);
+
     // Effekseerを終了する。
     Effkseer_End();
 
@@ -165,7 +152,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 void Gamemain() {
-    
+
+    //背景を宇宙（黒）にする処理
     if (!haikeiflg) {
         R = 70;
         G = 130;
@@ -192,6 +180,7 @@ void Gamemain() {
     Input_camera_move();//カメラ入力
     //------------------------------計算関数
     Camera_move();//カメラ動かす
+    Effekseer_Sync3DSetting();//effectとカメラ同期
     Ground_model_hit();
 
    //不法投棄物とプレイヤーの当たり判定
@@ -202,14 +191,7 @@ void Gamemain() {
 
     //不法投棄物を飛ばす処理
     if (htdrow.hitflg) {
-     //   obj.pos.x += 1;
-        //obj.pos.y += 30 * cos(10) * 10;
-        //obj.pos.z += 200 * tan(10) * 10;
-
-        //obj.pos.z += obj.zmove;
-        //g_GoalFullScore += g_dist;
-
-        //最後のスピード保存する。
+        //プレイヤーが不法投棄に衝突した時のスピード保存する。
         if (speed_draw_str.last_speed_flg) {
             speed_draw_str.last_speed = fabsf(sph[0].zmove);
             speed_draw_str.last_speed_flg = false;
@@ -217,31 +199,28 @@ void Gamemain() {
 
         PlanetMove();//惑星移動処理
 
+        //惑星を表示させる
         for (int i = 0; i < 4; i++) {
             planet[i].draw_flg = true;
         }
 
-        camera.switching = true;
-        rad = deg * PI / 180.0f;
+        camera.switching = true;//カメラ切り替えオン
+        rad = deg * PI / 180.0f;//ラジアン変換
 
-        if (g_flg) {
+ /*       if (g_flg) {
             rad = -rad;
-        }
+        }*/
 
         //不法投棄移動スピード
         _cos = cos(rad) * goal_obj.speed;
         _sin = sin(rad) * goal_obj.speed;
-
-        //if (obj.pos.y >= -15000.0f) {
-        //    /*haikeiflg = true;*/
-        //    obj_switchflg = true;
-        //}
 
         //不法投棄の移動をとめる
         if (obj.pos.z + obj.radius >= planet[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)].pos.z - planet[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)].radius) {
             obj_move = true;
         }
 
+        //不法投棄座標更新
         if (!obj_move) {
             obj.pos.z += _cos;
             obj.pos.y += _sin;
@@ -254,11 +233,13 @@ void Gamemain() {
            obj.radius = 50.0f;//不法投棄の大きさを小さくする。
         };
 
-        //effect描画　軌道 大きさ読み込み
-        playingEffectOrbitHandle = PlayEffekseer3DEffect(effectOrbitHandle);
-        SetPosPlayingEffekseer3DEffect(playingEffectOrbitHandle, obj.pos.x, obj.pos.y, obj.pos.z);
-        // Effekseerにより再生中のエフェクトを更新する。
-        DrawEffekseer3D();
+        if (e_count % 60 == 0) {
+            SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, obj.pos.x, obj.pos.y, obj.pos.z);
+            //effect描画　軌道
+            e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
+        }
+
+        e_count++;
         /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
         //・弾の移動量Ｘ＝cos(弾の発射角度)×弾のスピード
@@ -295,12 +276,6 @@ void Gamemain() {
         }
     }
 
-    // 再生中のエフェクトを移動する。
-    //SetPosPlayingEffekseer3DEffect(playingEffectHandle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
-
-    // Effekseerにより再生中のエフェクトを更新する。
-    UpdateEffekseer3D();
-
     //減速エリアに入っているかチェック
     decel.hit_flg = false;//減速フラグ
     if (g_CollisionReflectionFlag == 0) {
@@ -329,8 +304,6 @@ void Gamemain() {
         }
     }
 
-    //DrawFormatString(300, 250, GetColor(255, 255, 0), "%d", playingEffectOrbitHandle);//右下
-    //DrawFormatString(0, 320, GetColor(0, 255, 255), "[Time: %d]", EffectTime()); //コメントにしないとゲーム開始からカウントが始まる
     DrawDisplay();//画面情報
 
     //減速エリア描画
@@ -346,8 +319,7 @@ void Gamemain() {
         SetFontSize(50);//文字サイズを変更
         SetFontSize(20);//文字サイズを元のサイズに変更
     }
-    
-   /* DrawFormatString(100, 250, GetColor(255, 0, 0), "向き %.1f, %.1f, %.1f ", st_model_hit.targetmovedirection.x, st_model_hit.targetmovedirection.y, st_model_hit.targetmovedirection.z);*/
+   
     //パラメーターを表示させる処理
     DrawParam_Info();
     //ゴールまで行ったら不法投棄物の飛んだ距離を表示
@@ -359,23 +331,25 @@ void Gamemain() {
         g_goalflag = true;
         p_zmoveflg = false;
         // エフェクトを再生する。
-        playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
-        //DrawEffect();
+            // 再生中のエフェクトを移動する。
+        SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
+        e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
         // Effekseerにより再生中のエフェクトを描画する。
-        DrawEffekseer3D();
+        /*DrawEffekseer3D();*/
     }
 
     //ゴールまで言ったら移動を止める
     if (htdrow.hitflg) {
-        playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
-        DrawEffekseer3D();
+        // 再生中のエフェクトを移動する。
+        SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
+        e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
+        /*DrawEffekseer3D();*/
         if (g_goalflag == 0) {
-            obj.zmove = fabsf(sph[0].zmove * 499.5) + (sph[0].hp * 249.75);
             g_goalflag = 1;
-            playingEffectHandle = PlayEffekseer3DEffect(effectResourceHandle);
-            DrawEffekseer3D(); 
+            e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
+            /*DrawEffekseer3D(); */
         }
-        StopEffekseer3DEffect(playingEffectHandle);
+        StopEffekseer3DEffect(e_bom.playing_effect_handle);
         p_zmoveflg = false;
         g_p_Rotate = 0;
         sph[0].zmove = 0.0f;
@@ -394,6 +368,11 @@ void Gamemain() {
         }
     }
 
+    // Effekseerにより再生中のエフェクトを更新する。
+    UpdateEffekseer3D();
+    // Effekseerにより再生中のエフェクトを描画する。
+    DrawEffekseer3D();
+
     DrawBox(50, 20, 390, 50, GetColor(255, 255, 255), TRUE);
     //体力描画
     
@@ -406,6 +385,9 @@ void Gamemain() {
         DrawFormatString(155, 25, GetColor(0, 0, 0), "スピード [ %.0f / 150 ]", speed_draw_str.last_speed);
     }
 
+    DrawFormatString(155, 100, GetColor(0, 0, 0), " bom handl%d ", e_bom.playing_effect_handle);
+    DrawFormatString(155, 125, GetColor(0, 0, 0), " orbit handl%d ", e_orbit.playing_effect_handle);
+    
     char str0[4][20] = { "月に衝突" ,"金星に衝突","水星に衝突","太陽に衝突" };
 
     DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
@@ -413,11 +395,5 @@ void Gamemain() {
         DrawFormatString(350, 300, GetColor(255, 255, 255), "%s", str0[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)]);
     }
 
-    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/09/ 15:35");
-    /*DrawFormatString(0, 360, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", obj.pos.x, obj.pos.y, obj.pos.z);*/
-    //for (int i = 0; i<MAXOBJ; i++) {
-    //    DrawFormatString(500, 200 + (i + 1) * 20, GetColor(0, 255, 255), "[ x %.0f y %.0f z %.0f]", d_obj[i].pos.x, d_obj[i].pos.y, d_obj[i].pos.z);
-    //}
-    // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
-    DeleteEffekseerEffect(effectResourceHandle);
+    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/13/ 12:15");
 }

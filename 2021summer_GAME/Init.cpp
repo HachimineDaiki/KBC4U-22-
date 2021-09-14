@@ -211,6 +211,7 @@ void All_Init() {
 	PlanetInit();
 	InitTime();
 	Init_Draw_Display();
+	Init_Effect();
 	haikeiflg = false;
 	obj_move = false;
 	g_WallHitFlag = 0;

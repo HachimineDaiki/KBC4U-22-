@@ -11,6 +11,7 @@
 #include "Time.h"
 #include "DebugMode.h"
 #include <math.h>
+#include "Effect.h"
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 //構造体
 Sph sph[2];//プレイヤー
@@ -41,13 +42,16 @@ Title_Slect title_slect[2];
 Title_Slect title_slectfream[2];
 Time_  effect_time;
 FileData f_damege_aria;//ダメージエリアファイル情報
-DebugObj d_obj[MAXOBJ]; //デバッグオブジェクト
+//DebugObj d_obj[MAXOBJ]; //デバッグオブジェクト
 Camera camera;//カメラ
 VECTOR obj_cameraPosition;//オブジェクトカメラ
 bool obj_switchflg;
 Sph planet[5];
 Time_ effect_exit_time;
 GoolObj goal_obj;
+
+Effect e_orbit;
+Effect e_bom;
 
 bool gameexit;//ゲーム終了フラグ
 bool goal_input_space;//ゴールした時にスペースを押せるかフラグ

@@ -50,11 +50,11 @@ int CheckPlanet(float speed, int hp) {
 	int check_hp = hp;
 	int planet_num = -1;
 	
-	if (check_speed >= 0 && check_speed <= 70) {
+	if (check_speed >= 0 && check_speed <= 90) {
 		planet_num = 0;
 		
 	}
-	else if (check_speed >= 71 && check_speed <= 100) {
+	else if (check_speed >= 91 && check_speed <= 110) {
 		if (check_hp >= 50) {
 			planet_num = 1;
 		}
@@ -62,7 +62,7 @@ int CheckPlanet(float speed, int hp) {
 			planet_num = 0;
 		}
 	}
-	else if (check_speed >= 101 && check_speed <= 130) {
+	else if (check_speed >= 111 && check_speed <= 130) {
 		if (check_hp >= 100) {
 			planet_num = 2;
 		}

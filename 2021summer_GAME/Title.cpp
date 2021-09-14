@@ -49,7 +49,7 @@ void Titledraw() {//画像の描画
 	////	gameMode = 1;
 	//}
 	DrawBox(780, 600, 1020, 620, GetColor(255, 255, 255), TRUE);
-	DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/09/ 15:35");//ビルド時間表示
+	DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/13/ 12:15");//ビルド時間表示
 	TitleInput();
 }
 void TitleInput() {
