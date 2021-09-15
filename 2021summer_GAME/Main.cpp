@@ -55,9 +55,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     //effect読み込み
-    if (LoadEffect() == -1) {
-        return -1;
-    }
+    //if (LoadEffect() == -1) {
+    //    return -1;
+    //}
+    e_orbit.effect_handle = LoadEffekseerEffect("effect/move_1.efkefc", 60.0f);
+    e_bom.effect_handle = LoadEffekseerEffect("3Dmodel/exploadSample03.efk", 50.0f);
+    
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
     // Effekseerを使用するには必ず設定する。
     SetUseDirect3DVersion(DX_DIRECT3D_11);
@@ -70,7 +73,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する。
     // ただし、DirectX11を使用する場合は実行する必要はない。
     Effekseer_SetGraphicsDeviceLostCallbackFunctions();
-
 
     SetDrawScreen(DX_SCREEN_BACK);
     //--------------初期化関数
@@ -233,7 +235,8 @@ void Gamemain() {
            obj.radius = 50.0f;//不法投棄の大きさを小さくする。
         };
 
-        e_count++;
+        //effect描画　軌道
+       /* StopEffekseer3DEffect(e_orbit.playing_effect_handle);*/
         /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
         //・弾の発射角度＝atan2(目標までの距離Ｙ、目標までの距離Ｘ)
         //・弾の移動量Ｘ＝cos(弾の発射角度)×弾のスピード
@@ -325,9 +328,9 @@ void Gamemain() {
         g_goalflag = true;
         p_zmoveflg = false;
         // エフェクトを再生する。
-            // 再生中のエフェクトを移動する。
-        SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
+         // 再生中のエフェクトを移動する。
         e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
+        SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
         // Effekseerにより再生中のエフェクトを描画する。
         /*DrawEffekseer3D();*/
     }
@@ -335,15 +338,17 @@ void Gamemain() {
     //ゴールまで言ったら移動を止める
     if (htdrow.hitflg) {
         // 再生中のエフェクトを移動する。
-        SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);
-        e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
+        /*e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);*/
+        /*SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].v.y, sph[0].v.z);*/
         /*DrawEffekseer3D();*/
         if (g_goalflag == 0) {
             g_goalflag = 1;
             e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
+            SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+            /*UpdateEffekseer3D();*/
             /*DrawEffekseer3D(); */
         }
-        StopEffekseer3DEffect(e_bom.playing_effect_handle);
+       /* StopEffekseer3DEffect(e_bom.playing_effect_handle);*/
         p_zmoveflg = false;
         g_p_Rotate = 0;
         sph[0].zmove = 0.0f;
@@ -362,14 +367,20 @@ void Gamemain() {
         }
     }
 
-    SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
-    //effect描画　軌道
+    //e_bom.playing_effect_handle = PlayEffekseer3DEffect(e_bom.effect_handle);
+    //SetPosPlayingEffekseer3DEffect(e_bom.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+    //SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
+    ////effect描画　軌道
+    //e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
+
     e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
+    SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y-100, sph[0].pos.z+sph[0].radius);
 
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
     // Effekseerにより再生中のエフェクトを描画する。
     DrawEffekseer3D();
+
 
     DrawBox(50, 20, 390, 50, GetColor(255, 255, 255), TRUE);
     //体力描画
@@ -383,8 +394,8 @@ void Gamemain() {
         DrawFormatString(155, 25, GetColor(0, 0, 0), "スピード [ %.0f / 150 ]", speed_draw_str.last_speed);
     }
 
-    DrawFormatString(155, 100, GetColor(0, 0, 0), " bom handl%d ", e_bom.playing_effect_handle);
-    DrawFormatString(155, 125, GetColor(0, 0, 0), " orbit handl%d ", e_orbit.playing_effect_handle);
+    DrawFormatString(155, 100, GetColor(0, 0, 0), " bom handl%d ", e_bom.effect_handle);
+    DrawFormatString(155, 125, GetColor(0, 0, 0), " orbit handl%d ", e_orbit.effect_handle);
     
     char str0[4][20] = { "月に衝突" ,"金星に衝突","水星に衝突","太陽に衝突" };
 
