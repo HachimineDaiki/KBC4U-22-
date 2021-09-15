@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
     // Effekseerを初期化する。
     // 引数には画面に表示する最大パーティクル数を設定する。
-    if (Effekseer_Init(8000) == -1)
+    if (Effekseer_Init(10000) == -1)
     {
         DxLib_End();
         return -1;
@@ -60,6 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     //}
     e_orbit.effect_handle = LoadEffekseerEffect("effect/move_1.efkefc", 60.0f);
     e_bom.effect_handle = LoadEffekseerEffect("3Dmodel/exploadSample03.efk", 50.0f);
+    e_move.effect_handle = LoadEffekseerEffect("effect/move_1.efkefc", 70.0f);
     
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
     // Effekseerを使用するには必ず設定する。
@@ -143,6 +144,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
     DeleteEffekseerEffect(e_bom.effect_handle);
     DeleteEffekseerEffect(e_orbit.effect_handle);
+    DeleteEffekseerEffect(e_move.effect_handle);
 
     // Effekseerを終了する。
     Effkseer_End();
@@ -372,9 +374,12 @@ void Gamemain() {
     //SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);
     ////effect描画　軌道
     //e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
-
+    /*
     e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
     SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y-100, sph[0].pos.z+sph[0].radius);
+    */
+    e_move.playing_effect_handle = PlayEffekseer3DEffect(e_move.effect_handle);
+    SetPosPlayingEffekseer3DEffect(e_move.playing_effect_handle,sph[0].pos.x, sph[0].pos.y - 100, sph[0].pos.z + sph[0].radius);
 
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
