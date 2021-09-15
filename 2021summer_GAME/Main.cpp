@@ -58,7 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     //if (LoadEffect() == -1) {
     //    return -1;
     //}
-    e_orbit.effect_handle = LoadEffekseerEffect("effect/move_1.efkefc", 60.0f);
+    e_orbit.effect_handle = LoadEffekseerEffect("effect/laser_move.efkefc", 120.0f);
     e_bom.effect_handle = LoadEffekseerEffect("3Dmodel/exploadSample03.efk", 50.0f);
     
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
@@ -235,6 +235,12 @@ void Gamemain() {
            obj.radius = 50.0f;//不法投棄の大きさを小さくする。
         };
 
+        if (e_count % 6000 == 0) {
+            e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
+        }
+
+        SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, obj.pos.x, obj.pos.y, obj.pos.z);
+        e_count++;
         //effect描画　軌道
        /* StopEffekseer3DEffect(e_orbit.playing_effect_handle);*/
         /*DrawLine3D(obj.pos, VAdd(obj.pos, VGet(0, obj.radius -500, 0)), GetColor(255, 255, 255));*/
@@ -373,8 +379,7 @@ void Gamemain() {
     ////effect描画　軌道
     //e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
 
-    e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//effect再生
-    SetPosPlayingEffekseer3DEffect(e_orbit.playing_effect_handle, sph[0].pos.x, sph[0].pos.y-100, sph[0].pos.z+sph[0].radius);
+
 
     // Effekseerにより再生中のエフェクトを更新する。
     UpdateEffekseer3D();
