@@ -465,6 +465,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 				//壁に当たったら壁に遮られない移動成分分だけ移動する
 				{
 					VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
+					float wh_angle, pv_length, sv_pv_length;
 
 					// 進行方向ベクトルと壁ポリゴンの法線ベクトルに垂直なベクトルを算出
 					SlideVec = VCross(MoveVector, st_model_hit.poly->Normal);
@@ -473,18 +474,51 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					// 元の移動成分から壁方向の移動成分を抜いたベクトル
 					SlideVec = VCross(st_model_hit.poly->Normal, SlideVec);
 
+					//長さを求めている。
+					//プレイヤーの移動ベクトル
+					pv_length = pow((MoveVector.x * MoveVector.x) + (MoveVector.y * MoveVector.y) + (MoveVector.z * MoveVector.z), 0.5);
+					//移動する距離ベクトル
+					sv_pv_length = pow((SlideVec.x * SlideVec.x) + (SlideVec.y * SlideVec.y) + (SlideVec.z * SlideVec.z), 0.5);
+
+					//内積とベクトル長さを使ってcosθを求める。
+					wh_angle = VDot(MoveVector, SlideVec) / (pv_length * sv_pv_length);
+
+					//cosθからθを求める
+					wh_angle = acos(wh_angle);
+
+					//ラジアンから0～180の角度に変換する
+					wh_angle = wh_angle * 180.0 / DX_PI_F;
+
 					//跳ね返りの判定
-					if (((g_cameraHAngle > 15 && g_cameraHAngle < 135 && g_cameraHAngle != 90) ||
-						(g_cameraHAngle < -15 && g_cameraHAngle > -135 && g_cameraHAngle != -90)) 
-						&& st_model_hit.kabeHitflg == false && g_frontflg != 1 && sph[0].zmove > 70) {
+					if (((wh_angle > 20 && wh_angle < 135 && wh_angle != 90)) && st_model_hit.kabeHitflg == false &&
+						g_frontflg != 1 && sph[0].zmove > 50) {
 
 						//スピードを半分にする
 						if (sph[0].zmove > 15) {
 							sph[0].zmove /= 2;
 						}
 
-						//角度を逆にしてそれを半分にする
-						g_p_direct = (g_p_direct * -1) / 2;
+						//左に壁があるのかをチェックしている
+						if (HitCheck_Line_Triangle(st_model_hit.nowpos, VGet(st_model_hit.nowpos.x - 220.0f, st_model_hit.nowpos.y, st_model_hit.nowpos.z + 100.0f), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]).HitFlag == FALSE && g_p_direct < 0) {
+							//角度を逆にしてそれを半分にする
+							if (g_p_direct > 0) {
+								g_p_direct = wh_angle * -1 / 2;
+							}
+							else if (g_p_direct < 0) {
+								g_p_direct = wh_angle / 2;
+							}
+						}
+						//右に壁があるのかをチェックしている
+						else if (HitCheck_Line_Triangle(st_model_hit.nowpos, VGet(st_model_hit.nowpos.x + 220.0f, st_model_hit.nowpos.y, st_model_hit.nowpos.z + 100.0f), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]).HitFlag == FALSE && g_p_direct > 0) {
+							//角度を逆にしてそれを半分にする
+							if (g_p_direct > 0) {
+								g_p_direct = wh_angle * -1 / 2;
+							}
+							else if (g_p_direct < 0) {
+								g_p_direct = wh_angle / 2;
+							}
+						}
+
 						g_WallHitFlag = 1;
 					}
 
