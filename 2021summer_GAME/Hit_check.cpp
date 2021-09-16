@@ -646,13 +646,19 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 			rightposhit = HitCheck_Line_Triangle(rightpos, VAdd(rightpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 			leftposhit = HitCheck_Line_Triangle(leftpos, VAdd(leftpos, VGet(0.0f, -200.0f, 0.0f)), st_model_hit.poly->Position[0], st_model_hit.poly->Position[1], st_model_hit.poly->Position[2]);
 
-			if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 1))&&(g_frontpos2.Position.y > rightposhit.Position.y)) {
-				g_p_direct -= 0.85f;
-			}
-			else if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 1)) && (g_frontpos2.Position.y > leftposhit.Position.y)) {
-				g_p_direct += 0.85f;
-			}
+			//if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 1))&&(g_frontpos2.Position.y > rightposhit.Position.y)) {
+			//	g_p_direct -= 0.85f;
+			//}
+			//else if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 1)) && (g_frontpos2.Position.y > leftposhit.Position.y)) {
+			//	g_p_direct += 0.85f;
+			//}
 			
+			if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 2)) && (g_frontpos2.Position.y > rightposhit.Position.y)) {
+				g_p_direct -= 0.05f;
+			}
+			else if ((st_model_hit.lineres.Position.y < (g_frontpos2.Position.y + 2)) && (g_frontpos2.Position.y > leftposhit.Position.y)) {
+				g_p_direct += 0.05f;
+			}
 			if (st_model_hit.lineres.Position.y > g_frontpos2.Position.y) {
 				g_frontflg = 0;//プレイヤーの位置が高かったら前に坂があるフラグを0にする
 			}
