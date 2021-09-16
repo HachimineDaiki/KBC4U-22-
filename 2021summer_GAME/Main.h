@@ -50,6 +50,7 @@ Sph planet[5];
 Time_ effect_exit_time;
 GoolObj goal_obj;
 
+Effect e_move;
 Effect e_orbit;
 Effect e_bom;
 

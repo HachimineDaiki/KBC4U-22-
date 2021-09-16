@@ -12,5 +12,6 @@ struct Effect
 	VECTOR pos;//ç¿ïW
 };
 
+extern Effect e_move;
 extern Effect e_orbit;
 extern Effect e_bom;
