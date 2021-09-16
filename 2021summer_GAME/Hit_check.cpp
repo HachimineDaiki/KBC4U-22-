@@ -240,6 +240,7 @@ void Sph_ehit(float dis , int i) {
 	float len = sqrtf(dis);
 	float radius_sum = sph[0].radius + obj.radius;
 	float merikomi = radius_sum - len;
+	float move = fabsf(sph[0].zmove);
 
 	if (len > 0) len = 1 / len;
 
@@ -248,12 +249,26 @@ void Sph_ehit(float dis , int i) {
 	sph[0].v.z *= len;
 
 	merikomi /= 2.0f;
+	if (damege_aria[i].pos.x <= sph[0].pos.x) {
+		//ÇﬂÇËçûÇ›èCê≥
+		sph[0].pos.x += move;
+	}
+	else if (damege_aria[i].pos.x > sph[0].pos.x) {
+		//ÇﬂÇËçûÇ›èCê≥
+		sph[0].pos.x -= move;
+	}
 
-	//ÇﬂÇËçûÇ›èCê≥
-	sph[0].pos.x -= fabsf(sph[0].zmove);
 	sph[0].pos.y -= sph[0].v.y * merikomi;
-	sph[0].pos.z -= fabsf(sph[0].zmove);
 
+	if (damege_aria[i].pos.z <= sph[0].pos.z) {
+		//ÇﬂÇËçûÇ›èCê≥
+		sph[0].pos.z += move;
+	}
+	else if (damege_aria[i].pos.z > sph[0].pos.z) {
+		//ÇﬂÇËçûÇ›èCê≥
+		sph[0].pos.z -= move;
+
+	}
 	////ÇﬂÇËçûÇ›èCê≥
 	//sph[0].pos.x -= sph[0].v.x * merikomi;
 	//sph[0].pos.y -= sph[0].v.y * merikomi;
