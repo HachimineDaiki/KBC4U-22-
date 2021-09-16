@@ -366,9 +366,12 @@ void Gamemain() {
     }
 
 //effectÄ¶
-    if (e_move.effect_flg) {
+    if (e_move.effect_flg && sph[0].zmove > 75) {
         e_move.playing_effect_handle = PlayEffekseer3DEffect(e_move.effect_handle);//“y‰ŒeffectÄ¶
         e_move.effect_flg = false;
+    } else if (sph[0].zmove <= 75) {
+        StopEffekseer3DEffect(e_move.playing_effect_handle);
+        e_move.playing_effect_handle = PlayEffekseer3DEffect(e_move.effect_handle);//“y‰ŒeffectÄ¶
     }
     SetPosPlayingEffekseer3DEffect(e_move.playing_effect_handle, sph[0].pos.x, sph[0].pos.y - sph[0].radius, sph[0].pos.z + sph[0].radius);
     
