@@ -250,9 +250,14 @@ void Sph_ehit(float dis , int i) {
 	merikomi /= 2.0f;
 
 	//ÇﬂÇËçûÇ›èCê≥
-	sph[0].pos.x -= sph[0].v.x * merikomi;
+	sph[0].pos.x -= fabsf(sph[0].zmove);
 	sph[0].pos.y -= sph[0].v.y * merikomi;
-	sph[0].pos.z -= sph[0].v.z * merikomi;
+	sph[0].pos.z -= fabsf(sph[0].zmove);
+
+	////ÇﬂÇËçûÇ›èCê≥
+	//sph[0].pos.x -= sph[0].v.x * merikomi;
+	//sph[0].pos.y -= sph[0].v.y * merikomi;
+	//sph[0].pos.z -= sph[0].v.z * merikomi;
 //	float len = sqrtf(dis);
 //	float radius_sum = sph[0].radius + damege_aria[i].radius;
 //	float merikomi = radius_sum - len;

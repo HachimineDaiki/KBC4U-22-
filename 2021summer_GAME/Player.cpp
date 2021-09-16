@@ -41,20 +41,25 @@ float P_CollisionVelocity() {
     //}
     if ((g_frontflg == 0 && sph[0].zmove < 0) || sph[0].zmove >= 0 || g_frontflg == 0) {
         if (sph[0].zmove >= 76) {//前方に坂がない
+           // v_collision = -10;
             v_collision = -50;
         }
         else if (sph[0].zmove >= 0) {//前方に坂がある
+            //v_collision = -10;
             v_collision = -40;
         }
     }
     else if ((g_frontflg == 1 && sph[0].zmove >= 0) || sph[0].zmove < 0 || g_frontflg == 1 ) {
         if (sph[0].zmove <= -76) {//前方に坂がない
+            //v_collision = 10;
             v_collision = 50;
         }
         else if (sph[0].zmove < 0) {//前方に坂がある
+            //v_collision = 10;
             v_collision = 40;
         }
     }
+    //v_collision = sph[0].zmove;
     //if (fabsf(sph[0].zmove) <= 75) {
     //    if (sph[0].zmove >= 0) {//前方に坂がない
     //        v_collision = -40;
@@ -111,6 +116,7 @@ void Accl() {
                 sph[0].zmove -= (p_vz2 * 2) * sph[0].control;
             }
         }
+
 
         //傾いた時の回転処理
         if (g_leftflg == 1) {
