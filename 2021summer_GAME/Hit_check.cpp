@@ -441,7 +441,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 				
 				// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
 				st_model_hit.hitflag = 1;
-
+				e_hit.effect_flg = true;
 				//壁に当たったら壁に遮られない移動成分分だけ移動する
 				{
 					VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル

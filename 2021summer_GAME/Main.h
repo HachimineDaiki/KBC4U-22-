@@ -11,7 +11,7 @@
 #include "Time.h"
 #include "DebugMode.h"
 #include <math.h>
-#include "Effect.h"
+#include "EffekseerForDXLib.h"
 enum GAMEMODE { TITLE, GAME, GAMEOVER};//ゲームモード
 //構造体
 Sph sph[2];//プレイヤー
@@ -53,6 +53,9 @@ GoolObj goal_obj;
 Effect e_move;
 Effect e_orbit;
 Effect e_bom;
+Effect e_hit;
+Effect e_planet_hit;
+Effect e_wind;
 
 bool gameexit;//ゲーム終了フラグ
 bool goal_input_space;//ゴールした時にスペースを押せるかフラグ
