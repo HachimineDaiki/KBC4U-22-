@@ -307,7 +307,6 @@ int Input_PlayerMoveDir() {
     if (htdrow.hitflg == false) {
         if (g_KeyFlg & PAD_INPUT_8) {  //スタートボタンでリスタート
             All_Init();
-
         }
     }
 

@@ -14,6 +14,7 @@ struct Effect
 	bool play_effect_flg;
 	bool stop_effect_flg;
 	int image_handle;
+	int count;
 };
 
 extern Effect e_move;

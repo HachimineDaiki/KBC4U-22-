@@ -446,7 +446,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 				
 				// ここにきたらポリゴンとプレイヤーが当たっているということなので、ポリゴンに当たったフラグを立てる
 				st_model_hit.hitflag = 1;
-				e_hit.effect_flg = true;
+
+				
 				//壁に当たったら壁に遮られない移動成分分だけ移動する
 				{
 					VECTOR SlideVec;	// プレイヤーをスライドさせるベクトル
@@ -472,7 +473,11 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 						g_p_direct = (g_p_direct * -1) / 2;
 						g_WallHitFlag = 1;
 					}
-
+					//ヒットeffectオン
+					e_hit.count++;
+					if (e_hit.count == 1) {
+						e_hit.effect_flg = true;
+					}
 					// それを移動前の座標に足したものを新たな座標とする
 					st_model_hit.nowpos = VAdd(st_model_hit.oldpos, SlideVec);
 
@@ -516,6 +521,8 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 					break;
 				}
 			}
+
+			
 		}
 		// 壁に当たっていたら壁から押し出す処理を行う
 		if (st_model_hit.hitflag == 1)
@@ -554,7 +561,9 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 	}
 	else
 	{
+
 		st_model_hit.kabeHitflg = false;
+		e_hit.count = 0;//ヒットeffectオフ
 	}
 
 
