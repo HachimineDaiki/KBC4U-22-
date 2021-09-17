@@ -492,7 +492,7 @@ void Ground_model_hit_check(VECTOR MoveVector) {
 
 					//跳ね返りの判定
 					if (((wh_angle > 20 && wh_angle < 135 && wh_angle != 90)) && st_model_hit.kabeHitflg == false &&
-						g_frontflg != 1 && sph[0].zmove > 50) {
+						g_frontflg != 1 && sph[0].zmove > 30) {
 
 						//スピードを半分にする
 						if (sph[0].zmove > 15) {

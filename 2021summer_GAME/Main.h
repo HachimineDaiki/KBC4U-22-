@@ -56,6 +56,7 @@ Effect e_bom;
 Effect e_hit;
 Effect e_planet_hit;
 Effect e_wind;
+Effect e_player_smoke;
 
 bool gameexit;//ゲーム終了フラグ
 bool goal_input_space;//ゴールした時にスペースを押せるかフラグ
@@ -105,7 +106,7 @@ float  CameraHAngle;
 
 bool obj_move;//オブジェクト動き
 float earth_pos_z;
-
+bool Sousaimage;
 
 
 

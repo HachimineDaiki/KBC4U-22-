@@ -31,6 +31,10 @@ float dis_cos;
 float dis_sin;
 
 float R, G, B;
+
+int SousaHandl;
+int B_butonHandl;
+bool Sousa_init;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     //タイトル
     SetMainWindowText("この不法投棄物に粛清を！");
@@ -54,7 +58,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     LoadEffect();
-
+    SousaHandl = LoadGraph("images/Sousa.png");
+    B_butonHandl= LoadGraph("images/B_button.png");
+    
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
     // Effekseerを使用するには必ず設定する。
     SetUseDirect3DVersion(DX_DIRECT3D_11);
@@ -87,6 +93,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     PlanetInit();
     Init_Effect();
 
+
+    Sousa_init = false;
     goal_input_space = false; //ゴールした時のスペース入力
 
     deg = 22.5f;//飛ばす角度
@@ -149,6 +157,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 void Gamemain() {
+    if (!Sousa_init) {
+        Sousaimage = true;
+        Sousa_init = true;
+    }
 
     //背景を宇宙（黒）にする処理
     if (!haikeiflg) {
@@ -375,6 +387,12 @@ void Gamemain() {
     }
     SetPosPlayingEffekseer3DEffect(e_move.playing_effect_handle, sph[0].pos.x, sph[0].pos.y - sph[0].radius, sph[0].pos.z + sph[0].radius);
     
+    //if (e_player_smoke.effect_flg) {
+    //    e_player_smoke.playing_effect_handle = PlayEffekseer3DEffect(e_player_smoke.effect_handle);//プレイヤーsmokeeffect再生
+    //    e_player_smoke.effect_flg = false;
+    //}
+    /*SetPosPlayingEffekseer3DEffect(e_player_smoke.playing_effect_handle, sph[0].pos.x, sph[0].pos.y, sph[0].pos.z);*/
+    
     if (e_orbit.effect_flg) {
         e_orbit.playing_effect_handle = PlayEffekseer3DEffect(e_orbit.effect_handle);//軌道effect再生
         e_orbit.play_effect_flg = true;
@@ -398,7 +416,7 @@ void Gamemain() {
         e_planet_hit.playing_effect_handle = PlayEffekseer3DEffect(e_planet_hit.effect_handle);//ヒットした時のeffect再生
         e_planet_hit.play_effect_flg = true;
         e_planet_hit.effect_flg = false;
-        SetPosPlayingEffekseer3DEffect(e_planet_hit.playing_effect_handle, obj.pos.x, obj.pos.y, obj.pos.z + obj.radius);
+        SetPosPlayingEffekseer3DEffect(e_planet_hit.playing_effect_handle, obj.pos.x, obj.pos.y, obj.pos.z);
     }
 
     // Effekseerにより再生中のエフェクトを更新する。
@@ -406,7 +424,13 @@ void Gamemain() {
     // Effekseerにより再生中のエフェクトを描画する。
     DrawEffekseer3D();
 
-
+    if (Sousaimage) {
+        DrawBox(20, 120, 1004, 420, GetColor(255, 255, 255), TRUE);
+        DrawGraph(0,50, SousaHandl, TRUE);
+        DrawGraph(600, 140, B_butonHandl, TRUE);
+        DrawFormatString(600, 140 + 20, GetColor(0, 0, 0), "Bボタンでスタート");
+        
+    }
     DrawBox(50, 20, 390, 50, GetColor(255, 255, 255), TRUE);
     //体力描画
     
@@ -419,10 +443,7 @@ void Gamemain() {
         DrawFormatString(155, 25, GetColor(0, 0, 0), "スピード [ %.0f / 150 ]", speed_draw_str.last_speed);
     }
 
-    DrawFormatString(155, 100, GetColor(255, 255, 255), " 土煙 play handle %d ", e_move.playing_effect_handle);
-    DrawFormatString(155, 120, GetColor(255, 255, 255), " ヒット play handle %d ", e_hit.playing_effect_handle);
-    DrawFormatString(155, 160, GetColor(255, 255, 255), " 土煙 handle %d ", e_move.effect_handle);
-    DrawFormatString(155, 180, GetColor(255, 255, 255), " ヒット handle %d ", e_hit.effect_handle);
+    /*DrawFormatString(155, 160, GetColor(255, 255, 255), " 土煙 handle %d ", e_move.effect_handle);*/
     
     char str0[4][20] = { "月に衝突" ,"金星に衝突","水星に衝突","太陽に衝突" };
 
@@ -431,5 +452,5 @@ void Gamemain() {
         DrawFormatString(350, 300, GetColor(255, 255, 255), "%s", str0[CheckPlanet(speed_draw_str.last_speed, sph[0].hp)]);
     }
 
-    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/14/ 13:05");
+    DrawFormatString(800, 600, GetColor(0, 0, 0), "2021/09/16/ 16:51");
 }

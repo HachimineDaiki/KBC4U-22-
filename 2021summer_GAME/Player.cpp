@@ -290,6 +290,7 @@ void P_input_move() {
 
     if (g_KeyFlg & PAD_INPUT_2) {  //Bキーでスタート
         p_zmoveflg = true;
+        Sousaimage = false;
     }
     switch (Input_PlayerMoveDir())
     {

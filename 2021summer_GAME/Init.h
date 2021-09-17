@@ -25,4 +25,5 @@ extern float merikomi;
 extern int CheckKey;
 extern int gameMode;
 extern float earth_pos_z;
+extern bool Sousaimage;
 //extern enum GAMEMODE;//ƒQ[ƒ€ƒ‚[ƒh

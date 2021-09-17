@@ -23,3 +23,4 @@ extern Effect e_bom;
 extern Effect e_hit;
 extern Effect e_planet_hit;
 extern Effect e_wind;
+extern Effect e_player_smoke;

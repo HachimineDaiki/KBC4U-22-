@@ -152,22 +152,22 @@ void Camera_move() {
 
 void Input_camera_move() {
     // 方向キーでカメラを回転（ゴールした後のカメラアングル確認用）
-    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
-    {
-        CameraVAngle -= CAMERA_ANGLE_SPEED / 4;
-        if (CameraVAngle <= -89.0f)
-        {
-            CameraVAngle = -89.0f;
-        }
-    }
-    if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
-    {
-       /* CameraVAngle += CAMERA_ANGLE_SPEED / 4;*/
-        if (CameraVAngle >= 89.0f)
-        {
-            CameraVAngle = 89.0f;
-        }
-    }
+    //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0)
+    //{
+    //    CameraVAngle -= CAMERA_ANGLE_SPEED / 4;
+    //    if (CameraVAngle <= -89.0f)
+    //    {
+    //        CameraVAngle = -89.0f;
+    //    }
+    //}
+    //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0)
+    //{
+    //   /* CameraVAngle += CAMERA_ANGLE_SPEED / 4;*/
+    //    if (CameraVAngle >= 89.0f)
+    //    {
+    //        CameraVAngle = 89.0f;
+    //    }
+    //}
 
     //if ((GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_LEFT) != 0)
     //{
