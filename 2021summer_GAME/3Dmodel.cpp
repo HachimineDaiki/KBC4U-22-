@@ -5,7 +5,8 @@ void Model3d_load() {
 	//Stage15
 	//Stage_Short.mv1
 	//Stage_Short_1.1
-	ground.handle = MV1LoadModel("3Dmodel/Stage_Short_2.1");
+	ground.handle = MV1LoadModel("3Dmodel/Stage_Short_30_10.mv1");
+	//ground.handle = MV1LoadModel("3Dmodel/Stage_Short_2.1");
 	rock[0].handle = MV1LoadModel("3Dmodel/Rock.mv1");
 	rock[1].handle = MV1LoadModel("3Dmodel/Rock_1.mv1");
 	rock[2].handle = MV1LoadModel("3Dmodel/Rock_red.mv1");
